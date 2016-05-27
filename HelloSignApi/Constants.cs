@@ -294,4 +294,21 @@ namespace HelloSignApi
         /// </summary>
         public const string EmployerIdentificationNumber = "employer_identification_number";
     }
+
+    /// <summary>
+    /// Contains options for <see cref="NewUnclaimedDraft.Type"/>.
+    /// </summary>
+    public static class UnclaimedDraftTypes
+    {
+        /// <summary>
+        /// Used to create a claimable file.
+        /// </summary>
+        public const string SendDocument = "send_document";
+
+        /// <summary>
+        /// Used to create a claimable signature request.
+        /// </summary>
+        public const string RequestSignature = "request_signature";
+
+    }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HelloSignApi
 {
-    static class ResponseExtensions
+    static class HttpResponseExtensions
     {
         internal static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {

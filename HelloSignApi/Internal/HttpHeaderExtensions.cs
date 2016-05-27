@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HelloSignApi
 {
-    static class HeaderExtensions
+    static class HttpHeaderExtensions
     {
         public static int ParseInt(this HttpResponseHeaders header, string key, int defaultValue = 0)
         {

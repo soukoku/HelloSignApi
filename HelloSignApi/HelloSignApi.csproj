@@ -76,11 +76,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="CreateParameters.cs" />
+    <Compile Include="HelloSignClient.UnclaimedDraft.cs" />
     <Compile Include="HelloSignClient.Embedded.cs" />
     <Compile Include="HelloSignClient.Account.cs" />
     <Compile Include="HelloSignClient.cs" />
-    <Compile Include="Internal\HeaderExtensions.cs" />
-    <Compile Include="Internal\ResponseExtensions.cs" />
+    <Compile Include="Internal\HttpHeaderExtensions.cs" />
+    <Compile Include="Internal\HttpContentExtensions.cs" />
+    <Compile Include="Internal\HttpResponseExtensions.cs" />
     <Compile Include="Internal\UnderscoreMappingResolver.cs" />
     <Compile Include="Internal\UnixTimeExtensions.cs" />
     <Compile Include="Responses.cs" />

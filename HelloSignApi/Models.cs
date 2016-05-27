@@ -85,6 +85,25 @@ namespace HelloSignApi
     }
 
     /// <summary>
+    /// Represents a group of documents that a user can take ownership of via the claim URL.
+    /// </summary>
+    public class UnclaimedDraft : ExpiringObject
+    {
+        /// <summary>
+        /// The URL to be used to claim this UnclaimedDraft.
+        /// </summary>
+        public string ClaimUrl { get; set; }
+        /// <summary>
+        /// The URL you want signers redirected to after they successfully sign.
+        /// </summary>
+        public string SigningRedirectUrl { get; set; }
+        /// <summary>
+        /// Whether this is a test draft. Signature requests made from test drafts have no legal value.
+        /// </summary>
+        public bool TestMode { get; set; }
+    }
+
+    /// <summary>
     /// An object that contains necessary information to set up embedded signing.
     /// </summary>
     public class EmbeddedSign : ExpiringObject
