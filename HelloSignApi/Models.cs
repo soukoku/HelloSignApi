@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -62,5 +63,46 @@ namespace HelloSignApi
         /// Signature requests remaining.
         /// </summary>
         public int? DocumentsLeft { get; set; }
+    }
+
+    /// <summary>
+    /// An object with an expiration date.
+    /// </summary>
+    public class ExpiringObject
+    {
+        /// <summary>
+        /// Actual value for <see cref="ExpiresAt"/>
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [JsonProperty("expires_at")]
+        public long ExpiresAtRaw { get; set; }
+
+        /// <summary>
+        /// Gets when the link expires.
+        /// </summary>
+        [JsonIgnore]
+        public DateTime ExpiresAt { get { return ExpiresAtRaw.ToUnixTime(); } }
+    }
+
+    /// <summary>
+    /// An object that contains necessary information to set up embedded signing.
+    /// </summary>
+    public class EmbeddedSign : ExpiringObject
+    {
+        /// <summary>
+        /// URL of the signature page to display in the embedded iFrame.
+        /// </summary>
+        public string SignUrl { get; set; }
+    }
+
+    /// <summary>
+    /// An object that contains necessary information to set up embedded template editing.
+    /// </summary>
+    public class EmbeddedTemplate : ExpiringObject
+    {
+        /// <summary>
+        /// URL of the template page to display in the embedded iFrame.
+        /// </summary>
+        public string EditUrl { get; set; }
     }
 }

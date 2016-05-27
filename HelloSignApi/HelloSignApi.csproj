@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="HelloSignClient.Embedded.cs" />
     <Compile Include="HelloSignClient.Account.cs" />
     <Compile Include="HelloSignClient.cs" />
     <Compile Include="Internal\HeaderExtensions.cs" />

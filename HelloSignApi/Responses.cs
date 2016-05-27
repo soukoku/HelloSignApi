@@ -155,4 +155,26 @@ namespace HelloSignApi
         /// </summary>
         public Account Account { get; set; }
     }
+    
+    /// <summary>
+    /// Response for the embedded sign api call.
+    /// </summary>
+    public class EmbeddedSignResponse : ApiResponse
+    {
+        /// <summary>
+        /// The <see cref="EmbeddedSign"/> object.
+        /// </summary>
+        public EmbeddedSign Embedded { get; set; }
+    }
+
+    /// <summary>
+    /// Response for the embedded template edit api call.
+    /// </summary>
+    public class EmbeddedTemplateResponse : ApiResponse
+    {
+        /// <summary>
+        /// The <see cref="EmbeddedTemplate"/> object.
+        /// </summary>
+        public EmbeddedTemplate Embedded { get; set; }
+    }
 }
