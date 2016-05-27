@@ -76,7 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="HelloSignClient.cs" />
     <Compile Include="Internal\HeaderExtensions.cs" />
+    <Compile Include="Internal\ResponseExtensions.cs" />
     <Compile Include="Internal\UnderscoreMappingResolver.cs" />
     <Compile Include="Internal\UnixTimeExtensions.cs" />
     <Compile Include="Responses.cs" />
