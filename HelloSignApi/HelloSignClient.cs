@@ -10,7 +10,7 @@ namespace HelloSignApi
     /// <summary>
     /// Main client for performaing HelloSign api calls.
     /// </summary>
-    public class HelloSignClient
+    public partial class HelloSignClient
     {
         static readonly ConcurrentDictionary<string, HttpClient> __clientCache = new ConcurrentDictionary<string, HttpClient>();
 

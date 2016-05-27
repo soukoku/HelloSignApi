@@ -144,4 +144,15 @@ namespace HelloSignApi
         /// </summary>
         public ListInfo ListInfo { get; set; }
     }
+
+    /// <summary>
+    /// Response for the account api calls.
+    /// </summary>
+    public class AccountResponse : ApiResponse
+    {
+        /// <summary>
+        /// The account object.
+        /// </summary>
+        public Account Account { get; set; }
+    }
 }
