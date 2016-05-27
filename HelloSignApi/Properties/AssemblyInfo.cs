@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HelloSignApi")]
-[assembly: AssemblyDescription("Simple task-based HelloSign api lib for FX4.0+.")]
+[assembly: AssemblyDescription("Simple task-based HelloSign api lib for FX4.0+ with intellisense doc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("HelloSignApi")]
 [assembly: AssemblyTrademark("")]
