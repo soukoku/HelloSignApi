@@ -157,6 +157,28 @@ namespace HelloSignApi
     }
 
     /// <summary>
+    /// Response for the signature request api calls.
+    /// </summary>
+    public class SignatureRequestResponse : ApiResponse
+    {
+        /// <summary>
+        /// The signature request object.
+        /// </summary>
+        public SignatureRequest SignatureRequest { get; set; }
+    }
+
+    /// <summary>
+    /// Response for the signature request list api calls.
+    /// </summary>
+    public class SignatureRequestListResponse : ListApiResponse
+    {
+        /// <summary>
+        /// The signature request objects.
+        /// </summary>
+        public SignatureRequest[] SignatureRequests { get; set; }
+    }
+
+    /// <summary>
     /// Response for the unclaimed draft api calls.
     /// </summary>
     public class UnclaimedDraftResponse : ApiResponse

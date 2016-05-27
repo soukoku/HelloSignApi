@@ -8,7 +8,7 @@ using System.Text;
 namespace HelloSignApi
 {
     /// <summary>
-    /// Contains possible values for <see cref="Field.Type"/>.
+    /// Contains possible values for field types.
     /// </summary>
     public static class FieldTypes
     {
