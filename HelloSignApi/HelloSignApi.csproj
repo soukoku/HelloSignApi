@@ -75,6 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseObjects\ExpiringObject.cs" />
+    <Compile Include="BaseObjects\NewRequestBase.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CreateParameters.cs" />
     <Compile Include="HelloSignClient.SignatureRequest.cs" />
@@ -82,14 +84,16 @@
     <Compile Include="HelloSignClient.Embedded.cs" />
     <Compile Include="HelloSignClient.Account.cs" />
     <Compile Include="HelloSignClient.cs" />
+    <Compile Include="Internal\EventWrap.cs" />
     <Compile Include="Internal\HttpHeaderExtensions.cs" />
     <Compile Include="Internal\HttpContentExtensions.cs" />
     <Compile Include="Internal\HttpResponseExtensions.cs" />
     <Compile Include="Internal\UnderscoreMappingResolver.cs" />
     <Compile Include="Internal\UnixTimeExtensions.cs" />
-    <Compile Include="Responses.cs" />
+    <Compile Include="Responses\Models.cs" />
     <Compile Include="Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

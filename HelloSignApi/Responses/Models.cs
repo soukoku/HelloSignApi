@@ -8,7 +8,7 @@ using System.Text;
 
 // this file contains reponse wrapper models.
 
-namespace HelloSignApi
+namespace HelloSignApi.Responses
 {
     /// <summary>
     /// Error object for an <see cref="ApiResponse"/>.

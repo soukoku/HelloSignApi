@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HelloSignApi.BaseObjects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -333,24 +334,6 @@ namespace HelloSignApi
         // TODO: add properties
     }
 
-    /// <summary>
-    /// An object with an expiration date.
-    /// </summary>
-    public class ExpiringObject
-    {
-        /// <summary>
-        /// Actual value for <see cref="ExpiresAt"/>
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [JsonProperty("expires_at")]
-        public long ExpiresAtRaw { get; set; }
-
-        /// <summary>
-        /// Gets when the link expires.
-        /// </summary>
-        [JsonIgnore]
-        public DateTime ExpiresAt { get { return ExpiresAtRaw.FromUnixTime(); } }
-    }
 
     /// <summary>
     /// Represents a group of documents that a user can take ownership of via the claim URL.
@@ -405,29 +388,6 @@ namespace HelloSignApi
     }
 
     /// <summary>
-    /// Used to deserialize raw event only.
-    /// </summary>
-    class EventWrap
-    {
-        public Event Event { get; set; }
-
-        public SignatureRequest SignatureRequest { get; set; }
-        public Account Account { get; set; }
-        public Template Template { get; set; }
-
-        public Event Unwrap()
-        {
-            if (Event != null)
-            {
-                Event.SignatureRequest = SignatureRequest;
-                Event.Account = Account;
-                Event.Template = Template;
-            }
-            return Event;
-        }
-    }
-
-    /// <summary>
     /// Represents an event from callback.
     /// </summary>
     public class Event
@@ -445,7 +405,7 @@ namespace HelloSignApi
         public DateTime? EventTime { get { return EventTimeRaw?.FromUnixTime(); } }
 
         /// <summary>
-        /// Type of event being reported. See <see cref="EventNames"/> values.
+        /// Type of event being reported. See <see cref="EventTypes"/> values.
         /// </summary>
         public string EventType { get; set; }
 
@@ -482,8 +442,8 @@ namespace HelloSignApi
     {
         /// <summary>
         /// Signature associated with this event. Only set when <see cref="Event.EventType"/> 
-        /// is <see cref="EventNames.SignatureRequestSigned"/> or 
-        /// <see cref="EventNames.SignatureRequestViewed"/>.
+        /// is <see cref="EventTypes.SignatureRequestSigned"/> or 
+        /// <see cref="EventTypes.SignatureRequestViewed"/>.
         /// </summary>
         public string RelatedSignatureId { get; set; }
 

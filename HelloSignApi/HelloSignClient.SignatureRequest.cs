@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HelloSignApi.Responses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -21,8 +22,11 @@ namespace HelloSignApi
         /// </summary>
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">Signature request id is required.</exception>
         public Task<SignatureRequestResponse> GetSignatureRequestAsync(string signatureRequestId)
         {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+
             var resp = _client.GetAsync($"{SignatureUrl}/{signatureRequestId}")
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
             return resp.Unwrap();
@@ -111,8 +115,11 @@ namespace HelloSignApi
         /// </summary>
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">Signature request id is required.</exception>
         public Task<DownloadInfoResponse> GetFilesAsync(string signatureRequestId)
         {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+
             var resp = _client.GetAsync($"{SignatureUrl}/files/{signatureRequestId}?get_url=1")
                 .ContinueWith(t =>
                 {
@@ -136,11 +143,14 @@ namespace HelloSignApi
         /// If the files are currently being prepared, a status code of 409 will be returned instead.
         /// </summary>
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
-        /// <param name="fileType">Set to <see cref="FileType.Pdf"/> for a single merged document or 
-        /// <see cref="FileType.Zip"/> for a collection of individual documents.</param>
+        /// <param name="fileType">Set to <see cref="FileType.Pdf" /> for a single merged document or
+        /// <see cref="FileType.Zip" /> for a collection of individual documents.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">Signature request id is required.</exception>
         public Task<HttpResponseMessage> GetFilesAsync(string signatureRequestId, FileType fileType)
         {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+
             var ft = fileType == FileType.Zip ? "zip" : "pdf";
 
             return _client.GetAsync($"{SignatureUrl}/files/{signatureRequestId}?file_type={ft}");

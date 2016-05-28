@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HelloSignApi.Responses;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,18 @@ namespace HelloSignApi
         const string DraftUrl = "https://api.hellosign.com/v3/unclaimed_draft";
 
         /// <summary>
-        /// Creates a new Draft that can be claimed using the claim URL. 
-        /// The first authenticated user to access the URL will claim the Draft and will be shown either 
-        /// the "Sign and send" or the "Request signature" page with the Draft loaded. 
+        /// Creates a new Draft that can be claimed using the claim URL.
+        /// The first authenticated user to access the URL will claim the Draft and will be shown either
+        /// the "Sign and send" or the "Request signature" page with the Draft loaded.
         /// Subsequent access to the claim URL will result in a 404.
         /// </summary>
-        /// <param name="draft"></param>
+        /// <param name="draft">The draft.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft)
         {
+            if (draft == null) { throw new ArgumentNullException("draft"); }
+
             var content = new MultipartFormDataContent();
             content.AddUnclaimedDraft(draft);
 
@@ -34,15 +38,18 @@ namespace HelloSignApi
         }
 
         /// <summary>
-        /// Creates a new Draft that can be claimed and used in an embedded iFrame. 
-        /// The first authenticated user to access the URL will claim the Draft and will be shown 
-        /// the "Request signature" page with the Draft loaded. Subsequent access to the claim URL will 
-        /// result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required. 
+        /// Creates a new Draft that can be claimed and used in an embedded iFrame.
+        /// The first authenticated user to access the URL will claim the Draft and will be shown
+        /// the "Request signature" page with the Draft loaded. Subsequent access to the claim URL will
+        /// result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required.
         /// </summary>
-        /// <param name="draft"></param>
+        /// <param name="draft">The draft.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft)
         {
+            if (draft == null) { throw new ArgumentNullException("draft"); }
+
             var content = new MultipartFormDataContent();
             content.AddEmbeddedUnclaimedDraft(draft);
 

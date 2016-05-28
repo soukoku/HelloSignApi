@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HelloSignApi.Responses;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,11 @@ namespace HelloSignApi
         /// </summary>
         /// <param name="signatureId">The id of the signature to get a signature url for.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">Signature id is required.</exception>
         public Task<EmbeddedSignResponse> GetEmbeddedSignUrlAsync(string signatureId)
         {
+            if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
+
             var resp = _client.GetAsync($"{EmbeddedUrl}/sign_url/{signatureId}")
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<EmbeddedSignResponse>());
             return resp.Unwrap();
@@ -35,9 +39,12 @@ namespace HelloSignApi
         /// <param name="skipSignerRoles">If signer roles are already provided, the user will not be prompted to edit them.</param>
         /// <param name="skipSubjectMessage">If the subject and message has already been provided, the user will not be prompted to edit them.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException">Template id is required.</exception>
         public Task<EmbeddedTemplateResponse> GetEmbeddedTemplateEditUrlAsync(string templateId,
             bool testMode = false, bool skipSignerRoles = false, bool skipSubjectMessage = false)
         {
+            if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
+
             var test = testMode ? 1 : 0;
             var signer = skipSignerRoles ? 1 : 0;
             var sm = skipSubjectMessage ? 1 : 0;
