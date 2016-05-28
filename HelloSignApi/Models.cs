@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-// this file contains non-reponse object models.
+// this file contains reponse data models.
 
 namespace HelloSignApi
 {
@@ -157,7 +157,7 @@ namespace HelloSignApi
         /// <summary>
         /// A text string for text fields or true/false for checkbox fields
         /// </summary>
-        public string Value { get; set; }
+        public object Value { get; set; }
         /// <summary>
         /// A boolean value denoting if this field is required.
         /// </summary>
@@ -196,7 +196,7 @@ namespace HelloSignApi
         /// <summary>
         /// The type of this form field. See <see cref="FieldTypes"/> values.
         /// </summary>
-        public string Type { get; set; } // TODO: Change to an enum, custom setter
+        public string Type { get; set; }
     }
 
     /// <summary>
@@ -245,22 +245,92 @@ namespace HelloSignApi
         /// Time that the document was signed or null.
         /// </summary>
         [JsonIgnore]
-        public DateTime? SignedAt { get { return SignedAtRaw?.ToUnixTime(); } }
+        public DateTime? SignedAt { get { return SignedAtRaw?.FromUnixTime(); } }
         /// <summary>
         /// The time that the document was last viewed by this signer or null.
         /// </summary>
         [JsonIgnore]
-        public DateTime? LastViewedAt { get { return LastViewedAtRaw?.ToUnixTime(); } }
+        public DateTime? LastViewedAt { get { return LastViewedAtRaw?.FromUnixTime(); } }
         /// <summary>
         /// The time the last reminder email was sent to the signer or null.
         /// </summary>
         [JsonIgnore]
-        public DateTime? LastRemindedAt { get { return LastRemindedAtRaw?.ToUnixTime(); } }
+        public DateTime? LastRemindedAt { get { return LastRemindedAtRaw?.FromUnixTime(); } }
 
         /// <summary>
         /// Indicate whether this signature requires a PIN to access.
         /// </summary>
         public bool HasPin { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a document template.
+    /// </summary>
+    public class Template
+    {
+        /// <summary>
+        /// The id of the Template.
+        /// </summary>
+        public string TemplateId { get; set; }
+        /// <summary>
+        /// The title of the Template. This will also be the default subject of the message sent to signers when using this Template to send a SignatureRequest. This can be overriden when sending the SignatureRequest.
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// The default message that will be sent to signers when using this Template to send a SignatureRequest. This can be overriden when sending the SignatureRequest.
+        /// </summary>
+        public string Message { get; set; }
+        /// <summary>
+        /// An array of the designated signer roles that must be specified when sending a SignatureRequest using this Template.
+        /// </summary>
+        public SignerRole[] SignerRoles { get; set; }
+        /// <summary>
+        /// An array of the designated CC roles that must be specified when sending a SignatureRequest using this Template.
+        /// </summary>
+        public SignerRole[] CcRoles { get; set; }
+        /// <summary>
+        /// An array describing each document associated with this Template. Includes form field data for each document.
+        /// </summary>
+        public Document[] Documents { get; set; }
+        /// <summary>
+        /// An array of the Accounts that can use this Template.
+        /// </summary>
+        public Account[] Accounts { get; set; }
+        /// <summary>
+        /// True if you are the owner of this template, false if it's been shared with you by a team member.
+        /// </summary>
+        public bool IsCreator { get; set; }
+        /// <summary>
+        /// Indicates whether edit rights have been granted to you by the owner (always true if that's you).
+        /// </summary>
+        public bool CanEdit { get; set; }
+        /// <summary>
+        /// True if you exceed Template quota; these can only be used in test mode. False if the template is included with the Template quota; these can be used at any time.
+        /// </summary>
+        public bool IsLocked { get; set; }
+    }
+    
+    /// <summary>
+    /// Represents a signer role in a template.
+    /// </summary>
+    public class SignerRole
+    {
+        /// <summary>
+        /// The name of the role.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// If signer order is assigned this is the 0-based index for this role.
+        /// </summary>
+        public int? Order { get; set; }
+    }
+
+    /// <summary>
+    /// Document object in a template.
+    /// </summary>
+    public class Document
+    {
+        // TODO: add properties
     }
 
     /// <summary>
@@ -279,7 +349,7 @@ namespace HelloSignApi
         /// Gets when the link expires.
         /// </summary>
         [JsonIgnore]
-        public DateTime ExpiresAt { get { return ExpiresAtRaw.ToUnixTime(); } }
+        public DateTime ExpiresAt { get { return ExpiresAtRaw.FromUnixTime(); } }
     }
 
     /// <summary>
@@ -332,5 +402,99 @@ namespace HelloSignApi
         /// URL of the download url.
         /// </summary>
         public string FileUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Used to deserialize raw event only.
+    /// </summary>
+    class EventWrap
+    {
+        public Event Event { get; set; }
+
+        public SignatureRequest SignatureRequest { get; set; }
+        public Account Account { get; set; }
+        public Template Template { get; set; }
+
+        public Event Unwrap()
+        {
+            if (Event != null)
+            {
+                Event.SignatureRequest = SignatureRequest;
+                Event.Account = Account;
+                Event.Template = Template;
+            }
+            return Event;
+        }
+    }
+
+    /// <summary>
+    /// Represents an event from callback.
+    /// </summary>
+    public class Event
+    {
+        /// <summary>
+        /// Actual value of <see cref="EventTime"/>.
+        /// </summary>
+        [JsonProperty("event_time"), EditorBrowsable(EditorBrowsableState.Never)]
+        public long? EventTimeRaw { get; set; }
+
+        /// <summary>
+        /// When the event was created.
+        /// </summary>
+        [JsonIgnore]
+        public DateTime? EventTime { get { return EventTimeRaw?.FromUnixTime(); } }
+
+        /// <summary>
+        /// Type of event being reported. See <see cref="EventNames"/> values.
+        /// </summary>
+        public string EventType { get; set; }
+
+        /// <summary>
+        /// Unique hash of this event.
+        /// </summary>
+        public string EventHash { get; set; }
+
+        /// <summary>
+        /// A map of values containing data related to this event.
+        /// </summary>
+        public EventMetadata EventMetadata { get; set; }
+
+        /// <summary>
+        /// Attached signature request if applicable.
+        /// </summary>
+        public SignatureRequest SignatureRequest { get; set; }
+
+        /// <summary>
+        /// Attached template info if applicable.
+        /// </summary>
+        public Template Template { get; set; }
+
+        /// <summary>
+        /// Attached account info if applicable.
+        /// </summary>
+        public Account Account { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata in an event callback.
+    /// </summary>
+    public class EventMetadata
+    {
+        /// <summary>
+        /// Signature associated with this event. Only set when <see cref="Event.EventType"/> 
+        /// is <see cref="EventNames.SignatureRequestSigned"/> or 
+        /// <see cref="EventNames.SignatureRequestViewed"/>.
+        /// </summary>
+        public string RelatedSignatureId { get; set; }
+
+        /// <summary>
+        /// Id of the account this event is reported for.
+        /// </summary>
+        public string ReportedForAccountId { get; set; }
+
+        /// <summary>
+        /// Client id of the app this event is reported for.
+        /// </summary>
+        public string ReportedForAppId { get; set; }
     }
 }

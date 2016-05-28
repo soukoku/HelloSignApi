@@ -9,7 +9,7 @@ namespace HelloSignApi
     {
         static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public static DateTime ToUnixTime(this long value)
+        public static DateTime FromUnixTime(this long value)
         {
             return Epoch.AddSeconds(value);
         }

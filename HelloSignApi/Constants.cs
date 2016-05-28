@@ -161,55 +161,55 @@ namespace HelloSignApi
     }
 
     /// <summary>
-    /// Contains possible values for <see cref="Event.Name" />.
+    /// Contains possible values for <see cref="Event.EventType" />.
     /// </summary>
     public static class EventNames
     {
         /// <summary>
         /// The SignatureRequest has been viewed.
         /// </summary>
-        public const string signature_request_viewed = "signature_request_viewed";
+        public const string SignatureRequestViewed = "signature_request_viewed";
         /// <summary>
         /// A signer has completed all required fields on the SignatureRequest.
         /// </summary>
-        public const string signature_request_signed = "signature_request_signed";
+        public const string SignatureRequestSigned = "signature_request_signed";
         /// <summary>
         /// The SignatureRequest has been sent successfully.
         /// </summary>
-        public const string signature_request_sent = "signature_request_sent";
+        public const string SignatureRequestSent = "signature_request_sent";
         /// <summary>
         /// All signers have been sent a reminder to complete the SignatureRequest.
         /// </summary>
-        public const string signature_request_remind = "signature_request_remind";
+        public const string SignatureRequestRemind = "signature_request_remind";
         /// <summary>
         /// All signers have completed all required fields for the SignatureRequest and the final PDF is ready to be downloaded.
         /// </summary>
-        public const string signature_request_all_signed = "signature_request_all_signed";
+        public const string SignatureRequestAllSigned = "signature_request_all_signed";
         /// <summary>
         /// We're unable to convert the file you provided.
         /// </summary>
-        public const string file_error = "file_error";
+        public const string FileError = "file_error";
         /// <summary>
         /// An unknown error occurred during while processing a signature request.
         /// </summary>
-        public const string unknown_error = "unknown_error";
+        public const string UnknownError = "unknown_error";
         /// <summary>
         /// An error occurred while processing the signature request data on our back-end.
         /// For example: Invalid text tags
         /// </summary>
-        public const string signature_request_invalid = "signature_request_invalid";
+        public const string SignatureRequestInvalid = "signature_request_invalid";
         /// <summary>
         /// An account created via one of your apps has been confirmed.
         /// </summary>
-        public const string account_confirmed = "account_confirmed";
+        public const string AccountConfirmed = "account_confirmed";
         /// <summary>
         /// The Template has been created.
         /// </summary>
-        public const string template_created = "template_created";
+        public const string TemplateCreated = "template_created";
         /// <summary>
         /// There was an error while creating your template.
         /// </summary>
-        public const string template_error = "template_error";
+        public const string TemplateError = "template_error";
     }
 
     /// <summary>

@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-// this file contains reponse object models.
+// this file contains reponse wrapper models.
 
 namespace HelloSignApi
 {
@@ -69,7 +69,7 @@ namespace HelloSignApi
 
                 RateLimit = httpResponse.Headers.ParseInt("X-Ratelimit-Limit");
                 RateLimitRemaining = httpResponse.Headers.ParseInt("X-Ratelimit-Limit-Remaining");
-                RateLimitResetTime = httpResponse.Headers.ParseLong("X-Ratelimit-Reset").ToUnixTime();
+                RateLimitResetTime = httpResponse.Headers.ParseLong("X-Ratelimit-Reset").FromUnixTime();
             }
         }
 

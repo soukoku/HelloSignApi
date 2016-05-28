@@ -34,7 +34,10 @@ namespace HelloSignApi
             {
                 content.AddParameter($"signers[{i}][name]", signer.Name ?? signer.Email);
                 content.AddParameter($"signers[{i}][email_address]", signer.Email);
-                content.AddParameter($"signers[{i}][order]", signer.Order.ToString());
+                if (signer.Order.HasValue)
+                {
+                    content.AddParameter($"signers[{i}][order]", signer.Order.ToString());
+                }
                 content.AddParameter($"signers[{i}][pin]", signer.Pin);
                 i++;
             }

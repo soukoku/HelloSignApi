@@ -175,7 +175,7 @@ namespace HelloSignApi
         /// <summary>
         /// The order the signer is required to sign.
         /// </summary>
-        public int Order { get; set; }
+        public int? Order { get; set; }
 
         /// <summary>
         /// The 4- to 12-character access code that will secure this signer's signature page.
