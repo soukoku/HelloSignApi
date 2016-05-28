@@ -9,7 +9,7 @@ namespace HelloSignApi
 {
     static class HttpContentExtensions
     {
-        public static void AddFormValue(this MultipartFormDataContent content, string name, string value, string fileName = null)
+        public static void AddParameter(this MultipartFormDataContent content, string name, string value, string fileName = null)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -19,27 +19,28 @@ namespace HelloSignApi
             }
         }
 
-        public static void AddFormValue(this MultipartFormDataContent content, IDictionary<string, string> metadata)
+        static void AddMetadata(this MultipartFormDataContent content, IDictionary<string, string> metadata)
         {
             foreach (var kv in metadata)
             {
-                content.AddFormValue($"metadata[{kv.Key}]", kv.Value);
+                content.AddParameter($"metadata[{kv.Key}]", kv.Value);
             }
         }
 
-        public static void AddFormValue(this MultipartFormDataContent content, IList<Signer> signers)
+        static void AddSigners(this MultipartFormDataContent content, IList<Signer> signers)
         {
             int i = 0;
             foreach (var signer in signers)
             {
-                content.AddFormValue($"signers[{i}][name]", signer.Name ?? signer.Email);
-                content.AddFormValue($"signers[{i}][email_address]", signer.Email);
-                content.AddFormValue($"signers[{i}][order]", signer.Order.ToString());
+                content.AddParameter($"signers[{i}][name]", signer.Name ?? signer.Email);
+                content.AddParameter($"signers[{i}][email_address]", signer.Email);
+                content.AddParameter($"signers[{i}][order]", signer.Order.ToString());
+                content.AddParameter($"signers[{i}][pin]", signer.Pin);
                 i++;
             }
         }
 
-        public static void AddFormValue(this MultipartFormDataContent content, IList<PendingFile> files)
+        static void AddFiles(this MultipartFormDataContent content, IList<PendingFile> files)
         {
             try
             {
@@ -48,7 +49,7 @@ namespace HelloSignApi
                 {
                     if (file.RemotePath != null)
                     {
-                        content.AddFormValue($"file_url[{i}]", file.RemotePath.ToString(), file.FileName);
+                        content.AddParameter($"file_url[{i}]", file.RemotePath.ToString(), file.FileName);
                     }
                     else if (file.LocalPath != null)
                     {
@@ -70,30 +71,50 @@ namespace HelloSignApi
             }
         }
 
-        public static void AddFormValue(this MultipartFormDataContent content, NewUnclaimedDraft draft)
+        static void AddRequestBase(this MultipartFormDataContent content, NewRequestBase request)
         {
-            if (draft.TestMode) { content.AddFormValue("test_mode", "1"); }
+            if (request.TestMode) { content.AddParameter("test_mode", "1"); }
 
-            content.AddFormValue("type", draft.Type);
-            content.AddFormValue("subject", draft.Subject);
-            content.AddFormValue("message", draft.Message);
-            content.AddFormValue(draft.Signers);
+            content.AddParameter("subject", request.Subject);
+            content.AddParameter("message", request.Message);
+            content.AddSigners(request.Signers);
             int i = 0;
-            foreach (var cc in draft.CcEmailAddresses)
+            foreach (var cc in request.CcEmailAddresses)
             {
-                content.AddFormValue($"cc_email_addresses[{i++}]", cc);
+                content.AddParameter($"cc_email_addresses[{i++}]", cc);
             }
-            content.AddFormValue(draft.Metadata);
+            content.AddMetadata(request.Metadata);
         }
 
-        public static void AddFormValue(this MultipartFormDataContent content, NewEmbeddedUnclaimedDraft draft)
+        public static void AddRequest(this MultipartFormDataContent content, NewSignatureRequest request)
         {
-            content.AddFormValue((NewUnclaimedDraft)draft);
+            content.AddRequestBase(request);
 
-            content.AddFormValue("client_id", draft.ClientId);
-            content.AddFormValue("requester_email_address", draft.RequesterEmailAddress);
-            content.AddFormValue("signing_redirect_url", draft.SigningRedirectUrl);
-            if (draft.IsForEmbeddedSigning) { content.AddFormValue("is_for_embedded_signing", "1"); }
+            content.AddParameter("client_id", request.ClientId);
+        }
+
+        public static void AddEmbeddedRequest(this MultipartFormDataContent content, NewEmbeddedSignatureRequest request)
+        {
+            content.AddRequest(request);
+
+            content.AddParameter("title", request.Title);
+        }
+
+        public static void AddUnclaimedDraft(this MultipartFormDataContent content, NewUnclaimedDraft draft)
+        {
+            content.AddRequestBase(draft);
+
+            content.AddParameter("type", draft.Type);
+        }
+
+        public static void AddEmbeddedUnclaimedDraft(this MultipartFormDataContent content, NewEmbeddedUnclaimedDraft draft)
+        {
+            content.AddUnclaimedDraft(draft);
+
+            content.AddParameter("client_id", draft.ClientId);
+            content.AddParameter("requester_email_address", draft.RequesterEmailAddress);
+            content.AddParameter("signing_redirect_url", draft.SigningRedirectUrl);
+            if (draft.IsForEmbeddedSigning) { content.AddParameter("is_for_embedded_signing", "1"); }
 
 
         }

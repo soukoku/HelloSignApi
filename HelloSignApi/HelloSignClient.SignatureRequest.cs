@@ -47,6 +47,65 @@ namespace HelloSignApi
         }
 
         /// <summary>
+        /// Creates and sends a new SignatureRequest with the submitted documents. If form_fields_per_document is not specified, a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponse> SendSignatureRequestAsync(NewSignatureRequest request)
+        {
+            if (request == null) { throw new ArgumentNullException("request"); }
+
+            var content = new MultipartFormDataContent();
+            content.AddRequest(request);
+
+            var resp = _client.PostAsync($"{SignatureUrl}/send", content)
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+            return resp.Unwrap();
+        }
+
+        /// <summary>
+        /// Sends an email to the signer reminding them to sign the signature request. You cannot send a reminder within 1 hour of the last reminder that was sent. This includes manual AND automatic reminders.
+        /// </summary>
+        /// <param name="signatureRequestId">The id of the SignatureRequest to send a reminder for.</param>
+        /// <param name="emailAddress">The email address of the signer to send a reminder to.</param>
+        /// <param name="name">The name of the signer to send a reminder to. Include if two or more signers share an email address.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">
+        /// Signature request id is required.
+        /// or
+        /// Email address is required.
+        /// </exception>
+        public Task<SignatureRequestResponse> SendRequestReminderAsync(string signatureRequestId, string emailAddress, string name = null)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+            if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
+
+            var content = new MultipartFormDataContent();
+            content.AddParameter("email_address", emailAddress);
+            content.AddParameter("name", name);
+
+            var resp = _client.PostAsync($"{SignatureUrl}/remind/{signatureRequestId}", content)
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+            return resp.Unwrap();
+        }
+
+        /// <summary>
+        /// Queues a SignatureRequest to be canceled. The cancelation is asynchronous and a successful call to this endpoint will return a 200 OK response if the signature request is eligible to be canceled and has been successfully queued. To be eligible for cancelation, a signature request must have been sent successfully and must be unsigned. Once canceled, singers will not be able to sign the signature request or access its documents. Canceling a signature request is not reversible.
+        /// </summary>
+        /// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Signature request id is required.</exception>
+        public Task<ApiResponse> CancelSignatureRequestAsync(string signatureRequestId)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+
+            var resp = _client.PostAsync($"{SignatureUrl}/cancel/{signatureRequestId}", null)
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>());
+            return resp.Unwrap();
+        }
+
+        /// <summary>
         /// Obtain a copy of the current documents specified by the signatureRequestId parameter.
         /// If the files are currently being prepared, a status code of 409 will be returned instead.
         /// </summary>
@@ -100,6 +159,24 @@ namespace HelloSignApi
             /// Zip file.
             /// </summary>
             Zip
+        }
+
+        /// <summary>
+        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If form_fields_per_document is not specified, a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewEmbeddedSignatureRequest request)
+        {
+            if (request == null) { throw new ArgumentNullException("request"); }
+
+            var content = new MultipartFormDataContent();
+            content.AddEmbeddedRequest(request);
+
+            var resp = _client.PostAsync($"{SignatureUrl}/create_embedded", content)
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+            return resp.Unwrap();
         }
     }
 }

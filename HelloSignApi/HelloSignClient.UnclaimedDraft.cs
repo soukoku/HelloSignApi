@@ -26,7 +26,7 @@ namespace HelloSignApi
         public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft)
         {
             var content = new MultipartFormDataContent();
-            content.AddFormValue(draft);
+            content.AddUnclaimedDraft(draft);
 
             var resp = _client.PostAsync($"{DraftUrl}/create", content)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>());
@@ -44,7 +44,7 @@ namespace HelloSignApi
         public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft)
         {
             var content = new MultipartFormDataContent();
-            content.AddFormValue(draft);
+            content.AddEmbeddedUnclaimedDraft(draft);
 
             var resp = _client.PostAsync($"{DraftUrl}/create_embedded", content)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>());
