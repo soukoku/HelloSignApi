@@ -79,6 +79,7 @@
     <Compile Include="BaseObjects\NewRequestBase.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CreateParameters.cs" />
+    <Compile Include="HelloSignClient.Team.cs" />
     <Compile Include="HelloSignClient.SignatureRequest.cs" />
     <Compile Include="HelloSignClient.UnclaimedDraft.cs" />
     <Compile Include="HelloSignClient.Embedded.cs" />

@@ -334,6 +334,24 @@ namespace HelloSignApi
         // TODO: add properties
     }
 
+    /// <summary>
+    /// Contains information about your team and its members
+    /// </summary>
+    public class Team
+    {
+        /// <summary>
+        /// The name of your Team.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// A list of all Accounts belonging to your Team.
+        /// </summary>
+        public Account[] Accounts { get; set; }
+        /// <summary>
+        /// A list of all Accounts that have an outstanding invitation to join your Team. 
+        /// </summary>
+        public Account[] InvitedAccounts { get; set; }
+    }
 
     /// <summary>
     /// Represents a group of documents that a user can take ownership of via the claim URL.

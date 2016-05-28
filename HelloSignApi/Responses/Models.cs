@@ -190,6 +190,17 @@ namespace HelloSignApi.Responses
     }
 
     /// <summary>
+    /// Response for the team api calls.
+    /// </summary>
+    public class TeamResponse : ApiResponse
+    {
+        /// <summary>
+        /// The team object.
+        /// </summary>
+        public Team Team { get; set; }
+    }
+
+    /// <summary>
     /// Response for the unclaimed draft api calls.
     /// </summary>
     public class UnclaimedDraftResponse : ApiResponse
