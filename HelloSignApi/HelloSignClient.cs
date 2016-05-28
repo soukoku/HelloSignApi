@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace HelloSignApi
@@ -43,6 +45,31 @@ namespace HelloSignApi
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
                 Convert.ToBase64String(Encoding.ASCII.GetBytes(apiKey + ":")));
 
+        }
+
+        /// <summary>
+        /// Parsed the data received from the event callback.
+        /// </summary>
+        /// <param name="eventData">json data from the callback.</param>
+        /// <param name="verify">Validate the event for integrity. If failed the return value is null.</param>
+        /// <returns></returns>
+        public Event ParseEvent(string eventData, bool verify = true)
+        {
+            var wrap = JsonConvert.DeserializeObject<EventWrap>(eventData ?? "", HttpResponseExtensions.JsonSettings);
+            if (verify && wrap != null && wrap.Event != null)
+            {
+                using (var hmac = new HMACSHA256(Encoding.ASCII.GetBytes(_apiKey)))
+                {
+                    var input = $"{wrap.Event.EventTimeRaw}{wrap.Event.EventType}";
+                    var hash = BitConverter.ToString(hmac.ComputeHash(Encoding.ASCII.GetBytes(input))).Replace("-", "");
+
+                    if (!string.Equals(hash, wrap.Event.EventHash, StringComparison.OrdinalIgnoreCase))
+                    {
+                        wrap = null;
+                    }
+                }
+            }
+            return wrap?.Unwrap();
         }
     }
 }
