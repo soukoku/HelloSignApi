@@ -177,6 +177,17 @@ namespace HelloSignApi
         /// </summary>
         public SignatureRequest[] SignatureRequests { get; set; }
     }
+    
+    /// <summary>
+    /// Response for the get file api call.
+    /// </summary>
+    public class DownloadInfoResponse : ApiResponse
+    {
+        /// <summary>
+        /// The download info object.
+        /// </summary>
+        public DownloadInfo DownloadInfo { get; set; }
+    }
 
     /// <summary>
     /// Response for the unclaimed draft api calls.
