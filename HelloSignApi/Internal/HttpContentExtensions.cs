@@ -102,6 +102,8 @@ namespace HelloSignApi
             if (request.HideTextTags) { content.AddParameter("hide_text_tags", "1"); }
 
             content.AddMetadata(request.Metadata);
+
+            content.AddFiles(request.Files);
         }
 
         public static void AddRequest(this MultipartFormDataContent content, NewSignatureRequest request)
