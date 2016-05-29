@@ -388,7 +388,7 @@ namespace HelloSignApi
         public string OAuthScopes { get; set; }
 
         /// <summary>
-        /// An array of elements and values serialized to a string, to be used to customize the app's signer page. (Only applies to some API plans)
+        /// Serialized <see cref="WhiteLabelingOptions"/>, to be used to customize the app's signer page. (Only applies to some API plans)
         /// </summary>
         public string WhiteLabelingOptions { get; set; }
     }

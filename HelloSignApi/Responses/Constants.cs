@@ -78,6 +78,23 @@ namespace HelloSignApi.Responses
         /// Your account's API request rate limit has been exceeded.
         /// </summary>
         public const string ExceededRate = "exceeded_rate";
+
+        /// <summary>
+        /// [White labeling] Invalid element name.
+        /// </summary>
+        public const string InvalidElementName = "invalid_element_name";
+        /// <summary>
+        /// [White labeling] Invalid value passed for legal_version.
+        /// </summary>
+        public const string InvalidLegalVersion = "invalid_legal_version";
+        /// <summary>
+        /// [White labeling] Invalid hex code.
+        /// </summary>
+        public const string InvalidHexCode = "invalid_hex_code";
+        /// <summary>
+        /// [White labeling] Contrast ratio is less than minimum 2.1.
+        /// </summary>
+        public const string InvalidContrastRatio = "invalid_contrast_ratio";
     }
 
     /// <summary>
