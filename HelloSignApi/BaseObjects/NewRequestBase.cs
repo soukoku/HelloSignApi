@@ -57,6 +57,18 @@ namespace HelloSignApi.BaseObjects
         public IList<string> CcEmailAddresses { get; private set; }
 
         /// <summary>
+        /// Set to <code>true</code> if you wish to enable Text Tags parsing in your document.
+        /// </summary>
+        public bool UseTextTags { get; set; }
+        /// <summary>
+        /// Set to <code>true</code> if you wish to enable automatic Text Tag removal. 
+        /// When using Text Tags it is preferred that you set this to <code>false</code> 
+        /// and hide your tags with white text or something similar because the automatic 
+        /// removal system can cause unwanted clipping.
+        /// </summary>
+        public bool HideTextTags { get; set; }
+
+        /// <summary>
         /// Key-value data that should be attached to the signature request. 
         /// This metadata is included in all API responses and events involving the signature request. 
         /// For example, use the metadata field to store a signer's order number for look up when 

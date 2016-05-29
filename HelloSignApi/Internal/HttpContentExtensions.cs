@@ -88,6 +88,10 @@ namespace HelloSignApi
             {
                 content.AddParameter($"cc_email_addresses[{i++}]", cc);
             }
+
+            if (request.UseTextTags) { content.AddParameter("use_text_tags", "1"); }
+            if (request.HideTextTags) { content.AddParameter("hide_text_tags", "1"); }
+
             content.AddMetadata(request.Metadata);
         }
 
@@ -110,6 +114,7 @@ namespace HelloSignApi
             content.AddRequestBase(draft);
 
             content.AddParameter("type", draft.Type);
+            if (draft.UsePreexistingFields) { content.AddParameter("use_preexisting_fields", "1"); }
         }
 
         public static void AddEmbeddedUnclaimedDraft(this MultipartFormDataContent content, NewEmbeddedUnclaimedDraft draft)

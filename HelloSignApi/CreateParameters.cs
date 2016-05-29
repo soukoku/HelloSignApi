@@ -43,6 +43,12 @@ namespace HelloSignApi
         /// email_address are not optional.
         /// </summary>
         public string Type { get; set; }
+
+        /// <summary>
+        /// If your PDF contains pre-defined fields, enable the detection of these fields by setting this to <code>true</code>.
+        /// This is exclusive with <see cref="NewRequestBase.UseTextTags"/>.
+        /// </summary>
+        public bool UsePreexistingFields { get; set; }
     }
 
     /// <summary>
