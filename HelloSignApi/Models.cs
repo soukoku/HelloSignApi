@@ -234,12 +234,12 @@ namespace HelloSignApi
         /// <summary>
         /// Actual value of <see cref="LastViewedAt"/>.
         /// </summary>
-        [JsonProperty("signed_at"), EditorBrowsable(EditorBrowsableState.Never)]
+        [JsonProperty("last_viewed_at"), EditorBrowsable(EditorBrowsableState.Never)]
         public long? LastViewedAtRaw { get; set; }
         /// <summary>
         /// Actual value of <see cref="LastRemindedAt"/>.
         /// </summary>
-        [JsonProperty("signed_at"), EditorBrowsable(EditorBrowsableState.Never)]
+        [JsonProperty("last_reminded_at"), EditorBrowsable(EditorBrowsableState.Never)]
         public long? LastRemindedAtRaw { get; set; }
 
         /// <summary>
