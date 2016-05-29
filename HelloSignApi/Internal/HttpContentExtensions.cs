@@ -59,12 +59,12 @@ namespace HelloSignApi
                     else if (file.LocalPath != null)
                     {
                         var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));
-                        content.Add(fc, $"file_url[{i}]", file.FileName);
+                        content.Add(fc, $"file[{i}]", file.FileName);
                     }
                     else if (file.Stream != null)
                     {
                         var fc = new StreamContent(file.Stream);
-                        content.Add(fc, $"file_url[{i}]", file.FileName);
+                        content.Add(fc, $"file[{i}]", file.FileName);
                     }
                     i++;
                 }
