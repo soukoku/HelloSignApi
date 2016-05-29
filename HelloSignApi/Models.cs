@@ -265,6 +265,17 @@ namespace HelloSignApi
     }
 
     /// <summary>
+    /// An object that contains file download info.
+    /// </summary>
+    public class DownloadInfo : ExpiringObject
+    {
+        /// <summary>
+        /// URL of the download url.
+        /// </summary>
+        public string FileUrl { get; set; }
+    }
+
+    /// <summary>
     /// Represents a document template.
     /// </summary>
     public class Template
@@ -310,7 +321,7 @@ namespace HelloSignApi
         /// </summary>
         public bool IsLocked { get; set; }
     }
-    
+
     /// <summary>
     /// Represents a signer role in a template.
     /// </summary>
@@ -395,14 +406,75 @@ namespace HelloSignApi
     }
 
     /// <summary>
-    /// An object that contains file download info.
+    /// Contains information about an API App.
     /// </summary>
-    public class DownloadInfo : ExpiringObject
+    public class ApiApp
     {
         /// <summary>
-        /// URL of the download url.
+        /// The app's client ID.
         /// </summary>
-        public string FileUrl { get; set; }
+        public string ClientId { get; set; }
+
+        /// <summary>
+        /// Actual value of <see cref="CreatedAt"/>.
+        /// </summary>
+        public long CreatedAtRaw { get; set; }
+
+        /// <summary>
+        /// The time that the app was created.
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// The name of the app.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// The domain name associated with the app.
+        /// </summary>
+        public string Domain { get; set; }
+        /// <summary>
+        /// The app's callback URL (for events).
+        /// </summary>
+        public string CallbackUrl { get; set; }
+        /// <summary>
+        /// Boolean to indicate if the app has been approved.
+        /// </summary>
+        public bool? IsApproved { get; set; }
+        /// <summary>
+        /// An object describing the app's owner.
+        /// </summary>
+        public Account OwnerAccount { get; set; }
+
+        /// <summary>
+        /// An object describing the app's OAuth properties, or null if OAuth is not configured for the app.
+        /// </summary>
+        [JsonProperty("oauth")]
+        public OAuth OAuth { get; set; }
+
+        /// <summary>
+        /// An array of elements and values serialized to a string, to be used to customize the app's signer page. (Only applies to some API plans)
+        /// </summary>
+        public string WhiteLabelingOptions { get; set; }
+    }
+
+    /// <summary>
+    /// Contains OAuth info.
+    /// </summary>
+    public class OAuth
+    {
+        /// <summary>
+        /// The app's OAuth callback URL.
+        /// </summary>
+        public string CallbackUrl { get; set; }
+        /// <summary>
+        /// The app's OAuth secret.
+        /// </summary>
+        public string Secret { get; set; }
+        /// <summary>
+        /// Array of OAuth scopes used by the app.
+        /// </summary>
+        public string[] Scopes { get; set; }
     }
 
     /// <summary>

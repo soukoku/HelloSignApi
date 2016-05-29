@@ -168,7 +168,7 @@ namespace HelloSignApi.Responses
     }
 
     /// <summary>
-    /// Response for the signature request list api calls.
+    /// Response for the signature request list api call.
     /// </summary>
     public class SignatureRequestListResponse : ListApiResponse
     {
@@ -231,5 +231,27 @@ namespace HelloSignApi.Responses
         /// The <see cref="EmbeddedTemplate"/> object.
         /// </summary>
         public EmbeddedTemplate Embedded { get; set; }
+    }
+
+    /// <summary>
+    /// Response for the signature request api calls.
+    /// </summary>
+    public class ApiAppResponse : ApiResponse
+    {
+        /// <summary>
+        /// The api app object.
+        /// </summary>
+        public ApiApp ApiApp { get; set; }
+    }
+
+    /// <summary>
+    /// Response for the api app list api call.
+    /// </summary>
+    public class ApiAppListResponse : ListApiResponse
+    {
+        /// <summary>
+        /// The api app objects.
+        /// </summary>
+        public ApiApp[] ApiApps { get; set; }
     }
 }

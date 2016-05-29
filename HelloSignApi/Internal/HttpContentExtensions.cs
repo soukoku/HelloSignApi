@@ -12,7 +12,8 @@ namespace HelloSignApi
     {
         public static void AddParameter(this MultipartFormDataContent content, string name, string value, string fileName = null)
         {
-            if (string.IsNullOrEmpty(value))
+            // empty string is still passed
+            if (value != null)
             {
                 var sc = new StringContent(value);
                 sc.Headers.ContentType = null;
@@ -119,8 +120,17 @@ namespace HelloSignApi
             content.AddParameter("requester_email_address", draft.RequesterEmailAddress);
             content.AddParameter("signing_redirect_url", draft.SigningRedirectUrl);
             if (draft.IsForEmbeddedSigning) { content.AddParameter("is_for_embedded_signing", "1"); }
+        }
 
-
+        public static void AddApiApp(this MultipartFormDataContent content, NewApiApp app)
+        {
+            content.AddParameter("name", app.Name);
+            content.AddParameter("domain", app.Domain);
+            content.AddParameter("callback_url", app.CallbackUrl);
+            content.AddParameter("custom_logo_file", app.CustomLogoFile);
+            content.AddParameter("oauth[callback_url]", app.OAuthCallbackUrl);
+            content.AddParameter("oauth[scopes]", app.OAuthScopes);
+            content.AddParameter("white_labeling_options", app.WhiteLabelingOptions);
         }
     }
 }
