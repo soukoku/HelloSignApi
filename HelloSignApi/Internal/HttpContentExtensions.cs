@@ -17,7 +17,14 @@ namespace HelloSignApi
             {
                 var sc = new StringContent(value);
                 sc.Headers.ContentType = null;
-                content.Add(sc, name, fileName);
+                if (fileName == null)
+                {
+                    content.Add(sc, name);
+                }
+                else
+                {
+                    content.Add(sc, name, fileName);
+                }
             }
         }
 
@@ -59,11 +66,13 @@ namespace HelloSignApi
                     else if (file.LocalPath != null)
                     {
                         var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));
+                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                         content.Add(fc, $"file[{i}]", file.FileName);
                     }
                     else if (file.Stream != null)
                     {
                         var fc = new StreamContent(file.Stream);
+                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                         content.Add(fc, $"file[{i}]", file.FileName);
                     }
                     i++;
