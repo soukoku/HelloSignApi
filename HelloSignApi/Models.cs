@@ -472,12 +472,14 @@ namespace HelloSignApi
         /// <summary>
         /// Actual value of <see cref="CreatedAt"/>.
         /// </summary>
+        [JsonProperty("created_at"), EditorBrowsable(EditorBrowsableState.Never)]
         public long CreatedAtRaw { get; set; }
 
         /// <summary>
         /// The time that the app was created.
         /// </summary>
-        public DateTime CreatedAt { get; set; }
+        [JsonIgnore]
+        public DateTime CreatedAt { get { return CreatedAtRaw.FromUnixTime(); } }
 
         /// <summary>
         /// The name of the app.
