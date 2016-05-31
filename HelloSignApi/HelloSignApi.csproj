@@ -83,6 +83,7 @@
     <Compile Include="ColorExtensions.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CreateParameters.cs" />
+    <Compile Include="HelloSignClient.Template.cs" />
     <Compile Include="HelloSignClient.ApiApp.cs" />
     <Compile Include="HelloSignClient.Team.cs" />
     <Compile Include="HelloSignClient.SignatureRequest.cs" />
