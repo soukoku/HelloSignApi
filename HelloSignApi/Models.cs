@@ -193,7 +193,7 @@ namespace HelloSignApi
         /// <summary>
         /// A boolean value denoting if this field is required.
         /// </summary>
-        public bool Required { get; set; }
+        public bool? Required { get; set; }
         /// <summary>
         /// The type of this form field. See <see cref="FieldTypes"/> values.
         /// </summary>
