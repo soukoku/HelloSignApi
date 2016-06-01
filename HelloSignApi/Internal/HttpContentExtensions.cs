@@ -123,10 +123,8 @@ namespace HelloSignApi
 
         public static void AddTemplateDraft(this MultipartFormDataContent content, NewEmbeddedTemplateDraft draft)
         {
-            content.AddRequestBase(draft);
-
-            content.AddParameter("client_id", draft.ClientId);
-            content.AddParameter("title", draft.Title);
+            content.AddEmbeddedRequest(draft);
+            
             int i = 0;
             foreach (var role in draft.SignerRoles)
             {

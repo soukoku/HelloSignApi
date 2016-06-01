@@ -37,6 +37,7 @@ namespace HelloSignApi
         /// Subsequent access to the claim URL will result in a 404.
         /// </summary>
         /// <param name="draft">The draft.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft, CancellationToken cancellationToken)
@@ -72,6 +73,7 @@ namespace HelloSignApi
         /// result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required.
         /// </summary>
         /// <param name="draft">The draft.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft, CancellationToken cancellationToken)

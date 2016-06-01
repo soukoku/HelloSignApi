@@ -115,7 +115,7 @@ namespace HelloSignApi
             if (draft == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddEmbeddedRequest(draft);
+            content.AddTemplateDraft(draft);
 
             var resp = _client.PostAsync($"{TemplateUrl}/create_embedded_draft", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateResponse>());
