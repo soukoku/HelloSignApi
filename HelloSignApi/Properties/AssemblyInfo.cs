@@ -1,4 +1,5 @@
 ﻿using HelloSignApi;
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -21,6 +22,7 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("0a75d835-4e68-40a1-9c47-a418fc0e987b")]
 
+[assembly: CLSCompliant(true)]
 
 [assembly: AssemblyCompany("Yin-Chun Wang")]
 [assembly: AssemblyCopyright("Copyright © Yin-Chun Wang 2016")]

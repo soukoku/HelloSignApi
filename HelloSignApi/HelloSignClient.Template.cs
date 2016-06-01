@@ -1,4 +1,5 @@
-﻿using HelloSignApi.Responses;
+﻿using HelloSignApi.Requests;
+using HelloSignApi.Responses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;

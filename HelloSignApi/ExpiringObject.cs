@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace HelloSignApi.BaseObjects
+namespace HelloSignApi
 {
     /// <summary>
     /// An object with an expiration time.

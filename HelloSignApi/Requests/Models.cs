@@ -1,5 +1,4 @@
-﻿using HelloSignApi.BaseObjects;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Text;
 
 // this file contains objects for creating new things.
 
-namespace HelloSignApi
+namespace HelloSignApi.Requests
 {
     /// <summary>
     /// Object used to create a new signature request.

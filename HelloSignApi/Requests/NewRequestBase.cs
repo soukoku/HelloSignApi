@@ -1,9 +1,10 @@
-﻿using System;
+﻿using HelloSignApi.Requests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HelloSignApi.BaseObjects
+namespace HelloSignApi.Requests
 {
     /// <summary>
     /// Base class for making new signature type requests.

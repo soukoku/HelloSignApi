@@ -79,11 +79,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseObjects\ExpiringObject.cs" />
-    <Compile Include="BaseObjects\NewRequestBase.cs" />
+    <Compile Include="ExpiringObject.cs" />
+    <Compile Include="Requests\NewRequestBase.cs" />
     <Compile Include="ColorExtensions.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="CreateParameters.cs" />
+    <Compile Include="Requests\Models.cs" />
     <Compile Include="HelloSignClient.Template.cs" />
     <Compile Include="HelloSignClient.ApiApp.cs" />
     <Compile Include="HelloSignClient.Team.cs" />

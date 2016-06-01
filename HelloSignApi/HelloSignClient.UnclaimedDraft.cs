@@ -1,4 +1,5 @@
-﻿using HelloSignApi.Responses;
+﻿using HelloSignApi.Requests;
+using HelloSignApi.Responses;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

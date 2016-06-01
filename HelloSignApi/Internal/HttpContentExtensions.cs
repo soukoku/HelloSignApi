@@ -1,4 +1,4 @@
-﻿using HelloSignApi.BaseObjects;
+﻿using HelloSignApi.Requests;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
