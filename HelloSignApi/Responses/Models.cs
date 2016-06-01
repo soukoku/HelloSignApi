@@ -177,7 +177,29 @@ namespace HelloSignApi.Responses
         /// </summary>
         public SignatureRequest[] SignatureRequests { get; set; }
     }
-    
+
+    /// <summary>
+    /// Response for the template api calls.
+    /// </summary>
+    public class TemplateResponse : ApiResponse
+    {
+        /// <summary>
+        /// The template object.
+        /// </summary>
+        public Template Template { get; set; }
+    }
+
+    /// <summary>
+    /// Response for the template list api call.
+    /// </summary>
+    public class TemplateListResponse : ListApiResponse
+    {
+        /// <summary>
+        /// The template objects.
+        /// </summary>
+        public Template[] Templates { get; set; }
+    }
+
     /// <summary>
     /// Response for the get file api call.
     /// </summary>

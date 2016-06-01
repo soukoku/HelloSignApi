@@ -1,4 +1,5 @@
 ﻿using HelloSignApi.BaseObjects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -118,6 +119,29 @@ namespace HelloSignApi
             content.AddRequest(request);
 
             content.AddParameter("title", request.Title);
+        }
+
+        public static void AddTemplateDraft(this MultipartFormDataContent content, NewEmbeddedTemplateDraft draft)
+        {
+            content.AddRequestBase(draft);
+
+            content.AddParameter("client_id", draft.ClientId);
+            content.AddParameter("title", draft.Title);
+            int i = 0;
+            foreach (var role in draft.SignerRoles)
+            {
+                content.AddParameter($"signer_roles[{i}][name]", role.Name);
+                content.AddParameter($"signer_roles[{i}][order]", role.Order?.ToString());
+            }
+            i = 0;
+            foreach (var role in draft.CcRoles)
+            {
+                content.AddParameter($"cc_roles[{i}]", role);
+            }
+
+            content.AddParameter("merge_fields", JsonConvert.SerializeObject(draft.MergeFields, HttpResponseExtensions.JsonSettings));
+
+            if (draft.UsePreexistingFields) { content.AddParameter("use_preexisting_fields", "1"); }
         }
 
         public static void AddUnclaimedDraft(this MultipartFormDataContent content, NewUnclaimedDraft draft)
