@@ -27,12 +27,26 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft)
         {
+            return CreateUnclaimedDraftAsync(draft, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Creates a new Draft that can be claimed using the claim URL.
+        /// The first authenticated user to access the URL will claim the Draft and will be shown either
+        /// the "Sign and send" or the "Request signature" page with the Draft loaded.
+        /// Subsequent access to the claim URL will result in a 404.
+        /// </summary>
+        /// <param name="draft">The draft.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">draft</exception>
+        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft, CancellationToken cancellationToken)
+        {
             if (draft == null) { throw new ArgumentNullException("draft"); }
 
             var content = new MultipartFormDataContent();
             content.AddUnclaimedDraft(draft);
 
-            var resp = _client.PostAsync($"{DraftUrl}/create", content)
+            var resp = _client.PostAsync($"{DraftUrl}/create", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>());
             return resp.Unwrap();
         }
@@ -48,12 +62,26 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft)
         {
+            return CreateEmbeddedUnclaimedDraftAsync(draft, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Creates a new Draft that can be claimed and used in an embedded iFrame.
+        /// The first authenticated user to access the URL will claim the Draft and will be shown
+        /// the "Request signature" page with the Draft loaded. Subsequent access to the claim URL will
+        /// result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required.
+        /// </summary>
+        /// <param name="draft">The draft.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">draft</exception>
+        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft, CancellationToken cancellationToken)
+        {
             if (draft == null) { throw new ArgumentNullException("draft"); }
 
             var content = new MultipartFormDataContent();
             content.AddEmbeddedUnclaimedDraft(draft);
 
-            var resp = _client.PostAsync($"{DraftUrl}/create_embedded", content)
+            var resp = _client.PostAsync($"{DraftUrl}/create_embedded", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>());
             return resp.Unwrap();
         }

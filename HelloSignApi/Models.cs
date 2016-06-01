@@ -616,7 +616,7 @@ namespace HelloSignApi
         /// <returns></returns>
         public static WhiteLabelingOptions Deserialize(string serializedData)
         {
-            return JsonConvert.DeserializeObject<WhiteLabelingOptions>(serializedData, HttpResponseExtensions.JsonSettings);
+            return JsonConvert.DeserializeObject<WhiteLabelingOptions>(serializedData ?? string.Empty, HttpResponseExtensions.JsonSettings);
         }
 
         /// <summary>
