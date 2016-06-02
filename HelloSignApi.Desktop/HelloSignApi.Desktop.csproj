@@ -105,7 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="HelloSignApi.csproj.nuspec" />
+    <None Include="HelloSignApi.Desktop.csproj.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

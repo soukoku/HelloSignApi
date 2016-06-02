@@ -24,7 +24,7 @@ namespace HelloSignApi
         /// Initializes a new instance of the <see cref="HelloSignClient" /> class.
         /// </summary>
         /// <param name="apiKey">The API key.</param>
-        /// <param name="getHttpClientRoutine">Optional custom routine to provide an <see cref="HttpClient" />.</param>
+        /// <param name="getHttpClientRoutine">Optional custom routine to provide an <see cref="HttpClient" />. A cached version will be used if this is null.</param>
         /// <exception cref="ArgumentException">Api key is required.;apiKey</exception>
         public HelloSignClient(string apiKey, Func<HttpClient> getHttpClientRoutine = null)
         {
@@ -43,7 +43,7 @@ namespace HelloSignApi
             }
 
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
-                Convert.ToBase64String(Encoding.ASCII.GetBytes(apiKey + ":")));
+                Convert.ToBase64String(Encoding.UTF8.GetBytes(apiKey + ":")));
 
         }
 
@@ -58,11 +58,11 @@ namespace HelloSignApi
             var wrap = JsonConvert.DeserializeObject<EventWrap>(eventData ?? "", HttpResponseExtensions.JsonSettings);
             if (verify && wrap != null && wrap.Event != null)
             {
-                using (var hmac = new HMACSHA256(Encoding.ASCII.GetBytes(_apiKey)))
+                using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(_apiKey)))
                 {
                     var input = $"{wrap.Event.EventTimeRaw}{wrap.Event.EventType}";
-                    var hash = BitConverter.ToString(hmac.ComputeHash(Encoding.ASCII.GetBytes(input))).Replace("-", "");
-
+                    var hash = BitConverter.ToString(hmac.ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", "");
+                    
                     if (!string.Equals(hash, wrap.Event.EventHash, StringComparison.OrdinalIgnoreCase))
                     {
                         wrap = null;

@@ -346,8 +346,8 @@ namespace HelloSignApi.Requests
         /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
         public PendingFile(Uri remoteFilePath, string fileName = null)
         {
-            if (string.Equals(remoteFilePath.Scheme, Uri.UriSchemeHttp) ||
-                string.Equals(remoteFilePath.Scheme, Uri.UriSchemeHttps))
+            if (string.Equals(remoteFilePath.Scheme, "http") ||
+                string.Equals(remoteFilePath.Scheme, "https"))
             {
                 RemotePath = remoteFilePath;
                 FileName = fileName ?? Path.GetFileName(remoteFilePath.AbsolutePath);
@@ -396,7 +396,7 @@ namespace HelloSignApi.Requests
         public string FileName { get; private set; }
 
         /// <summary>
-        /// Gets the remote file path.
+        /// Gets the remote (http/https) file path.
         /// </summary>
         public Uri RemotePath { get; private set; }
 
