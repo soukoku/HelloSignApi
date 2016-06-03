@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0-alpha10",
+  "title": "HelloSignApi",
+  "description": "Simple task-based HelloSign api lib for dotnet with intellisense doc.",
+  "authors": [ "Yin-Chun Wang" ],
+  "copyright": "Copyright &copy; Yin-Chun Wang 2016",
+  "packOptions": {
+    "licenseUrl": "https://raw.githubusercontent.com/soukoku/HelloSignApi/master/LICENSE",
+    "projectUrl": "https://github.com/soukoku/HelloSignApi",
+    "requireLicenseAcceptance": false,
+    "tags": [ "sign" ]
+  },
+  "frameworks": {
+    "net40-client": {
+      "dependencies": {
+        "Microsoft.Net.Http": "2.2.29"
+      }
+    },
+    "net45": {
+      "frameworkAssemblies": {
+        "System.Net.Http": "4.0.0.0"
+      }
+    },
+    ".NETPortable,Version=v4.0,Profile=Profile328": {
+      "buildOptions": {
+        "define": [ "PORTABLE" ]
+      },
+      "dependencies": {
+        "Microsoft.Net.Http": "2.2.29"
+      }
+    },
+    "netstandard1.5": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "NETStandard.Library": "1.5.0-rc2-24027",
+        "System.Security.Cryptography.Algorithms": "4.1.0-rc2-24027"
+      }
+    }
+  },
+  "buildOptions": {
+    "xmlDoc": true
+  },
+  "dependencies": {
+    "Newtonsoft.Json": "8.0.3"
+  }
+}

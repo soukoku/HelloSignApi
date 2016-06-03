@@ -64,7 +64,7 @@ namespace HelloSignApi
                     {
                         content.AddParameter($"file_url[{i}]", file.RemotePath.ToString(), file.FileName);
                     }
-#if FULLFX
+#if !PORTABLE
                     else if (file.LocalPath != null)
                     {
                         var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));

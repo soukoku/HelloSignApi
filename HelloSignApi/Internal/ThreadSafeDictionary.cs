@@ -9,7 +9,7 @@ namespace HelloSignApi
     class ThreadSafeDictionary<TKey, TValue>
     {
 
-#if FULLFX
+#if !PORTABLE
 
         System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue> _dict = new System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>();
 

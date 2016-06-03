@@ -532,7 +532,7 @@ namespace HelloSignApi
         public string[] Scopes { get; set; }
     }
 
-#if FULLFX
+#if !PORTABLE
     /// <summary>
     /// Represents an event from callback.
     /// </summary>

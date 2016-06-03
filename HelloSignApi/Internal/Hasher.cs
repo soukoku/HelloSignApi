@@ -1,7 +1,9 @@
-﻿#if FULLFX
+﻿#if !PORTABLE
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace HelloSignApi
@@ -10,7 +12,7 @@ namespace HelloSignApi
     {
         public static string GetHMACSHA256Hash(byte[] key, byte[] input)
         {
-            using (var algo = new System.Security.Cryptography.HMACSHA256(key))
+            using (var algo = new HMACSHA256(key))
             {
                 var hash = BitConverter.ToString(algo.ComputeHash(input));
                 return hash.Replace("-", "");

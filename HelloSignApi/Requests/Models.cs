@@ -350,7 +350,7 @@ namespace HelloSignApi.Requests
                 string.Equals(remoteFilePath.Scheme, "https"))
             {
                 RemotePath = remoteFilePath;
-                FileName = fileName ?? Path.GetFileName(remoteFilePath.AbsolutePath);
+                FileName = fileName ?? remoteFilePath.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             }
             else
             {
@@ -379,7 +379,7 @@ namespace HelloSignApi.Requests
             FileName = fileName;
         }
 
-#if FULLFX
+#if !PORTABLE
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile" /> class.

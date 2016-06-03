@@ -36,6 +36,7 @@ namespace HelloSignApi
         public const string Signature = "signature";
     }
 
+#if !PORTABLE
     /// <summary>
     /// Contains possible values for <see cref="Event.EventType" />.
     /// </summary>
@@ -87,6 +88,7 @@ namespace HelloSignApi
         /// </summary>
         public const string TemplateError = "template_error";
     }
+#endif
 
     /// <summary>
     /// Contains possible values for <see cref="Signature.StatusCode" />.
