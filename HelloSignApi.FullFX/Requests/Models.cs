@@ -358,21 +358,6 @@ namespace HelloSignApi.Requests
             }
         }
 
-#if DESKTOP
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PendingFile" /> class.
-        /// </summary>
-        /// <param name="localFilePath">The local file path.</param>
-        /// <param name="fileName">Name of the file.</param>
-        public PendingFile(string localFilePath, string fileName = null)
-        {
-            LocalPath = localFilePath;
-            FileName = fileName ?? Path.GetFileName(localFilePath);
-        }
-
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile"/> class.
         /// </summary>
@@ -394,27 +379,38 @@ namespace HelloSignApi.Requests
             FileName = fileName;
         }
 
-        /// <summary>
-        /// Gets the name of the file.
-        /// </summary>
-        public string FileName { get; private set; }
+#if FULLFX
 
         /// <summary>
-        /// Gets the remote (http/https) file path.
+        /// Initializes a new instance of the <see cref="PendingFile" /> class.
         /// </summary>
-        public Uri RemotePath { get; private set; }
+        /// <param name="localFilePath">The local file path.</param>
+        /// <param name="fileName">Name of the file.</param>
+        public PendingFile(string localFilePath, string fileName = null)
+        {
+            LocalPath = localFilePath;
+            FileName = fileName ?? Path.GetFileName(localFilePath);
+        }
 
-#if DESKTOP
         /// <summary>
         /// Gets the local file path.
         /// </summary>
         public string LocalPath { get; private set; }
 #endif
+        /// <summary>
+        /// Gets the remote (http/https) file path.
+        /// </summary>
+        public Uri RemotePath { get; private set; }
 
         /// <summary>
         /// Gets the stream data.
         /// </summary>
         public Stream Stream { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the file.
+        /// </summary>
+        public string FileName { get; private set; }
 
     }
 

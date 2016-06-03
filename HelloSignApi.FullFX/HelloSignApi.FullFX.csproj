@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DESKTOP</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;FULLFX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -86,14 +86,28 @@
     <Compile Include="ColorExtensions.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Requests\Models.cs" />
-    <Compile Include="HelloSignClient.Template.cs" />
-    <Compile Include="HelloSignClient.ApiApp.cs" />
-    <Compile Include="HelloSignClient.Team.cs" />
-    <Compile Include="HelloSignClient.SignatureRequest.cs" />
-    <Compile Include="HelloSignClient.UnclaimedDraft.cs" />
-    <Compile Include="HelloSignClient.Embedded.cs" />
-    <Compile Include="HelloSignClient.Account.cs" />
     <Compile Include="HelloSignClient.cs" />
+    <Compile Include="HelloSignClient.Template.cs">
+      <DependentUpon>HelloSignClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelloSignClient.ApiApp.cs">
+      <DependentUpon>HelloSignClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelloSignClient.Team.cs">
+      <DependentUpon>HelloSignClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelloSignClient.SignatureRequest.cs">
+      <DependentUpon>HelloSignClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelloSignClient.UnclaimedDraft.cs">
+      <DependentUpon>HelloSignClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelloSignClient.Embedded.cs">
+      <DependentUpon>HelloSignClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelloSignClient.Account.cs">
+      <DependentUpon>HelloSignClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Internal\EventWrap.cs" />
     <Compile Include="Internal\HttpHeaderExtensions.cs" />
     <Compile Include="Internal\HttpContentExtensions.cs" />

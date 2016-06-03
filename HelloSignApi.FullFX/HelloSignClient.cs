@@ -4,7 +4,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace HelloSignApi
@@ -44,9 +43,9 @@ namespace HelloSignApi
 
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
                 Convert.ToBase64String(Encoding.UTF8.GetBytes(apiKey + ":")));
-
         }
 
+#if FULLFX
         /// <summary>
         /// Parsed the data received from the event callback.
         /// </summary>
@@ -68,5 +67,6 @@ namespace HelloSignApi
             }
             return wrap?.Unwrap();
         }
+#endif
     }
 }

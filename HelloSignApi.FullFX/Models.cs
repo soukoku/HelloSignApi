@@ -532,6 +532,7 @@ namespace HelloSignApi
         public string[] Scopes { get; set; }
     }
 
+#if FULLFX
     /// <summary>
     /// Represents an event from callback.
     /// </summary>
@@ -602,6 +603,7 @@ namespace HelloSignApi
         /// </summary>
         public string ReportedForAppId { get; set; }
     }
+#endif
 
     /// <summary>
     /// Represents the white labeling options for the document view.

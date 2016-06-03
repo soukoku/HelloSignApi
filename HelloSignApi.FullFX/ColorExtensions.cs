@@ -11,6 +11,20 @@ namespace HelloSignApi
     /// </summary>
     public static class ColorExtensions
     {
+        /// <summary>
+        /// Converts color to html hex string.
+        /// </summary>
+        /// <param name="red">The red color component value.</param>
+        /// <param name="green">The green color component value.</param>
+        /// <param name="blue">The blue color component value.</param>
+        /// <returns></returns>
+        public static string ToHtmlColor(byte red, byte green, byte blue)
+        {
+            return "#" + red.ToString("X2") + green.ToString("X2") + blue.ToString("X2");
+        }
+
+
+#if FULLFX
 
         /// <summary>
         /// Converts html color string to color.
@@ -29,7 +43,7 @@ namespace HelloSignApi
         public static string ToHtmlColor(this System.Drawing.Color color)
         {
             //return System.Drawing.ColorTranslator.ToHtml(color); // doesn't convert known colors
-            return "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
+            return ToHtmlColor(color.R, color.G, color.B);
         }
 
         /// <summary>
@@ -48,7 +62,9 @@ namespace HelloSignApi
         /// <returns></returns>
         public static string ToHtmlColor(this System.Windows.Media.Color color)
         {
-            return "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
+            return ToHtmlColor(color.R, color.G, color.B);
         }
+
+#endif
     }
 }
