@@ -64,12 +64,14 @@ namespace HelloSignApi
                     {
                         content.AddParameter($"file_url[{i}]", file.RemotePath.ToString(), file.FileName);
                     }
+#if DESKTOP
                     else if (file.LocalPath != null)
                     {
                         var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));
                         fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                         content.Add(fc, $"file[{i}]", file.FileName);
                     }
+#endif
                     else if (file.Stream != null)
                     {
                         var fc = new StreamContent(file.Stream);

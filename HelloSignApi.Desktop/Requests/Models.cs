@@ -358,6 +358,8 @@ namespace HelloSignApi.Requests
             }
         }
 
+#if DESKTOP
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile" /> class.
         /// </summary>
@@ -368,6 +370,8 @@ namespace HelloSignApi.Requests
             LocalPath = localFilePath;
             FileName = fileName ?? Path.GetFileName(localFilePath);
         }
+
+#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile"/> class.
@@ -400,10 +404,12 @@ namespace HelloSignApi.Requests
         /// </summary>
         public Uri RemotePath { get; private set; }
 
+#if DESKTOP
         /// <summary>
         /// Gets the local file path.
         /// </summary>
         public string LocalPath { get; private set; }
+#endif
 
         /// <summary>
         /// Gets the stream data.

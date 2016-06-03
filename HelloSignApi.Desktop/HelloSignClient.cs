@@ -14,7 +14,7 @@ namespace HelloSignApi
     /// </summary>
     public partial class HelloSignClient
     {
-        static readonly ConcurrentDictionary<string, HttpClient> __clientCache = new ConcurrentDictionary<string, HttpClient>();
+        static readonly ThreadSafeDictionary<string, HttpClient> __clientCache = new ThreadSafeDictionary<string, HttpClient>();
 
 
         string _apiKey;
@@ -58,15 +58,12 @@ namespace HelloSignApi
             var wrap = JsonConvert.DeserializeObject<EventWrap>(eventData ?? "", HttpResponseExtensions.JsonSettings);
             if (verify && wrap != null && wrap.Event != null)
             {
-                using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(_apiKey)))
+                var key = Encoding.UTF8.GetBytes(_apiKey);
+                var input = Encoding.UTF8.GetBytes($"{wrap.Event.EventTimeRaw}{wrap.Event.EventType}");
+                var hash = Hasher.GetHMACSHA256Hash(key, input);
+                if (!string.Equals(hash, wrap.Event.EventHash, StringComparison.OrdinalIgnoreCase))
                 {
-                    var input = $"{wrap.Event.EventTimeRaw}{wrap.Event.EventType}";
-                    var hash = BitConverter.ToString(hmac.ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", "");
-                    
-                    if (!string.Equals(hash, wrap.Event.EventHash, StringComparison.OrdinalIgnoreCase))
-                    {
-                        wrap = null;
-                    }
+                    wrap = null;
                 }
             }
             return wrap?.Unwrap();
