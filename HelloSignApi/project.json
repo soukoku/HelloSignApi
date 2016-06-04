@@ -1,4 +1,5 @@
 {
+  "language": "en",
   "version": "1.0.0-beta02",
   "title": "HelloSignApi",
   "description": "Simple task-based HelloSign api lib for dotnet with intellisense doc.",
@@ -38,7 +39,8 @@
     }
   },
   "buildOptions": {
-    "xmlDoc": true
+    "xmlDoc": true,
+    "keyFile": "Sign.snk"
   },
   "dependencies": {
     "Newtonsoft.Json": "8.0.3"
