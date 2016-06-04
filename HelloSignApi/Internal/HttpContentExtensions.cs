@@ -42,13 +42,22 @@ namespace HelloSignApi
             int i = 0;
             foreach (var signer in signers)
             {
-                content.AddParameter($"signers[{i}][name]", signer.Name ?? signer.Email);
-                content.AddParameter($"signers[{i}][email_address]", signer.Email);
-                if (signer.Order.HasValue)
+                if (signer.Role == null)
                 {
-                    content.AddParameter($"signers[{i}][order]", signer.Order.ToString());
+                    content.AddParameter($"signers[{i}][name]", signer.Name ?? signer.Email);
+                    content.AddParameter($"signers[{i}][email_address]", signer.Email);
+                    if (signer.Order.HasValue)
+                    {
+                        content.AddParameter($"signers[{i}][order]", signer.Order.ToString());
+                    }
+                    content.AddParameter($"signers[{i}][pin]", signer.Pin);
                 }
-                content.AddParameter($"signers[{i}][pin]", signer.Pin);
+                else
+                {
+                    content.AddParameter($"signers[{signer.Role}][name]", signer.Name ?? signer.Email);
+                    content.AddParameter($"signers[{signer.Role}][email_address]", signer.Email);
+                    content.AddParameter($"signers[{signer.Role}][pin]", signer.Pin);
+                }
                 i++;
             }
         }
@@ -122,6 +131,22 @@ namespace HelloSignApi
             content.AddParameter("client_id", request.ClientId);
         }
 
+        public static void AddRequestFromTemplate(this MultipartFormDataContent content, NewSignatureFromTemplateRequest request)
+        {
+            content.AddRequest(request);
+            content.AddParameter("title", request.Title);
+            int i = 0;
+            foreach (var tid in request.TemplateIds)
+            {
+                content.AddParameter($"template_ids[{i++}]", tid);
+            }
+            foreach (var cc in request.Ccs)
+            {
+                content.AddParameter($"ccs[{cc.Role}]", cc.Email);
+            }
+            content.AddParameter("custom_fields", JsonConvert.SerializeObject(request.CustomFields, HttpResponseExtensions.JsonSettings));
+        }
+
         public static void AddEmbeddedRequest(this MultipartFormDataContent content, NewEmbeddedSignatureRequest request)
         {
             content.AddRequest(request);
@@ -132,7 +157,7 @@ namespace HelloSignApi
         public static void AddTemplateDraft(this MultipartFormDataContent content, NewEmbeddedTemplateDraft draft)
         {
             content.AddEmbeddedRequest(draft);
-            
+
             int i = 0;
             foreach (var role in draft.SignerRoles)
             {
@@ -166,6 +191,26 @@ namespace HelloSignApi
             content.AddParameter("requester_email_address", draft.RequesterEmailAddress);
             content.AddParameter("signing_redirect_url", draft.SigningRedirectUrl);
             if (draft.IsForEmbeddedSigning) { content.AddParameter("is_for_embedded_signing", "1"); }
+        }
+
+        public static void AddEmbeddedUnclaimedDraftWithTemplate(this MultipartFormDataContent content, NewEmbeddedUnclaimedDraftWithTemplate draft)
+        {
+            content.AddEmbeddedUnclaimedDraft(draft);
+
+            content.AddParameter("title", draft.Title);
+            int i = 0;
+            foreach (var tid in draft.TemplateIds)
+            {
+                content.AddParameter($"template_ids[{i++}]", tid);
+            }
+            foreach (var cc in draft.Ccs)
+            {
+                content.AddParameter($"ccs[{cc.Role}]", cc.Email);
+            }
+            content.AddParameter("custom_fields", JsonConvert.SerializeObject(draft.CustomFields, HttpResponseExtensions.JsonSettings));
+            
+            content.AddParameter("requesting_redirect_url", draft.RequestingRedirectUrl);
+
         }
 
         public static void AddApiApp(this MultipartFormDataContent content, NewApiApp app)

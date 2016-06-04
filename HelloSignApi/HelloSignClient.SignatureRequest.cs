@@ -79,6 +79,37 @@ namespace HelloSignApi
             return resp.Unwrap();
         }
 
+
+        /// <summary>
+        /// Creates and sends a new SignatureRequest based off of the Template specified.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request)
+        {
+            return SendSignatureFromTemplateRequestAsync(request, CancellationToken.None);
+        }
+        /// <summary>
+        /// Creates and sends a new SignatureRequest based off of the Template specified.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request, CancellationToken cancellationToken)
+        {
+            if (request == null) { throw new ArgumentNullException("request"); }
+
+            var content = new MultipartFormDataContent();
+            content.AddRequestFromTemplate(request);
+
+            var resp = _client.PostAsync($"{SignatureUrl}/send_with_template", content, cancellationToken)
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+            return resp.Unwrap();
+        }
+
+
         /// <summary>
         /// Sends an email to the signer reminding them to sign the signature request. You cannot send a reminder within 1 hour of the last reminder that was sent. This includes manual AND automatic reminders.
         /// </summary>
@@ -207,6 +238,35 @@ namespace HelloSignApi
             content.AddEmbeddedRequest(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/create_embedded", content, cancellationToken)
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+            return resp.Unwrap();
+        }
+
+        /// <summary>
+        /// Creates a new SignatureRequest based on the given Template to be signed in an embedded iFrame.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request)
+        {
+            return SendEmbeddedSignatureFromTemplateRequestAsync(request, CancellationToken.None);
+        }
+        /// <summary>
+        /// Creates a new SignatureRequest based on the given Template to be signed in an embedded iFrame.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request, CancellationToken cancellationToken)
+        {
+            if (request == null) { throw new ArgumentNullException("request"); }
+
+            var content = new MultipartFormDataContent();
+            content.AddRequestFromTemplate(request);
+
+            var resp = _client.PostAsync($"{SignatureUrl}/create_embedded_with_template", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
             return resp.Unwrap();
         }

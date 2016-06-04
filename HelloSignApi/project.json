@@ -8,7 +8,7 @@
     "licenseUrl": "https://raw.githubusercontent.com/soukoku/HelloSignApi/master/LICENSE",
     "projectUrl": "https://github.com/soukoku/HelloSignApi",
     "requireLicenseAcceptance": false,
-    "tags": [ "sign" ]
+    "tags": [ "signature" ]
   },
   "frameworks": {
     "net40-client": {
@@ -30,7 +30,7 @@
       }
     },
     "netstandard1.3": {
-      "imports": "netcore50",
+      "imports": "dnxcore",
       "dependencies": {
         "NETStandard.Library": "1.5.0-rc2-24027",
         "System.Security.Cryptography.Algorithms": "4.1.0-rc2-24027"

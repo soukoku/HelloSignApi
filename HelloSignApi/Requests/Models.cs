@@ -21,6 +21,40 @@ namespace HelloSignApi.Requests
     }
 
     /// <summary>
+    /// Object used to create a new signature request from templates.
+    /// </summary>
+    public class NewSignatureFromTemplateRequest : NewSignatureRequest
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NewSignatureFromTemplateRequest"/> class.
+        /// </summary>
+        public NewSignatureFromTemplateRequest()
+        {
+            TemplateIds = new List<string>();
+            Ccs = new List<Signer>();
+            CustomFields = new List<CustomField>();
+        }
+
+        /// <summary>
+        /// The template ids to create a SignatureRequest from.
+        /// </summary>
+        public IList<string> TemplateIds { get; private set; }
+        /// <summary>
+        /// The title you want to assign to the SignatureRequest.
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// The email address of the CC filling the role of RoleName. Required when a CC role exists for the Template.
+        /// </summary>
+        public IList<Signer> Ccs { get; private set; }
+        /// <summary>
+        /// Values and options for custom fields. Required when a custom field exists in the Template.
+        /// </summary>
+        public IList<CustomField> CustomFields { get; private set; }
+
+    }
+
+    /// <summary>
     /// Object used to create a new embedded signature request.
     /// </summary>
     public class NewEmbeddedSignatureRequest : NewSignatureRequest
@@ -123,34 +157,46 @@ namespace HelloSignApi.Requests
         public bool IsForEmbeddedSigning { get; set; }
     }
 
-    ///// <summary>
-    ///// Object used to create a new embedded unclaimed draft with template.
-    ///// </summary>
-    //public class NewEmbeddedUnclaimedDraftWithTemplate : NewEmbeddedUnclaimedDraft
-    //{
-    //    /// <summary>
-    //    /// Initializes a new instance of the <see cref="NewEmbeddedUnclaimedDraftWithTemplate"/> class.
-    //    /// </summary>
-    //    public NewEmbeddedUnclaimedDraftWithTemplate()
-    //    {
-    //        TemplateIds = new List<string>();
-    //    }
+    /// <summary>
+    /// Object used to create a new embedded unclaimed draft with template.
+    /// </summary>
+    public class NewEmbeddedUnclaimedDraftWithTemplate : NewEmbeddedUnclaimedDraft
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NewEmbeddedUnclaimedDraftWithTemplate"/> class.
+        /// </summary>
+        public NewEmbeddedUnclaimedDraftWithTemplate()
+        {
+            TemplateIds = new List<string>();
+            Ccs = new List<Signer>();
+            CustomFields = new List<CustomField>();
+        }
 
-    //    /// <summary>
-    //    /// The templates to create a request from. The order of the template is significant.
-    //    /// </summary>
-    //    public IList<string> TemplateIds { get; private set; }
+        /// <summary>
+        /// The templates to create a request from. The order of the template is significant.
+        /// </summary>
+        public IList<string> TemplateIds { get; private set; }
 
-    //    /// <summary>
-    //    /// The title you want to assign to the SignatureRequest.
-    //    /// </summary>
-    //    public string Title { get; set; }
+        /// <summary>
+        /// The title you want to assign to the SignatureRequest.
+        /// </summary>
+        public string Title { get; set; }
 
-    //    /// <summary>
-    //    /// The URL you want signers redirected to after they successfully request a signature.
-    //    /// </summary>
-    //    public string RequestingRedirectUrl { get; set; }
-    //}
+        /// <summary>
+        /// The URL you want signers redirected to after they successfully request a signature.
+        /// </summary>
+        public string RequestingRedirectUrl { get; set; }
+
+        /// <summary>
+        /// The email address of the CC filling the role of RoleName. Required when a CC role exists for the Template.
+        /// </summary>
+        public IList<Signer> Ccs { get; private set; }
+
+        /// <summary>
+        /// Values and options for custom fields. Required when a custom field exists in the Template.
+        /// </summary>
+        public IList<CustomField> CustomFields { get; private set; }
+    }
 
     /// <summary>
     /// Represents a signature request recipient.
@@ -166,6 +212,11 @@ namespace HelloSignApi.Requests
         /// The email address of the signer. This is required.
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// The role name of the signer for template purposes.
+        /// </summary>
+        public string Role { get; set; }
 
         /// <summary>
         /// The order the signer is required to sign.
