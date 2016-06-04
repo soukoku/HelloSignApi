@@ -1,2 +1,2 @@
 # HelloSignApi
-Simple task-based HelloSign api lib for FX4.0+.
+Simple task-based HelloSign api lib for dotnet (FX4.0+).
