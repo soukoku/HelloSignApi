@@ -343,9 +343,12 @@ namespace HelloSignApi.Requests
         /// </summary>
         /// <param name="remoteFilePath">The remote file path.</param>
         /// <param name="fileName">Name of the file.</param>
+        /// <exception cref="ArgumentNullException">remoteFilePath</exception>
         /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
         public PendingFile(Uri remoteFilePath, string fileName = null)
         {
+            if (remoteFilePath == null) { throw new ArgumentNullException("remoteFilePath"); }
+
             if (string.Equals(remoteFilePath.Scheme, "http") ||
                 string.Equals(remoteFilePath.Scheme, "https"))
             {
@@ -363,9 +366,14 @@ namespace HelloSignApi.Requests
         /// </summary>
         /// <param name="fileData">The file data.</param>
         /// <param name="fileName">Name of the file.</param>
+        /// <exception cref="ArgumentNullException">fileData</exception>
+        /// <exception cref="ArgumentException">File name is required.</exception>
         public PendingFile(byte[] fileData, string fileName)
         {
-            Stream = new MemoryStream(fileData);
+            if (fileData == null) { throw new ArgumentNullException("fileData"); }
+            if (string.IsNullOrEmpty(fileName)) { throw new ArgumentException("File name is required."); }
+
+            Data = fileData;
             FileName = fileName;
         }
         /// <summary>
@@ -373,8 +381,13 @@ namespace HelloSignApi.Requests
         /// </summary>
         /// <param name="fileData">The file data.</param>
         /// <param name="fileName">Name of the file.</param>
+        /// <exception cref="ArgumentNullException">fileData</exception>
+        /// <exception cref="ArgumentException">File name is required.</exception>
         public PendingFile(Stream fileData, string fileName)
         {
+            if (fileData == null) { throw new ArgumentNullException("fileData"); }
+            if (string.IsNullOrEmpty(fileName)) { throw new ArgumentException("File name is required."); }
+
             Stream = fileData;
             FileName = fileName;
         }
@@ -386,8 +399,11 @@ namespace HelloSignApi.Requests
         /// </summary>
         /// <param name="localFilePath">The local file path.</param>
         /// <param name="fileName">Name of the file.</param>
+        /// <exception cref="ArgumentException">File path is required.</exception>
         public PendingFile(string localFilePath, string fileName = null)
         {
+            if (string.IsNullOrEmpty(localFilePath)) { throw new ArgumentException("File path is required."); }
+
             LocalPath = localFilePath;
             FileName = fileName ?? Path.GetFileName(localFilePath);
         }
@@ -401,6 +417,11 @@ namespace HelloSignApi.Requests
         /// Gets the remote (http/https) file path.
         /// </summary>
         public Uri RemotePath { get; private set; }
+
+        /// <summary>
+        /// Gets the byte array data.
+        /// </summary>
+        public byte[] Data { get; set; }
 
         /// <summary>
         /// Gets the stream data.

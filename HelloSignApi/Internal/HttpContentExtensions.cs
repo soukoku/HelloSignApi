@@ -72,6 +72,12 @@ namespace HelloSignApi
                         content.Add(fc, $"file[{i}]", file.FileName);
                     }
 #endif
+                    else if (file.Data != null)
+                    {
+                        var fc = new ByteArrayContent(file.Data);
+                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                        content.Add(fc, $"file[{i}]", file.FileName);
+                    }
                     else if (file.Stream != null)
                     {
                         var fc = new StreamContent(file.Stream);
