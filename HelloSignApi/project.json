@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-alpha10",
+  "version": "1.0.0-beta01",
   "title": "HelloSignApi",
   "description": "Simple task-based HelloSign api lib for dotnet with intellisense doc.",
   "authors": [ "Yin-Chun Wang" ],
