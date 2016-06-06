@@ -382,6 +382,17 @@ namespace HelloSignApi.Requests
         {
             return _list.GetEnumerator();
         }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return _list.ToString();
+        }
     }
 
     /// <summary>
@@ -483,6 +494,17 @@ namespace HelloSignApi.Requests
         /// Gets the name of the file.
         /// </summary>
         public string FileName { get; private set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return FileName;
+        }
 
     }
 

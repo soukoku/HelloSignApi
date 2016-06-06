@@ -26,6 +26,17 @@ namespace HelloSignApi.Responses
         /// </summary>
         [JsonProperty("error_name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return Message ?? Name;
+        }
     }
 
     /// <summary>
@@ -44,6 +55,17 @@ namespace HelloSignApi.Responses
         /// </summary>
         [JsonProperty("warning_name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return Message ?? Name;
+        }
     }
 
     /// <summary>
@@ -132,6 +154,17 @@ namespace HelloSignApi.Responses
         /// Objects returned per page.
         /// </summary>
         public int PageSize { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return $"Page {Page}/{TotalPages}";
+        }
     }
 
     /// <summary>
