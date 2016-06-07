@@ -22,7 +22,7 @@ namespace HelloSignApi
         public Task<AccountResponse> GetAccountAsync()
         {
             var resp = _client.GetAsync(AccountUrl)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -42,7 +42,7 @@ namespace HelloSignApi
             }
 
             var resp = _client.PostAsync(AccountUrl, content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -60,7 +60,7 @@ namespace HelloSignApi
             content.AddParameter("email_address", emailAddress);
 
             var resp = _client.PostAsync($"{AccountUrl}/create", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -79,7 +79,7 @@ namespace HelloSignApi
             content.AddParameter("email_address", emailAddress);
 
             var resp = _client.PostAsync($"{AccountUrl}/verify", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<AccountResponse>(_log));
             return resp.Unwrap();
         }
     }

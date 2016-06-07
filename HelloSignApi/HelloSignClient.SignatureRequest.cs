@@ -28,7 +28,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
             var resp = _client.GetAsync($"{SignatureUrl}/{signatureRequestId}")
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -46,7 +46,7 @@ namespace HelloSignApi
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
             var resp = _client.GetAsync($"{SignatureUrl}/list?account_id={accountId}&page={page}&page_size={pageSize}&query={query}")
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestListResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestListResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -75,7 +75,7 @@ namespace HelloSignApi
             content.AddRequest(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/send", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -105,7 +105,7 @@ namespace HelloSignApi
             content.AddRequestFromTemplate(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/send_with_template", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -132,7 +132,7 @@ namespace HelloSignApi
             content.AddParameter("name", name);
 
             var resp = _client.PostAsync($"{SignatureUrl}/remind/{signatureRequestId}", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -147,7 +147,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
             var resp = _client.PostAsync($"{SignatureUrl}/cancel/{signatureRequestId}", null)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -238,7 +238,7 @@ namespace HelloSignApi
             content.AddEmbeddedRequest(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/create_embedded", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -267,7 +267,7 @@ namespace HelloSignApi
             content.AddRequestFromTemplate(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/create_embedded_with_template", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
             return resp.Unwrap();
         }
     }

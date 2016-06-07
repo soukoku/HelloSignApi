@@ -13,20 +13,23 @@ namespace HelloSignApi
     public partial class HelloSignClient
     {
         static readonly ThreadSafeDictionary<string, HttpClient> __clientCache = new ThreadSafeDictionary<string, HttpClient>();
-        
+
         string _apiKey;
         HttpClient _client;
+        IApiLog _log;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HelloSignClient" /> class.
         /// </summary>
         /// <param name="apiKey">The API key.</param>
         /// <param name="getHttpClientRoutine">Optional custom routine to provide an <see cref="HttpClient" />. A cached version will be used if this is null.</param>
+        /// <param name="log">The api logger. Can be null.</param>
         /// <exception cref="ArgumentException">Api key is required.;apiKey</exception>
-        public HelloSignClient(string apiKey, Func<HttpClient> getHttpClientRoutine = null)
+        public HelloSignClient(string apiKey, Func<HttpClient> getHttpClientRoutine = null, IApiLog log = null)
         {
             if (string.IsNullOrEmpty(apiKey)) { throw new ArgumentException("Api key is required.", "apiKey"); }
             _apiKey = apiKey;
+            _log = log ?? NullApiLog.Instance;
 
             if (getHttpClientRoutine != null) _client = getHttpClientRoutine();
 

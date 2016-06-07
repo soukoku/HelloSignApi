@@ -48,7 +48,7 @@ namespace HelloSignApi
             content.AddUnclaimedDraft(draft);
 
             var resp = _client.PostAsync($"{DraftUrl}/create", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -84,7 +84,7 @@ namespace HelloSignApi
             content.AddEmbeddedUnclaimedDraft(draft);
 
             var resp = _client.PostAsync($"{DraftUrl}/create_embedded", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -118,7 +118,7 @@ namespace HelloSignApi
             content.AddEmbeddedUnclaimedDraftWithTemplate(draft);
 
             var resp = _client.PostAsync($"{DraftUrl}/create_embedded_with_template", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>(_log));
             return resp.Unwrap();
         }
     }

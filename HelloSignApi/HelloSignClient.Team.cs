@@ -23,7 +23,7 @@ namespace HelloSignApi
         public Task<TeamResponse> GetTeamAsync()
         {
             var resp = _client.GetAsync(TeamUrl)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -41,7 +41,7 @@ namespace HelloSignApi
             content.AddParameter("name", name);
 
             var resp = _client.PostAsync($"{TeamUrl}/create", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -59,7 +59,7 @@ namespace HelloSignApi
             content.AddParameter("name", name);
 
             var resp = _client.PostAsync(TeamUrl, content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -70,7 +70,7 @@ namespace HelloSignApi
         public Task<ApiResponse> DeleteTeamAsync()
         {
             var resp = _client.PostAsync($"{TeamUrl}/destroy", null)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -91,7 +91,7 @@ namespace HelloSignApi
             content.AddParameter("email_address", emailAddress);
 
             var resp = _client.PostAsync($"{TeamUrl}/add_member", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -108,7 +108,7 @@ namespace HelloSignApi
             content.AddParameter("email_address", emailAddress);
 
             var resp = _client.PostAsync($"{TeamUrl}/remove_member", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
             return resp.Unwrap();
         }
     }

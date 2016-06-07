@@ -26,7 +26,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
 
             var resp = _client.GetAsync($"{EmbeddedUrl}/sign_url/{signatureId}")
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<EmbeddedSignResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<EmbeddedSignResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -49,7 +49,7 @@ namespace HelloSignApi
             var sm = skipSubjectMessage ? 1 : 0;
 
             var resp = _client.GetAsync($"{EmbeddedUrl}/edit_url/{templateId}?test_mode={test}&skip_signer_roles={signer}&skip_subject_message={sm}")
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<EmbeddedTemplateResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<EmbeddedTemplateResponse>(_log));
             return resp.Unwrap();
         }
 

@@ -27,7 +27,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
             var resp = _client.GetAsync($"{TemplateUrl}/{templateId}")
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -45,7 +45,7 @@ namespace HelloSignApi
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
             var resp = _client.GetAsync($"{TemplateUrl}/list?account_id={accountId}&page={page}&page_size={pageSize}&query={query}")
-                 .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateListResponse>());
+                 .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateListResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -66,7 +66,7 @@ namespace HelloSignApi
             content.AddParameter("email_address", emailAddress);
 
             var resp = _client.PostAsync($"{TemplateUrl}/add_user/{templateId}", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -87,7 +87,7 @@ namespace HelloSignApi
             content.AddParameter("email_address", emailAddress);
 
             var resp = _client.PostAsync($"{TemplateUrl}/remove_user/{templateId}", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<TemplateResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -117,7 +117,7 @@ namespace HelloSignApi
             content.AddTemplateDraft(draft);
 
             var resp = _client.PostAsync($"{TemplateUrl}/create_embedded_draft", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<NewTemplateResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<NewTemplateResponse>(_log));
             return resp.Unwrap();
         }
 
@@ -132,7 +132,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
             var resp = _client.PostAsync($"{TemplateUrl}/delete/{templateId}", null)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>());
+                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>(_log));
             return resp.Unwrap();
         }
 
