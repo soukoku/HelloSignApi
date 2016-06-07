@@ -453,6 +453,11 @@ namespace HelloSignApi
     public class EmbeddedTemplate : ExpiringObject
     {
         /// <summary>
+        /// The template id if applicable.
+        /// </summary>
+        public string TemplateId { get; set; }
+
+        /// <summary>
         /// URL of the template page to display in the embedded iFrame.
         /// </summary>
         public string EditUrl { get; set; }
