@@ -319,6 +319,10 @@ namespace HelloSignApi
         /// True if you exceed Template quota; these can only be used in test mode. False if the template is included with the Template quota; these can be used at any time.
         /// </summary>
         public bool IsLocked { get; set; }
+        /// <summary>
+        /// Key-value data attached to the template. 
+        /// </summary>
+        public IDictionary<string, string> Metadata { get; set; }
     }
 
     /// <summary>
