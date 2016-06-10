@@ -97,7 +97,7 @@ namespace HelloSignApi
         /// <param name="draft">The draft.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewEmbeddedUnclaimedDraftWithTemplate draft)
+        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewTemplatedEmbeddedUnclaimedDraft draft)
         {
             return CreateEmbeddedUnclaimedDraftWithTemplateAsync(draft, CancellationToken.None);
         }
@@ -110,12 +110,12 @@ namespace HelloSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewEmbeddedUnclaimedDraftWithTemplate draft, CancellationToken cancellationToken)
+        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewTemplatedEmbeddedUnclaimedDraft draft, CancellationToken cancellationToken)
         {
             if (draft == null) { throw new ArgumentNullException("draft"); }
 
             var content = new MultipartFormDataContent();
-            content.AddEmbeddedUnclaimedDraftWithTemplate(draft);
+            content.AddTemplatedEmbeddedUnclaimedDraft(draft);
 
             var resp = _client.PostAsync($"{DraftUrl}/create_embedded_with_template", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>(_log));

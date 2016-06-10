@@ -109,7 +109,19 @@ namespace HelloSignApi
 
             content.AddParameter("subject", request.Subject);
             content.AddParameter("message", request.Message);
+            content.AddParameter("signing_redirect_url", request.SigningRedirectUrl);
             content.AddSigners(request.Signers);
+            content.AddMetadata(request.Metadata);
+        }
+
+        public static void AddRequest(this MultipartFormDataContent content, NewSignatureRequest request)
+        {
+            content.AddRequestBase(request);
+
+            content.AddParameter("client_id", request.ClientId);
+            content.AddFiles(request.Files);
+            content.AddParameter("title", request.Title);
+
             int i = 0;
             foreach (var cc in request.CcEmailAddresses)
             {
@@ -118,28 +130,24 @@ namespace HelloSignApi
 
             if (request.UseTextTags) { content.AddParameter("use_text_tags", "1"); }
             if (request.HideTextTags) { content.AddParameter("hide_text_tags", "1"); }
+            if (request.FormFieldsPerDocument.Count > 0)
+            {
+                content.AddParameter("form_fields_per_document", JsonConvert.SerializeObject(request.FormFieldsPerDocument, HttpResponseExtensions.JsonSettings));
+            }
 
-            content.AddMetadata(request.Metadata);
-
-            content.AddFiles(request.Files);
         }
 
-        public static void AddRequest(this MultipartFormDataContent content, NewSignatureRequest request)
+        public static void AddTemplatedRequest(this MultipartFormDataContent content, NewTemplatedSignatureRequest request)
         {
             content.AddRequestBase(request);
 
             content.AddParameter("client_id", request.ClientId);
-        }
-
-        public static void AddRequestFromTemplate(this MultipartFormDataContent content, NewSignatureFromTemplateRequest request)
-        {
-            content.AddRequest(request);
-            content.AddParameter("title", request.Title);
             int i = 0;
             foreach (var tid in request.TemplateIds)
             {
                 content.AddParameter($"template_ids[{i++}]", tid);
             }
+            content.AddParameter("title", request.Title);
             foreach (var cc in request.Ccs)
             {
                 content.AddParameter($"ccs[{cc.Role}]", cc.Email);
@@ -147,16 +155,14 @@ namespace HelloSignApi
             content.AddParameter("custom_fields", JsonConvert.SerializeObject(request.CustomFields, HttpResponseExtensions.JsonSettings));
         }
 
-        public static void AddEmbeddedRequest(this MultipartFormDataContent content, NewEmbeddedSignatureRequest request)
-        {
-            content.AddRequest(request);
-
-            content.AddParameter("title", request.Title);
-        }
-
         public static void AddTemplateDraft(this MultipartFormDataContent content, NewEmbeddedTemplateDraft draft)
         {
-            content.AddEmbeddedRequest(draft);
+            if (draft.TestMode) { content.AddParameter("test_mode", "1"); }
+
+            content.AddFiles(draft.Files);
+            content.AddParameter("title", draft.Title);
+            content.AddParameter("subject", draft.Subject);
+            content.AddParameter("message", draft.Message);
 
             int i = 0;
             foreach (var role in draft.SignerRoles)
@@ -173,14 +179,31 @@ namespace HelloSignApi
             content.AddParameter("merge_fields", JsonConvert.SerializeObject(draft.MergeFields, HttpResponseExtensions.JsonSettings));
 
             if (draft.UsePreexistingFields) { content.AddParameter("use_preexisting_fields", "1"); }
+            content.AddMetadata(draft.Metadata);
+            content.AddParameter("client_id", draft.ClientId);
         }
 
         public static void AddUnclaimedDraft(this MultipartFormDataContent content, NewUnclaimedDraft draft)
         {
             content.AddRequestBase(draft);
 
+            content.AddFiles(draft.Files);
             content.AddParameter("type", draft.Type);
             if (draft.UsePreexistingFields) { content.AddParameter("use_preexisting_fields", "1"); }
+
+            int i = 0;
+            foreach (var cc in draft.CcEmailAddresses)
+            {
+                content.AddParameter($"cc_email_addresses[{i++}]", cc);
+            }
+
+            if (draft.UseTextTags) { content.AddParameter("use_text_tags", "1"); }
+            if (draft.HideTextTags) { content.AddParameter("hide_text_tags", "1"); }
+            if (draft.FormFieldsPerDocument.Count > 0)
+            {
+                content.AddParameter("form_fields_per_document", JsonConvert.SerializeObject(draft.FormFieldsPerDocument, HttpResponseExtensions.JsonSettings));
+            }
+
         }
 
         public static void AddEmbeddedUnclaimedDraft(this MultipartFormDataContent content, NewEmbeddedUnclaimedDraft draft)
@@ -189,28 +212,27 @@ namespace HelloSignApi
 
             content.AddParameter("client_id", draft.ClientId);
             content.AddParameter("requester_email_address", draft.RequesterEmailAddress);
-            content.AddParameter("signing_redirect_url", draft.SigningRedirectUrl);
             if (draft.IsForEmbeddedSigning) { content.AddParameter("is_for_embedded_signing", "1"); }
         }
 
-        public static void AddEmbeddedUnclaimedDraftWithTemplate(this MultipartFormDataContent content, NewEmbeddedUnclaimedDraftWithTemplate draft)
+        public static void AddTemplatedEmbeddedUnclaimedDraft(this MultipartFormDataContent content, NewTemplatedEmbeddedUnclaimedDraft draft)
         {
-            content.AddEmbeddedUnclaimedDraft(draft);
+            content.AddRequestBase(draft);
 
-            content.AddParameter("title", draft.Title);
+            content.AddParameter("client_id", draft.ClientId);
             int i = 0;
             foreach (var tid in draft.TemplateIds)
             {
                 content.AddParameter($"template_ids[{i++}]", tid);
             }
+            content.AddParameter("title", draft.Title);
+            content.AddParameter("requesting_redirect_url", draft.RequestingRedirectUrl);
             foreach (var cc in draft.Ccs)
             {
                 content.AddParameter($"ccs[{cc.Role}]", cc.Email);
             }
             content.AddParameter("custom_fields", JsonConvert.SerializeObject(draft.CustomFields, HttpResponseExtensions.JsonSettings));
-            
-            content.AddParameter("requesting_redirect_url", draft.RequestingRedirectUrl);
-
+            if (draft.IsForEmbeddedSigning) { content.AddParameter("is_for_embedded_signing", "1"); }
         }
 
         public static void AddApiApp(this MultipartFormDataContent content, NewApiApp app)

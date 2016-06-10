@@ -51,7 +51,8 @@ namespace HelloSignApi
         }
 
         /// <summary>
-        /// Creates and sends a new SignatureRequest with the submitted documents. If form_fields_per_document is not specified, a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
+        /// Creates and sends a new SignatureRequest with the submitted documents. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
+        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
@@ -61,7 +62,8 @@ namespace HelloSignApi
             return SendSignatureRequestAsync(request, CancellationToken.None);
         }
         /// <summary>
-        /// Creates and sends a new SignatureRequest with the submitted documents. If form_fields_per_document is not specified, a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
+        /// Creates and sends a new SignatureRequest with the submitted documents. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
+        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
@@ -86,7 +88,7 @@ namespace HelloSignApi
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request)
+        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request)
         {
             return SendSignatureFromTemplateRequestAsync(request, CancellationToken.None);
         }
@@ -97,12 +99,12 @@ namespace HelloSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request, CancellationToken cancellationToken)
+        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request, CancellationToken cancellationToken)
         {
             if (request == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddRequestFromTemplate(request);
+            content.AddTemplatedRequest(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/send_with_template", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
@@ -214,28 +216,32 @@ namespace HelloSignApi
         }
 
         /// <summary>
-        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If form_fields_per_document is not specified, a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
+        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
+        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. 
+        /// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewEmbeddedSignatureRequest request)
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewSignatureRequest request)
         {
             return SendEmbeddedSignatureRequestAsync(request, CancellationToken.None);
         }
         /// <summary>
-        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If form_fields_per_document is not specified, a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
+        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
+        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. 
+        /// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewEmbeddedSignatureRequest request, CancellationToken cancellationToken)
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewSignatureRequest request, CancellationToken cancellationToken)
         {
             if (request == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddEmbeddedRequest(request);
+            content.AddRequest(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/create_embedded", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
@@ -248,7 +254,7 @@ namespace HelloSignApi
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request)
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request)
         {
             return SendEmbeddedSignatureFromTemplateRequestAsync(request, CancellationToken.None);
         }
@@ -259,12 +265,12 @@ namespace HelloSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewSignatureFromTemplateRequest request, CancellationToken cancellationToken)
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request, CancellationToken cancellationToken)
         {
             if (request == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddRequestFromTemplate(request);
+            content.AddTemplatedRequest(request);
 
             var resp = _client.PostAsync($"{SignatureUrl}/create_embedded_with_template", content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<SignatureRequestResponse>(_log));
