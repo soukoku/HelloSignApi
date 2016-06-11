@@ -16,15 +16,13 @@
     "keyFile": "Sign.snk",
     "warningsAsErrors": true
   },
-  "dependencies": {
-    "Newtonsoft.Json": "8.0.3"
-  },
   "frameworks": {
     "net40-client": {
       "buildOptions": {
         "define": [ "FULLFX" ]
       },
       "dependencies": {
+        "Newtonsoft.Json": "8.0.3",
         "Microsoft.Net.Http": "2.2.29"
       },
       "frameworkAssemblies": {
@@ -36,6 +34,9 @@
       "buildOptions": {
         "define": [ "FULLFX" ]
       },
+      "dependencies": {
+        "Newtonsoft.Json": "8.0.3"
+      },
       "frameworkAssemblies": {
         "PresentationCore": "4.0.0.0",
         "System.Drawing": "4.0.0.0",
@@ -43,8 +44,9 @@
       }
     },
     "netstandard1.3": {
-      "imports": "netcore",
+      //"imports": "netcore",
       "dependencies": {
+        "Newtonsoft.Json": "9.0.1-*",
         "System.Collections.Concurrent": "4.0.12-*",
         "System.IO": "4.1.0-*",
         "System.IO.FileSystem": "4.0.1-*",
@@ -64,6 +66,7 @@
         "define": [ "PORTABLE" ]
       },
       "dependencies": {
+        "Newtonsoft.Json": "8.0.3",
         "Microsoft.Net.Http": "2.2.29"
       }
     },
@@ -71,8 +74,8 @@
       "buildOptions": {
         "define": [ "PORTABLE" ]
       },
-      "imports": "netcore",
       "dependencies": {
+        "Newtonsoft.Json": "8.0.3",
         "Microsoft.Net.Http": "2.2.29"
       },
       "frameworkAssemblies": {
@@ -89,5 +92,13 @@
         "System.Threading": "4.0.0.0"
       }
     }
+    //"uap": {
+    //  "buildOptions": {
+    //    "define": [ "WINDOWS_UWP" ]
+    //  },
+    //  "dependencies": {
+    //    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0"
+    //  }
+    //}
   }
 }

@@ -1,4 +1,4 @@
-﻿#if !PORTABLE
+﻿#if !PORTABLE && !WINDOWS_UWP
 
 using System;
 using System.Collections.Generic;

@@ -45,7 +45,7 @@ namespace HelloSignApi
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
                 Convert.ToBase64String(Encoding.UTF8.GetBytes(apiKey + ":")));
         }
-#if !PORTABLE
+#if !PORTABLE && !WINDOWS_UWP
         /// <summary>
         /// Parsed the data received from the event callback.
         /// </summary>
