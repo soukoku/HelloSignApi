@@ -119,7 +119,7 @@ namespace HelloSignApi.Requests
         }
 
     }
-
+    
     /// <summary>
     /// Container object for files to be uploaded.
     /// </summary>
@@ -127,18 +127,18 @@ namespace HelloSignApi.Requests
     {
         List<PendingFile> _list = new List<PendingFile>();
 
-        private void VerifyTheSame(PendingFile item)
+        private void VerifyTheSameSource(PendingFile item)
         {
             if (item.RemotePath == null)
             {
                 if (_list.Any(f => f.RemotePath != null))
                 {
-                    throw new ArgumentException("File collection can only contain one type of file source.");
+                    throw new ArgumentException("File collection can only contain one type of file source (remote or local).");
                 }
             }
             else if (_list.Any(f => f.RemotePath == null))
             {
-                throw new ArgumentException("File collection can only contain one type of file source.");
+                throw new ArgumentException("File collection can only contain one type of file source. (remote or local)");
             }
         }
 
@@ -150,8 +150,6 @@ namespace HelloSignApi.Requests
         /// </value>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
         public PendingFile this[int index]
         {
             get { return _list[index]; }
@@ -174,7 +172,7 @@ namespace HelloSignApi.Requests
         /// <param name="item">The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
         public void Add(PendingFile item)
         {
-            VerifyTheSame(item);
+            VerifyTheSameSource(item);
             _list.Add(item);
         }
 
@@ -238,7 +236,7 @@ namespace HelloSignApi.Requests
         /// <param name="item">The object to insert into the <see cref="T:System.Collections.Generic.IList`1" />.</param>
         public void Insert(int index, PendingFile item)
         {
-            VerifyTheSame(item);
+            VerifyTheSameSource(item);
             _list.Insert(index, item);
         }
 

@@ -245,14 +245,36 @@ namespace HelloSignApi.Responses
     }
 
     /// <summary>
-    /// Response for the get file api call.
+    /// An object that contains file download info.
+    /// </summary>
+    public class DownloadInfo : ExpiringObject
+    {
+        /// <summary>
+        /// URL of the download url.
+        /// </summary>
+        public string FileUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Response for the get file api call with download url.
     /// </summary>
     public class DownloadInfoResponse : ApiResponse
     {
         /// <summary>
         /// The download info object.
         /// </summary>
-        public DownloadInfo DownloadInfo { get; set; }
+        public DownloadInfo DownloadInfo { get; internal set; }
+    }
+
+    /// <summary>
+    /// Response for the get file api call with download url.
+    /// </summary>
+    public class DownloadDataResponse : ApiResponse
+    {
+        /// <summary>
+        /// The download data response.
+        /// </summary>
+        public HttpResponseMessage FileResponse { get; internal set; }
     }
 
     /// <summary>

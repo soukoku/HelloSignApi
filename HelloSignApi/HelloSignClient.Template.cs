@@ -172,13 +172,21 @@ namespace HelloSignApi
         /// <see cref="FileType.Zip" /> for a collection of individual documents.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<HttpResponseMessage> GetTemplateFilesAsync(string templateId, FileType fileType)
+        public Task<DownloadDataResponse> GetTemplateFilesAsync(string templateId, FileType fileType)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
             var ft = fileType == FileType.Zip ? "zip" : "pdf";
 
-            return _client.GetAsync($"{TemplateUrl}/files/{templateId}?file_type={ft}");
+            var resp = _client.GetAsync($"{TemplateUrl}/files/{templateId}?file_type={ft}")
+                .ContinueWith(t =>
+                {
+                    var apiR = new DownloadDataResponse();
+                    apiR.FillExtraValues(t.Result);
+                    apiR.FileResponse = t.Result;
+                    return apiR;
+                });
+            return resp;
         }
 
     }
