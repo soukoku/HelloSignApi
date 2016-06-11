@@ -142,7 +142,7 @@ namespace HelloSignApi
         /// <param name="templateId">The id of the template files to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<DownloadInfoResponse> GetTemplateFilesAsync(string templateId)
+        public Task<DownloadInfoResponse> GetTemplateFileUrlAsync(string templateId)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 

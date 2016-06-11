@@ -160,7 +160,7 @@ namespace HelloSignApi
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public Task<DownloadInfoResponse> GetFilesAsync(string signatureRequestId)
+        public Task<DownloadInfoResponse> GetFileUrlAsync(string signatureRequestId)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
