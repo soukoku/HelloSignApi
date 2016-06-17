@@ -26,9 +26,7 @@ namespace HelloSignApi
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id required."); }
 
-            var resp = _client.GetAsync($"{ApiAppUrl}/{clientId}")
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiAppResponse>(_log));
-            return resp.Unwrap();
+            return GetAsync<ApiAppResponse>($"{ApiAppUrl}/{clientId}");
         }
 
         /// <summary>
@@ -43,9 +41,7 @@ namespace HelloSignApi
             page = Math.Max(1, page);
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
-            var resp = _client.GetAsync($"{ApiAppUrl}/list?page={page}&page_size={pageSize}")
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiAppListResponse>(_log));
-            return resp.Unwrap();
+            return GetAsync<ApiAppListResponse>($"{ApiAppUrl}/list?page={page}&page_size={pageSize}");
         }
 
         /// <summary>
@@ -61,9 +57,7 @@ namespace HelloSignApi
             var content = new MultipartFormDataContent();
             content.AddApiApp(app);
 
-            var resp = _client.PostAsync(ApiAppUrl, content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiAppResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<ApiAppResponse>(ApiAppUrl, content);
         }
 
         /// <summary>
@@ -83,9 +77,7 @@ namespace HelloSignApi
             var content = new MultipartFormDataContent();
             content.AddApiApp(app);
 
-            var resp = _client.PostAsync($"{ApiAppUrl}/{clientId}", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiAppResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<ApiAppResponse>($"{ApiAppUrl}/{clientId}", content);
         }
 
         /// <summary>
@@ -98,9 +90,7 @@ namespace HelloSignApi
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id is required."); }
 
-            var resp = _client.PostAsync($"{ApiAppUrl}/{clientId}", null)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<ApiResponse>($"{ApiAppUrl}/{clientId}", null);
         }
     }
 }

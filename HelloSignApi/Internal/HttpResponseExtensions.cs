@@ -29,7 +29,7 @@ namespace HelloSignApi
                 model.FillExtraValues(msg);
 
                 return model;
-            });
+            }, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
     }
 }

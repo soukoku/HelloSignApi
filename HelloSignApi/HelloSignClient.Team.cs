@@ -22,9 +22,7 @@ namespace HelloSignApi
         /// <returns></returns>
         public Task<TeamResponse> GetTeamAsync()
         {
-            var resp = _client.GetAsync(TeamUrl)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
-            return resp.Unwrap();
+            return GetAsync<TeamResponse>(TeamUrl);
         }
 
         /// <summary>
@@ -40,9 +38,7 @@ namespace HelloSignApi
             var content = new MultipartFormDataContent();
             content.AddParameter("name", name);
 
-            var resp = _client.PostAsync($"{TeamUrl}/create", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<TeamResponse>($"{TeamUrl}/create", content);
         }
 
         /// <summary>
@@ -58,9 +54,7 @@ namespace HelloSignApi
             var content = new MultipartFormDataContent();
             content.AddParameter("name", name);
 
-            var resp = _client.PostAsync(TeamUrl, content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<TeamResponse>(TeamUrl, content);
         }
 
         /// <summary>
@@ -69,9 +63,7 @@ namespace HelloSignApi
         /// <returns></returns>
         public Task<ApiResponse> DeleteTeamAsync()
         {
-            var resp = _client.PostAsync($"{TeamUrl}/destroy", null)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<ApiResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<ApiResponse>($"{TeamUrl}/destroy", null);
         }
 
         /// <summary>
@@ -90,9 +82,7 @@ namespace HelloSignApi
             content.AddParameter("account_id", accountId);
             content.AddParameter("email_address", emailAddress);
 
-            var resp = _client.PostAsync($"{TeamUrl}/add_member", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", content);
         }
 
         /// <summary>
@@ -107,9 +97,7 @@ namespace HelloSignApi
             content.AddParameter("account_id", accountId);
             content.AddParameter("email_address", emailAddress);
 
-            var resp = _client.PostAsync($"{TeamUrl}/remove_member", content)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TeamResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", content);
         }
     }
 }

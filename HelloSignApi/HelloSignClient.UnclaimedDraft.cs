@@ -47,9 +47,7 @@ namespace HelloSignApi
             var content = new MultipartFormDataContent();
             content.AddUnclaimedDraft(draft);
 
-            var resp = _client.PostAsync($"{DraftUrl}/create", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create", content, cancellationToken);
         }
 
         /// <summary>
@@ -83,9 +81,7 @@ namespace HelloSignApi
             var content = new MultipartFormDataContent();
             content.AddEmbeddedUnclaimedDraft(draft);
 
-            var resp = _client.PostAsync($"{DraftUrl}/create_embedded", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded", content, cancellationToken);
         }
 
 
@@ -117,9 +113,7 @@ namespace HelloSignApi
             var content = new MultipartFormDataContent();
             content.AddTemplatedEmbeddedUnclaimedDraft(draft);
 
-            var resp = _client.PostAsync($"{DraftUrl}/create_embedded_with_template", content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<UnclaimedDraftResponse>(_log));
-            return resp.Unwrap();
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded_with_template", content, cancellationToken);
         }
     }
 }
