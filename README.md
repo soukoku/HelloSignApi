@@ -81,7 +81,7 @@ else
 
 ```
 
-### Magic strings
+### Magic string values
 Many of the models contain string properties that have pre-defined values.
 Where applicable, the property doc (intellisense) will indicate where you can find those values
 (usually defined as string constants in a similarly-named static class). 
@@ -105,9 +105,9 @@ switch(response.Error.Name)
 
 
 
-### Event callback
-If this lib is used in an http server (under the full dotnet framework or dotnet core), 
-it's also possible to parse the event callback data from HelloSign as well:
+### Event model
+If this lib is used in an http server (in full dotnet framework or dotnet core), 
+it can be used to parse the event callback data from HelloSign as well:
 ```cs
 string jsonData = ...;// somehow get the event callback json
 Event theEvent = client.ParseEvent(jsonData);
