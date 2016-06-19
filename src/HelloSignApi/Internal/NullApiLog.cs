@@ -12,6 +12,8 @@ namespace HelloSignApi
     {
         public static readonly IApiLog Instance = new NullApiLog();
 
+        public void Requesting(string httpMethod, string apiUrl) { }
+
         public void ResponseRead<TResp>(string content) where TResp : ApiResponse
         {
         }

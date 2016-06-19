@@ -57,6 +57,7 @@ namespace HelloSignApi
         /// <returns></returns>
         protected Task<TResp> GetAsync<TResp>(string apiUrl) where TResp : ApiResponse
         {
+            _log.Requesting("GET", apiUrl);
             var resp = _client.GetAsync(apiUrl)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<TResp>(_log));
             return resp.Unwrap();
@@ -82,6 +83,7 @@ namespace HelloSignApi
         /// <returns></returns>
         protected Task<TResp> PostAsync<TResp>(string apiUrl, HttpContent content, CancellationToken cancellationToken) where TResp : ApiResponse
         {
+            _log.Requesting("POST", apiUrl);
             var resp = _client.PostAsync(apiUrl, content, cancellationToken)
                 .ContinueWith(t => t.Result.ParseApiResponseAsync<TResp>(_log));
             return resp.Unwrap();

@@ -12,6 +12,13 @@ namespace HelloSignApi
     public interface IApiLog
     {
         /// <summary>
+        /// Called before requeting an API.
+        /// </summary>
+        /// <param name="httpMethod">The HTTP method.</param>
+        /// <param name="apiUrl">The API URL.</param>
+        void Requesting(string httpMethod, string apiUrl);
+
+        /// <summary>
         /// Called when the API response content has been read and before
         /// deserialization occurs. This does not apply to direct file downloads.
         /// </summary>

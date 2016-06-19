@@ -134,7 +134,9 @@ namespace HelloSignApi
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            var resp = _client.GetAsync($"{TemplateUrl}/files/{templateId}?get_url=1")
+            var url = $"{TemplateUrl}/files/{templateId}?get_url=1";
+            _log.Requesting("GET", url);
+            var resp = _client.GetAsync(url)
                 .ContinueWith(t =>
                 {
                     var dir = new DownloadInfoResponse();
@@ -166,7 +168,9 @@ namespace HelloSignApi
 
             var ft = fileType == FileType.Zip ? "zip" : "pdf";
 
-            var resp = _client.GetAsync($"{TemplateUrl}/files/{templateId}?file_type={ft}")
+            var url = $"{TemplateUrl}/files/{templateId}?file_type={ft}";
+            _log.Requesting("GET", url);
+            var resp = _client.GetAsync(url)
                 .ContinueWith(t =>
                 {
                     var apiR = new DownloadDataResponse();

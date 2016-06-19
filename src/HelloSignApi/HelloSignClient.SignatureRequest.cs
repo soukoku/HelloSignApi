@@ -152,7 +152,9 @@ namespace HelloSignApi
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
-            var resp = _client.GetAsync($"{SignatureUrl}/files/{signatureRequestId}?get_url=1")
+            var url = $"{SignatureUrl}/files/{signatureRequestId}?get_url=1";
+            _log.Requesting("GET", url);
+            var resp = _client.GetAsync(url)
                 .ContinueWith(t =>
                 {
                     var dir = new DownloadInfoResponse();
@@ -184,8 +186,9 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
             var ft = fileType == FileType.Zip ? "zip" : "pdf";
-
-            var resp = _client.GetAsync($"{SignatureUrl}/files/{signatureRequestId}?file_type={ft}")
+            var url = $"{SignatureUrl}/files/{signatureRequestId}?file_type={ft}";
+            _log.Requesting("GET", url);
+            var resp = _client.GetAsync(url)
                 .ContinueWith(t =>
                 {
                     var apiR = new DownloadDataResponse();
