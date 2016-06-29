@@ -1,6 +1,6 @@
 {
   "language": "en",
-  "version": "1.0.0-beta08",
+  "version": "1.0.0",
   "title": "HelloSignApi",
   "description": "Unofficial task-based HelloSign api lib for dotnet with intellisense doc.",
   "authors": [ "Yin-Chun Wang" ],
@@ -16,18 +16,20 @@
     "keyFile": "Sign.snk",
     "warningsAsErrors": true
   },
+  "dependencies": {
+    "Newtonsoft.Json": "9.0.1"
+  },
   "frameworks": {
     "net40-client": {
       "buildOptions": {
         "define": [ "FULLFX" ]
       },
       "dependencies": {
-        "Newtonsoft.Json": "8.0.3",
         "Microsoft.Net.Http": "2.2.29"
       },
       "frameworkAssemblies": {
-        "PresentationCore": "4.0.0.0",
-        "System.Drawing": "4.0.0.0"
+        "PresentationCore": "",
+        "System.Drawing": ""
       }
     },
     "net45": {
@@ -35,30 +37,28 @@
         "define": [ "FULLFX" ]
       },
       "dependencies": {
-        "Newtonsoft.Json": "8.0.3"
       },
       "frameworkAssemblies": {
-        "PresentationCore": "4.0.0.0",
-        "System.Drawing": "4.0.0.0",
-        "System.Net.Http": "4.0.0.0"
+        "PresentationCore": "",
+        "System.Drawing": "",
+        "System.Net.Http": ""
       }
     },
     "netstandard1.3": {
-      //"imports": "netcore",
       "dependencies": {
-        "Newtonsoft.Json": "9.0.1-*",
-        "System.Collections.Concurrent": "4.0.12-*",
-        "System.IO": "4.1.0-*",
-        "System.IO.FileSystem": "4.0.1-*",
-        "System.IO.FileSystem.Primitives": "4.0.1-*",
-        "System.Linq": "4.1.0-*",
-        "System.Net.Http": "4.0.1-*",
-        "System.Resources.ResourceManager": "4.0.1-*",
-        "System.Runtime": "4.1.0-*",
-        "System.Runtime.Extensions": "4.1.0-*",
-        "System.Runtime.InteropServices": "4.1.0-*",
-        "System.Security.Cryptography.Algorithms": "4.1.0-*",
-        "System.Text.RegularExpressions": "4.0.12-*"
+        //"NETStandard.Library": "1.6.0"
+        "System.Collections.Concurrent": "4.0.12",
+        "System.IO": "4.1.0",
+        "System.IO.FileSystem": "4.0.1",
+        "System.IO.FileSystem.Primitives": "4.0.1",
+        "System.Linq": "4.1.0",
+        "System.Net.Http": "4.1.0",
+        "System.Resources.ResourceManager": "4.0.1",
+        "System.Runtime": "4.1.0",
+        "System.Runtime.Extensions": "4.1.0",
+        "System.Runtime.InteropServices": "4.1.0",
+        "System.Security.Cryptography.Algorithms": "4.2.0",
+        "System.Text.RegularExpressions": "4.1.0"
       }
     },
     ".NETPortable,Version=v4.0,Profile=Profile328": {
@@ -66,32 +66,30 @@
         "define": [ "PORTABLE" ]
       },
       "dependencies": {
-        "Newtonsoft.Json": "8.0.3",
         "Microsoft.Net.Http": "2.2.29"
       }
+    },
+    ".NETPortable,Version=v4.5,Profile=Profile259": {
+      "buildOptions": {
+        "define": [ "PORTABLE" ]
+      },
+      "dependencies": {
+        "Microsoft.Net.Http": "2.2.29"
+      },
+      "frameworkAssemblies": {
+        "mscorlib": "",
+        "System": "",
+        "System.Collections": "",
+        "System.Core": "",
+        "System.Linq": "",
+        "System.Net.Primitives": "",
+        "System.Resources.ResourceManager": "",
+        "System.Runtime.Extensions": "",
+        "System.Text.Encoding": "",
+        "System.Text.RegularExpressions": "",
+        "System.Threading": ""
+      }
     }
-    //".NETPortable,Version=v4.5,Profile=Profile259": {
-    //  "buildOptions": {
-    //    "define": [ "PORTABLE" ]
-    //  },
-    //  "dependencies": {
-    //    "Newtonsoft.Json": "8.0.3",
-    //    "Microsoft.Net.Http": "2.2.29"
-    //  },
-    //  "frameworkAssemblies": {
-    //    "mscorlib": "4.0.0.0",
-    //    "System": "4.0.0.0",
-    //    "System.Collections": "4.0.0.0",
-    //    "System.Core": "4.0.0.0",
-    //    "System.Linq": "4.0.0.0",
-    //    "System.Net.Primitives": "3.9.0.0",
-    //    "System.Resources.ResourceManager": "4.0.0.0",
-    //    "System.Runtime.Extensions": "4.0.0.0",
-    //    "System.Text.Encoding": "4.0.0.0",
-    //    "System.Text.RegularExpressions": "4.0.0.0",
-    //    "System.Threading": "4.0.0.0"
-    //  }
-    //}
     //"uap": {
     //  "buildOptions": {
     //    "define": [ "WINDOWS_UWP" ]
