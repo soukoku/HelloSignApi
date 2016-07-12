@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace HelloSignApi.Requests
         /// <summary>
         /// Type of merge field. Can only be <see cref="FieldTypes.Text"/> or <see cref="FieldTypes.CheckBox"/>.
         /// </summary>
+        [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public string Type { get; set; }
     }
 }
