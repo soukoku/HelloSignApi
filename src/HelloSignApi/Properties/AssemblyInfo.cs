@@ -24,3 +24,8 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: CLSCompliant(false)]
+
+[assembly: AssemblyVersion("1.0.0.0")]
+// these are set by project.json version for nuget updates
+//[assembly: AssemblyFileVersion(VersionInfo.BuildVersion)]
+//[assembly: AssemblyInformationalVersion(VersionInfo.BuildVersion)]
