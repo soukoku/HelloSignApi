@@ -36,7 +36,7 @@ namespace HelloSignApi
             if (!string.IsNullOrEmpty(callbackUrl))
             {
                 content = new MultipartFormDataContent();
-                content.AddParameter("callback_url", callbackUrl);
+                content.AddParameter(_log, "callback_url", callbackUrl);
             }
 
             return PostAsync<AccountResponse>(AccountUrl, content);
@@ -53,7 +53,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
             var content = new MultipartFormDataContent();
-            content.AddParameter("email_address", emailAddress);
+            content.AddParameter(_log, "email_address", emailAddress);
 
             return PostAsync<AccountResponse>($"{AccountUrl}/create", content);
         }
@@ -70,7 +70,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
             var content = new MultipartFormDataContent();
-            content.AddParameter("email_address", emailAddress);
+            content.AddParameter(_log, "email_address", emailAddress);
 
             return PostAsync<AccountResponse>($"{AccountUrl}/verify", content);
         }

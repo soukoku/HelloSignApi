@@ -55,7 +55,7 @@ namespace HelloSignApi
             if (app == null) { throw new ArgumentNullException("app"); }
 
             var content = new MultipartFormDataContent();
-            content.AddApiApp(app);
+            content.AddApiApp(_log, app);
 
             return PostAsync<ApiAppResponse>(ApiAppUrl, content);
         }
@@ -75,7 +75,7 @@ namespace HelloSignApi
             if (app == null) { throw new ArgumentNullException("app"); }
 
             var content = new MultipartFormDataContent();
-            content.AddApiApp(app);
+            content.AddApiApp(_log, app);
 
             return PostAsync<ApiAppResponse>($"{ApiAppUrl}/{clientId}", content);
         }

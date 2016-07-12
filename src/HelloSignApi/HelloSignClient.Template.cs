@@ -58,8 +58,8 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
             var content = new MultipartFormDataContent();
-            content.AddParameter("account_id", accountId);
-            content.AddParameter("email_address", emailAddress);
+            content.AddParameter(_log, "account_id", accountId);
+            content.AddParameter(_log, "email_address", emailAddress);
 
             return PostAsync<TemplateResponse>($"{TemplateUrl}/add_user/{templateId}", content);
         }
@@ -77,8 +77,8 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
             var content = new MultipartFormDataContent();
-            content.AddParameter("account_id", accountId);
-            content.AddParameter("email_address", emailAddress);
+            content.AddParameter(_log, "account_id", accountId);
+            content.AddParameter(_log, "email_address", emailAddress);
 
             return PostAsync<TemplateResponse>($"{TemplateUrl}/remove_user/{templateId}", content);
         }
@@ -106,7 +106,7 @@ namespace HelloSignApi
             if (draft == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddTemplateDraft(draft);
+            content.AddTemplateDraft(_log, draft);
 
             return PostAsync<NewTemplateResponse>($"{TemplateUrl}/create_embedded_draft", content, cancellationToken);
         }

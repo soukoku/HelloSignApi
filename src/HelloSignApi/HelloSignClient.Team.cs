@@ -36,7 +36,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
             var content = new MultipartFormDataContent();
-            content.AddParameter("name", name);
+            content.AddParameter(_log, "name", name);
 
             return PostAsync<TeamResponse>($"{TeamUrl}/create", content);
         }
@@ -52,7 +52,7 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
             var content = new MultipartFormDataContent();
-            content.AddParameter("name", name);
+            content.AddParameter(_log, "name", name);
 
             return PostAsync<TeamResponse>(TeamUrl, content);
         }
@@ -79,8 +79,8 @@ namespace HelloSignApi
         public Task<TeamResponse> AddTeamUserAsync(string accountId, string emailAddress)
         {
             var content = new MultipartFormDataContent();
-            content.AddParameter("account_id", accountId);
-            content.AddParameter("email_address", emailAddress);
+            content.AddParameter(_log, "account_id", accountId);
+            content.AddParameter(_log, "email_address", emailAddress);
 
             return PostAsync<TeamResponse>($"{TeamUrl}/add_member", content);
         }
@@ -94,8 +94,8 @@ namespace HelloSignApi
         public Task<TeamResponse> RemoveTeamUserAsync(string accountId, string emailAddress)
         {
             var content = new MultipartFormDataContent();
-            content.AddParameter("account_id", accountId);
-            content.AddParameter("email_address", emailAddress);
+            content.AddParameter(_log, "account_id", accountId);
+            content.AddParameter(_log, "email_address", emailAddress);
 
             return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", content);
         }

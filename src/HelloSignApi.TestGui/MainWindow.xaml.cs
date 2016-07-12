@@ -28,20 +28,27 @@ namespace HelloSignApi.TestGui
 
         private void btnChangeKey_Click(object sender, RoutedEventArgs e)
         {
-            var client = new HelloSignClient(boxApiKey.Text.Trim(), log: this);
-            viewRequests.ChangeClient(client);
+            var key = boxApiKey.Text.Trim();
+            if (!string.IsNullOrEmpty(key))
+            {
+                var client = new HelloSignClient(key, log: this);
+                viewRequests.ChangeClient(client);
 
-            client.GetSignatureRequestListAsync();
+                client.GetSignatureRequestListAsync();
+            }
         }
 
         void IApiLog.Requesting(string httpMethod, string apiUrl)
         {
             LogIt($"[{httpMethod}] {apiUrl}\n");
         }
-
+        void IApiLog.ParameterAdded(string key, string value)
+        {
+            LogIt($"\t{key}={value}\n");
+        }
         void IApiLog.ResponseRead<TResp>(string content)
         {
-            LogIt($"Received data for {typeof(TResp).Name}:\n{FormatJson(content)}\n\n");
+            LogIt($"\tReceived data for {typeof(TResp).Name}:\n{FormatJson(content)}\n\n");
         }
 
         void LogIt(string message)

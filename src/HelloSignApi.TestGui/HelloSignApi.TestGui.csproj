@@ -39,15 +39,15 @@
       <HintPath>..\HelloSignApi\bin\Debug\net45\HelloSignApi.dll</HintPath>
     </Reference>
     <Reference Include="ModernWpf, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c99d0cfbea7491ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ModernWpf.2.0.0-alpha3\lib\net40-Client\ModernWpf.dll</HintPath>
+      <HintPath>..\..\packages\ModernWpf.2.0.0-alpha9\lib\net40-Client\ModernWpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ModernWpf.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c99d0cfbea7491ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ModernWpf.Core.2.0.0-alpha3\lib\net40-Client\ModernWpf.Core.dll</HintPath>
+      <HintPath>..\..\packages\ModernWpf.Core.2.0.0-alpha93\lib\net40-Client\ModernWpf.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -110,7 +110,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

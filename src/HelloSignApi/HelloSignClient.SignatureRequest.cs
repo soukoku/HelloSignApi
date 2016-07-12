@@ -70,7 +70,7 @@ namespace HelloSignApi
             if (request == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddRequest(request);
+            content.AddRequest(_log, request);
 
             return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/send", content, cancellationToken);
         }
@@ -98,7 +98,7 @@ namespace HelloSignApi
             if (request == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddTemplatedRequest(request);
+            content.AddTemplatedRequest(_log, request);
 
             return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/send_with_template", content, cancellationToken);
         }
@@ -122,8 +122,8 @@ namespace HelloSignApi
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
             var content = new MultipartFormDataContent();
-            content.AddParameter("email_address", emailAddress);
-            content.AddParameter("name", name);
+            content.AddParameter(_log, "email_address", emailAddress);
+            content.AddParameter(_log, "name", name);
 
             return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/remind/{signatureRequestId}", content);
         }
@@ -240,7 +240,7 @@ namespace HelloSignApi
             if (request == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddRequest(request);
+            content.AddRequest(_log, request);
 
             return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/create_embedded", content, cancellationToken);
         }
@@ -267,7 +267,7 @@ namespace HelloSignApi
             if (request == null) { throw new ArgumentNullException("request"); }
 
             var content = new MultipartFormDataContent();
-            content.AddTemplatedRequest(request);
+            content.AddTemplatedRequest(_log, request);
 
             return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/create_embedded_with_template", content, cancellationToken);
         }

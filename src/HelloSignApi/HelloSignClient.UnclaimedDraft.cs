@@ -45,7 +45,7 @@ namespace HelloSignApi
             if (draft == null) { throw new ArgumentNullException("draft"); }
 
             var content = new MultipartFormDataContent();
-            content.AddUnclaimedDraft(draft);
+            content.AddUnclaimedDraft(_log, draft);
 
             return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create", content, cancellationToken);
         }
@@ -79,7 +79,7 @@ namespace HelloSignApi
             if (draft == null) { throw new ArgumentNullException("draft"); }
 
             var content = new MultipartFormDataContent();
-            content.AddEmbeddedUnclaimedDraft(draft);
+            content.AddEmbeddedUnclaimedDraft(_log, draft);
 
             return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded", content, cancellationToken);
         }
@@ -111,7 +111,7 @@ namespace HelloSignApi
             if (draft == null) { throw new ArgumentNullException("draft"); }
 
             var content = new MultipartFormDataContent();
-            content.AddTemplatedEmbeddedUnclaimedDraft(draft);
+            content.AddTemplatedEmbeddedUnclaimedDraft(_log, draft);
 
             return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded_with_template", content, cancellationToken);
         }

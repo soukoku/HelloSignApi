@@ -14,6 +14,10 @@ namespace HelloSignApi.TestGui
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            var test = ModernWpf.UIHooks.EnableHighDpiSupport();
+        }
         protected override void OnExit(ExitEventArgs e)
         {
             Settings.Default.Save();
