@@ -18,6 +18,11 @@ namespace HelloSignApi.TestGui
         {
             var test = ModernWpf.UIHooks.EnableHighDpiSupport();
         }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ModernWpf.Theme.ApplyTheme(ModernWpf.ThemeColor.Light, ModernWpf.Accent.DarkBlue);
+            base.OnStartup(e);
+        }
         protected override void OnExit(ExitEventArgs e)
         {
             Settings.Default.Save();

@@ -2,41 +2,53 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HelloSignApi.TestGui"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:modern="http://modernwpf"
         xmlns:prop="clr-namespace:HelloSignApi.TestGui.Properties"
-        mc:Ignorable="d"
-        Title="HelloSign API Test" Height="600" Width="800">
-    <Grid>
+        Title="HelloSign API Test"
+        Width="800"
+        Height="600"
+        Style="{StaticResource BasicWindow}"
+        mc:Ignorable="d">
+    <Grid SnapsToDevicePixels="True" UseLayoutRounding="True">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <Label Content="API _Key" Target="{Binding ElementName=boxApiKey}"></Label>
-            <TextBox x:Name="boxApiKey" Grid.Column="1" Text="{Binding Source={x:Static prop:Settings.Default}, Path=ApiKey}"></TextBox>
-            <Button x:Name="btnChangeKey" Content="Use Key" Grid.Column="2" Click="btnChangeKey_Click"></Button>
+            <Label Content="API _Key" Target="{Binding ElementName=boxApiKey}" />
+            <TextBox x:Name="boxApiKey"
+                     Grid.Column="1"
+                     Text="{Binding Source={x:Static prop:Settings.Default}, Path=ApiKey}" />
+            <Button x:Name="btnChangeKey"
+                    Grid.Column="2"
+                    Click="btnChangeKey_Click"
+                    Content="Use Key" />
         </Grid>
 
-        <TabControl Grid.Row="1" Margin="8 0 8 8"
-                    Style="{StaticResource ModernTabControl}"
+        <TabControl Grid.Row="1"
+                    Margin="8,0,8,8"
+                    BorderThickness="1"
                     ItemContainerStyle="{StaticResource ModernTabItem2}"
-                    BorderThickness="1">
+                    Style="{StaticResource ModernTabControl}">
             <TabItem Header="Requests">
-                <local:RequestsView x:Name="viewRequests"></local:RequestsView>
+                <local:RequestsView x:Name="viewRequests" />
             </TabItem>
             <TabItem Header="Logs">
-                <TextBox x:Name="boxLog" AcceptsReturn="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                <TextBox x:Name="boxLog"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         AcceptsReturn="True"
+                         BorderThickness="0"
                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                         BorderThickness="0">
-                </TextBox>
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" />
             </TabItem>
         </TabControl>
     </Grid>

@@ -19,7 +19,16 @@ namespace HelloSignApi.Requests
 		/// <param name="fileName">Obsolete. Has no bearing on the name of the remote file.</param>
         /// <exception cref="ArgumentNullException">remoteFilePath</exception>
         /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
-        public PendingFile(Uri remoteFilePath, string fileName = null)
+        [Obsolete("Use constructor without fileName for Uri files.")]
+        public PendingFile(Uri remoteFilePath, string fileName) : this(remoteFilePath) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PendingFile" /> class.
+        /// </summary>
+        /// <param name="remoteFilePath">The remote file path.</param>
+        /// <exception cref="ArgumentNullException">remoteFilePath</exception>
+        /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
+        public PendingFile(Uri remoteFilePath)
         {
             if (remoteFilePath == null) { throw new ArgumentNullException("remoteFilePath"); }
 
@@ -102,7 +111,7 @@ namespace HelloSignApi.Requests
         public Stream Stream { get; private set; }
 
         /// <summary>
-        /// Gets the name of the file.
+        /// Gets the name of the file. This is only for local files.
         /// </summary>
         public string FileName { get; private set; }
 
