@@ -55,6 +55,10 @@ namespace HelloSignApi
         /// </summary>
         public const string SignatureRequestSent = "signature_request_sent";
         /// <summary>
+        /// The SignatureRequest was declined by a signer.
+        /// </summary>
+        public const string SignatureRequestDeclined = "signature_request_declined";
+        /// <summary>
         /// All signers have been sent a reminder to complete the SignatureRequest.
         /// </summary>
         public const string SignatureRequestRemind = "signature_request_remind";
@@ -70,6 +74,11 @@ namespace HelloSignApi
         /// An unknown error occurred during while processing a signature request.
         /// </summary>
         public const string UnknownError = "unknown_error";
+        /// <summary>
+        /// An email address for one of the signers on your signature request has bounced. May be correctable by updating
+        /// the request.
+        /// </summary>
+        public const string SignatureRequestEmailBounce = "signature_request_email_bounce";
         /// <summary>
         /// An error occurred while processing the signature request data on our back-end.
         /// For example: Invalid text tags
@@ -111,6 +120,10 @@ namespace HelloSignApi
         /// Awaiting signature
         /// </summary>
         public const string AwaitingSignature = "awaiting_signature";
+        /// <summary>
+        /// Declined
+        /// </summary>
+        public const string Declined = "declined";
         /// <summary>
         /// Unknown error
         /// </summary>

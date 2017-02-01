@@ -107,6 +107,7 @@ namespace HelloSignApi
         static void AddRequestBase(this MultipartFormDataContent content, IApiLog log, NewRequestBase request)
         {
             if (request.TestMode) { content.AddParameter(log, "test_mode", "1"); }
+            if (request.AllowDecline) { content.AddParameter(log, "allow_decline", "1"); }
 
             content.AddParameter(log, "subject", request.Subject);
             content.AddParameter(log, "message", request.Message);

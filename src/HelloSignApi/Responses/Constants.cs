@@ -139,12 +139,25 @@ namespace HelloSignApi.Responses
         /// </summary>
         public const string ParameterConflict = "parameter_conflict";
         /// <summary>
+        /// An essential parameter was missing from the request and has been set to a default value.
+        /// </summary>
+        public const string ParameterMissing = "parameter_missing";
+        /// <summary>
         /// The operation succeeded, but at least one non-essential part of the request failed.
         /// </summary>
         public const string PartialSuccess = "partial_success";
         /// <summary>
-        /// A parameter was provided which will affect your app in test mode but will not affect it in production. Upgrade your account to use in production.
+        /// A parameter was provided which will affect your app in test mode but will not affect it in production. 
+        /// Upgrade your account to use in production.
         /// </summary>
         public const string TestModeOnly = "test_mode_only";
+        /// <summary>
+        /// A non-essential parameter was provided but it does not have a value. The parameter will be ignored.
+        /// </summary>
+        public const string EmptyValue = "empty_value";
+        /// <summary>
+        /// A warning was generated while attempting to add a user to your team.
+        /// </summary>
+        public const string AddMember = "add_member";
     }
 }

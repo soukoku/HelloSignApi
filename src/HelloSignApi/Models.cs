@@ -99,6 +99,10 @@ namespace HelloSignApi
         /// </summary>
         public bool IsComplete { get; set; }
         /// <summary>
+        /// Whether or not the SignatureRequest has been declined by a signer.
+        /// </summary>
+        public bool IsDeclined { get; set; }
+        /// <summary>
         /// Whether or not an error occurred (either during the creation of the SignatureRequest or during one of the signings).
         /// </summary>
         public bool HasError { get; set; }
@@ -228,6 +232,10 @@ namespace HelloSignApi
         /// The current status of the signature. <see cref="SignatureStatusCodes"/> values.
         /// </summary>
         public string StatusCode { get; set; }
+        /// <summary>
+        /// The reason provided by the signer for declining the request.
+        /// </summary>
+        public string DeclineReason { get; set; }
 
         /// <summary>
         /// Actual value of <see cref="SignedAt"/>.
@@ -427,6 +435,7 @@ namespace HelloSignApi
         /// The URL you want signers redirected to after they successfully sign.
         /// </summary>
         public string SigningRedirectUrl { get; set; }
+        
         /// <summary>
         /// Whether this is a test draft. Signature requests made from test drafts have no legal value.
         /// </summary>

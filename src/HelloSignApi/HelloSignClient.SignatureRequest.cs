@@ -129,6 +129,29 @@ namespace HelloSignApi
         }
 
         /// <summary>
+        /// Updates the email address for a given signer on a signature request. 
+        /// You can listen for the "signature_request_email_bounce" event on your app or account to detect bounced emails, and respond with this method.
+        /// </summary>
+        /// <param name="signatureRequestId">The id of the SignatureRequest to update.</param>
+        /// <param name="signatureId">The signature ID for the recipient.</param>
+        /// <param name="emailAddress">The new email address for the recipient.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public Task<SignatureRequestResponse> UpdateSignatureRequestAsync(string signatureRequestId, string signatureId, string emailAddress)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+            if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
+            if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
+
+            var content = new MultipartFormDataContent();
+            content.AddParameter(_log, "signature_id", signatureId);
+            content.AddParameter(_log, "email_address", emailAddress);
+
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/update/{signatureRequestId}", content);
+        }
+
+
+        /// <summary>
         /// Queues a SignatureRequest to be canceled. The cancelation is asynchronous and a successful call to this endpoint will return a 200 OK response if the signature request is eligible to be canceled and has been successfully queued. To be eligible for cancelation, a signature request must have been sent successfully and must be unsigned. Once canceled, singers will not be able to sign the signature request or access its documents. Canceling a signature request is not reversible.
         /// </summary>
         /// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>

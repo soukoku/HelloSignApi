@@ -29,6 +29,11 @@ namespace HelloSignApi.Requests
         public bool TestMode { get; set; }
 
         /// <summary>
+        /// Allows signers to decline to sign a document if set to true. Defaults to false.
+        /// </summary>
+        public bool AllowDecline { get; set; }
+
+        /// <summary>
         /// The subject in the email that will be sent to the signers.
         /// </summary>
         public string Subject { get; set; }
@@ -73,6 +78,7 @@ namespace HelloSignApi.Requests
             CcEmailAddresses = new List<string>();
             FormFieldsPerDocument = new List<IList<RequestFormField>>();
         }
+
         /// <summary>
         /// The client ID of the ApiApp you want to associate with this request.
         /// </summary>
