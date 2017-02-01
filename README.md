@@ -1,7 +1,7 @@
 # HelloSignApi
-This is an unofficial task-based HelloSign API lib for dotnet (FX4.0+, PCL, dotnet core).
-It aims to support all of the HelloSign's v3 API operations
-where all of the methods and properties are documented from the official API docs.
+This is an unofficial task-based HelloSign API lib wherever dotnet runs
+(FX4.0+, PCL, dotnet core).
+It aims to support all of the documented HelloSign's v3 API operations.
 
 
 ## How to get it
@@ -11,15 +11,17 @@ This lib is available via the NuGet package
 
 ## Using the library
 All API access is done through an instance of the `HelloSignClient`.
+
 ```cs
 // all examples later will make use if this 'client' object
 var client = new HelloSignClient("your apiKey here");
 ```
 
 ### Request models
-This library defines tailored models for different requests parameters,
+This library defines tailored models for different requests parameters
 so it's easy to see what are the supported properties for each 
 request type.
+
 ```cs
 var sigRequest = new NewSignatureRequest();
 // ...
@@ -51,13 +53,14 @@ sigRequest.Files.Add(new PendingFile(fileData, "file name here"));
 Note that for stream data, the stream will be disposed after the API call is made.
 
 
-### Resposne models
+### Response models
 All API calls will return the `ApiResponse` class (and its sub-classes).
 The `ApiResponse` contains all the returned information from the API call,
 including any error, warnings, and rate-limiting information.
 This means that, assuming the parameters are valid and there are no network errors, 
 all API calls will not throw an `Exception` and you will need to handle the returned response
 as appropriate based on the error (if not null) and http status code.
+
 ```cs
 SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRequest);
 
@@ -87,8 +90,9 @@ Where applicable, the property doc (intellisense) will indicate where you can fi
 (usually defined as string constants in a similarly-named static class). 
 
 For example, the `ErrorNames` class contains the possible values for the `Error.Name` property
+
 ```cs
-// handle error
+// handle error in a response
 switch(response.Error.Name)
 {
     case ErrorNames.ExceededRate:
@@ -107,7 +111,8 @@ switch(response.Error.Name)
 
 ### Event model
 If this lib is used in an http server (in full dotnet framework or dotnet core), 
-it can be used to parse the event callback data from HelloSign as well:
+then it can be used to parse the event callback data from HelloSign as well:
+
 ```cs
 string jsonData = ...;// somehow get the event callback json
 Event theEvent = client.ParseEvent(jsonData);
