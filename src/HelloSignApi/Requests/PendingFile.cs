@@ -16,7 +16,7 @@ namespace HelloSignApi.Requests
         /// Initializes a new instance of the <see cref="PendingFile" /> class.
         /// </summary>
         /// <param name="remoteFilePath">The remote file path.</param>
-        /// <param name="fileName">Name of the file.</param>
+		/// <param name="fileName">Obsolete. Has no bearing on the name of the remote file.</param>
         /// <exception cref="ArgumentNullException">remoteFilePath</exception>
         /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
         public PendingFile(Uri remoteFilePath, string fileName = null)
@@ -27,7 +27,6 @@ namespace HelloSignApi.Requests
                 string.Equals(remoteFilePath.Scheme, "https"))
             {
                 RemotePath = remoteFilePath;
-                FileName = fileName ?? remoteFilePath.AbsolutePath.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
             }
             else
             {

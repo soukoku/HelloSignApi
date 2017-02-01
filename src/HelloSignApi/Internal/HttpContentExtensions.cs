@@ -72,7 +72,7 @@ namespace HelloSignApi
                 {
                     if (file.RemotePath != null)
                     {
-                        content.AddParameter(log, $"file_url[{i}]", file.RemotePath.ToString(), file.FileName);
+                        content.AddParameter(log, $"file_url[{i}]", file.RemotePath.ToString());
                     }
 #if !PORTABLE
                     else if (file.LocalPath != null)
