@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net40;net45;netstandard1.1;netstandard1.3;</TargetFrameworks>
+    <AssemblyName>HelloSignApi</AssemblyName>
+    <RootNamespace>HelloSignApi</RootNamespace>
+    <PackageId>HelloSignApi</PackageId>
+    <Description>Unofficial task-based HelloSign api lib for dotnet with intellisense doc.</Description>
+    <Company>Yin-Chun Wang</Company>
+    <Product>HelloSignApi</Product>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/soukoku/HelloSignApi/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/soukoku/HelloSignApi</PackageProjectUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <Authors>Yin-Chun Wang</Authors>
+    <PackageTags>eSignature</PackageTags>
+    <AssemblyTitle>HelloSignApi</AssemblyTitle>
+    <Copyright>Copyright (C) Yin-Chun Wang 2017</Copyright>
+    <Authors>Yin-Chun Wang</Authors>
+    <WarningsAsErrors>true</WarningsAsErrors>
+    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+    <AssemblyOriginatorKeyFile>Sign.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <Version>1.3.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.1'">
+    <DefineConstants>$(DefineConstants);PORTABLE</DefineConstants>
+  </PropertyGroup>
+</Project>

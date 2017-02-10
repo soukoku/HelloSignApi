@@ -1,34 +1,47 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{088CD48E-E3B6-4837-80C4-941F3AC645BB}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HelloSignApi", "src\HelloSignApi\HelloSignApi.xproj", "{0E903D9E-5B45-4CC2-92C0-3986B81020CD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloSignApi.TestGui", "src\HelloSignApi.TestGui\HelloSignApi.TestGui.csproj", "{700F256E-FC07-4621-BBF6-4A4249FAE8A7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0E903D9E-5B45-4CC2-92C0-3986B81020CD} = {0E903D9E-5B45-4CC2-92C0-3986B81020CD}
-	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloSignApi", "src\HelloSignApi\HelloSignApi.csproj", "{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0E903D9E-5B45-4CC2-92C0-3986B81020CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E903D9E-5B45-4CC2-92C0-3986B81020CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E903D9E-5B45-4CC2-92C0-3986B81020CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E903D9E-5B45-4CC2-92C0-3986B81020CD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Release|x64.ActiveCfg = Release|Any CPU
+		{700F256E-FC07-4621-BBF6-4A4249FAE8A7}.Release|x86.ActiveCfg = Release|Any CPU
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Debug|x64.ActiveCfg = Debug|x64
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Debug|x64.Build.0 = Debug|x64
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Debug|x86.ActiveCfg = Debug|x86
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Debug|x86.Build.0 = Debug|x86
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Release|x64.ActiveCfg = Release|x64
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Release|x64.Build.0 = Release|x64
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Release|x86.ActiveCfg = Release|x86
+		{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
