@@ -303,6 +303,7 @@ namespace HelloSignApi.Requests
             SignerRoles = new List<SignerRole>();
             CcRoles = new List<string>();
             MergeFields = new List<MergeField>();
+            Metadata = new Dictionary<string, string>();
         }
 
         /// <summary>
