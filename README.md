@@ -26,7 +26,7 @@ var sigRequest = new NewSignatureRequest();
 // ...
 // set various request properties here
 // ...
-var response = await client.SendSignatureRequestAsync(sigRequest);
+SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRequest);
 ```
 
 #### Files in requests
@@ -35,7 +35,7 @@ Either remote http files or local file are supported (though not both in a singl
 
 ```cs
 // remote file
-sigRequest.Files.Add(new PendingFile(new Uri("http path to remote file"), "file name here"));
+sigRequest.Files.Add(new PendingFile(new Uri("http://path-to-remote-file")));
 
 // or local file path
 sigRequest.Files.Add(new PendingFile("path\to\local\file", "file name here"));
@@ -113,7 +113,17 @@ If this lib is used in an http server (in full dotnet framework or dotnet core),
 then it can be used to parse the event callback data from HelloSign as well:
 
 ```cs
-string jsonData = ...;// somehow get the event callback json
+string jsonData = ...;// somehow get the event callback json content
 Event theEvent = client.ParseEvent(jsonData);
 // handle the event
+switch(theEvent.EventType)
+{
+    case EventTypes.SignatureRequestSigned:
+        // do something
+        break;
+    case EventTypes.SignatureRequestEmailBounce:
+        // do something
+        break;
+    // more cases
+}
 ```
