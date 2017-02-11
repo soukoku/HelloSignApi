@@ -154,7 +154,10 @@ namespace HelloSignApi
             {
                 content.AddParameter(log, $"ccs[{cc.Role}]", cc.Email);
             }
-            content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(request.CustomFields, HttpResponseExtensions.JsonSettings));
+            if (request.CustomFields.Count > 0)
+            {
+                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(request.CustomFields, HttpResponseExtensions.JsonSettings));
+            }
         }
 
         public static void AddTemplateDraft(this MultipartFormDataContent content, IApiLog log, NewEmbeddedTemplateDraft draft)
@@ -178,8 +181,10 @@ namespace HelloSignApi
                 content.AddParameter(log, $"cc_roles[{i}]", role);
             }
 
-            content.AddParameter(log, "merge_fields", JsonConvert.SerializeObject(draft.MergeFields, HttpResponseExtensions.JsonSettings));
-
+            if (draft.MergeFields.Count > 0)
+            {
+                content.AddParameter(log, "merge_fields", JsonConvert.SerializeObject(draft.MergeFields, HttpResponseExtensions.JsonSettings));
+            }
             if (draft.UsePreexistingFields) { content.AddParameter(log, "use_preexisting_fields", "1"); }
             content.AddMetadata(log, draft.Metadata);
             content.AddParameter(log, "client_id", draft.ClientId);
@@ -233,7 +238,10 @@ namespace HelloSignApi
             {
                 content.AddParameter(log, $"ccs[{cc.Role}]", cc.Email);
             }
-            content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(draft.CustomFields, HttpResponseExtensions.JsonSettings));
+            if (draft.CustomFields.Count > 0)
+            {
+                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(draft.CustomFields, HttpResponseExtensions.JsonSettings));
+            }
             if (draft.IsForEmbeddedSigning) { content.AddParameter(log, "is_for_embedded_signing", "1"); }
         }
 
