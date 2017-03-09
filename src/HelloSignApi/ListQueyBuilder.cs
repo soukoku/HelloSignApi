@@ -10,14 +10,18 @@ namespace HelloSignApi
     public sealed class ListQueyBuilder
     {
         internal StringBuilder _sb = new StringBuilder();
-        QueryChain _chain;
+        /// <summary>
+        /// Gets the chain object.
+        /// </summary>
+        /// <returns></returns>
+        public QueryChain Chain { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListQueyBuilder"/> class.
         /// </summary>
         public ListQueyBuilder()
         {
-            _chain = new QueryChain(this);
+            Chain = new QueryChain(this);
         }
 
         void RequireString(string name, string value)
@@ -34,27 +38,22 @@ namespace HelloSignApi
         }
 
         /// <summary>
-        /// Handles the any previous field chain.
+        /// Handles the any previously specified chain.
         /// </summary>
         /// <returns></returns>
         public StringBuilder HandleChain()
         {
-            if (_chain.UseAnd.HasValue)
+            if (Chain.UseAnd.HasValue)
             {
-                _sb.Append(_chain.UseAnd.Value ? "+AND+" : "+OR+");
-                _chain.UseAnd = null;
+                if (_sb.Length > 0)
+                {
+                    _sb.Append(Chain.UseAnd.Value ? "+AND+" : "+OR+");
+                }
+                Chain.UseAnd = null;
             }
             return _sb;
         }
 
-        /// <summary>
-        /// Gets the chain object.
-        /// </summary>
-        /// <returns></returns>
-        public QueryChain GetChain()
-        {
-            return _chain;
-        }
 
         /// <summary>
         /// With the specified terms against 
@@ -68,7 +67,7 @@ namespace HelloSignApi
             RequireString(nameof(terms), terms);
 
             HandleChain().Append(Escape(terms));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -83,7 +82,7 @@ namespace HelloSignApi
             RequireString(nameof(signer), signer);
 
             HandleChain().Append("to:").Append(Escape(signer));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace HelloSignApi
             RequireString(nameof(sender), sender);
 
             HandleChain().Append("from:").Append(Escape(sender));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -112,7 +111,7 @@ namespace HelloSignApi
             RequireString(nameof(title), title);
 
             HandleChain().Append("title:").Append(Escape(title));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -126,7 +125,7 @@ namespace HelloSignApi
             RequireString(nameof(subject), subject);
 
             HandleChain().Append("subject:").Append(Escape(subject));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -140,7 +139,7 @@ namespace HelloSignApi
             RequireString(nameof(message), message);
 
             HandleChain().Append("message:").Append(Escape(message));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -154,7 +153,7 @@ namespace HelloSignApi
             RequireString(nameof(metadata), metadata);
 
             HandleChain().Append("metadata:").Append(Escape(metadata));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -175,7 +174,7 @@ namespace HelloSignApi
                 .Append("+TO+")
                 .Append(to.ToString("yyyy-MM-dd"))
                 .Append(inclusive ? ']' : '}');
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -183,10 +182,10 @@ namespace HelloSignApi
         /// </summary>
         /// <param name="flag">the search value.</param>
         /// <returns></returns>
-        public QueryChain IsComplete(bool flag = false)
+        public QueryChain IsComplete(bool flag = true)
         {
             HandleChain().Append("complete:").Append(flag ? "true" : "false");
-            return _chain;
+            return Chain;
         }
         /// <summary>
         /// Searches for signature requests that have been declined.
@@ -196,7 +195,7 @@ namespace HelloSignApi
         public QueryChain IsDeclined(bool flag = true)
         {
             HandleChain().Append("declined:").Append(flag ? "true" : "false");
-            return _chain;
+            return Chain;
         }
         /// <summary>
         /// Searches for signature requests that requires your signature.
@@ -206,7 +205,7 @@ namespace HelloSignApi
         public QueryChain IsAwaitingMySignature(bool flag = true)
         {
             HandleChain().Append("awaiting_my_signature:").Append(flag ? "true" : "false");
-            return _chain;
+            return Chain;
         }
         /// <summary>
         /// Searches for signature requests or templates created with test flag and not legally binding.
@@ -216,7 +215,7 @@ namespace HelloSignApi
         public QueryChain IsTest(bool flag = true)
         {
             HandleChain().Append("test_mode:").Append(flag ? "true" : "false");
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -230,7 +229,7 @@ namespace HelloSignApi
             RequireString(nameof(fileName), fileName);
 
             HandleChain().Append("filename:").Append(Escape(fileName));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>
@@ -245,7 +244,7 @@ namespace HelloSignApi
             RequireString(nameof(owner), owner);
 
             HandleChain().Append("owner:").Append(Escape(owner));
-            return _chain;
+            return Chain;
         }
 
         /// <summary>

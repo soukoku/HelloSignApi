@@ -7,6 +7,22 @@ namespace HelloSignApi
     public class ListQueyBuilderTests
     {
         [TestMethod]
+        public void Build_WithNoFieldBeforeChain_DontIncludeChainKeyword()
+        {
+            //Arrange
+            var builder = new ListQueyBuilder()
+                .Chain.And()
+                .IsComplete();
+
+            //Act
+            var result = builder.ToString();
+
+            //Assert
+            Assert.AreEqual("complete:true", result); // AND is not included
+        }
+
+
+        [TestMethod]
         public void Build_WithNoFieldAfterChain_DontIncludeChainKeyword()
         {
             //Arrange
