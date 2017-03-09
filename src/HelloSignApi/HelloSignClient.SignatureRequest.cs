@@ -36,7 +36,7 @@ namespace HelloSignApi
         /// <param name="accountId">Which account to return SignatureRequests for. Must be a team member. Use "all" to indicate all team members. Defaults to your account.</param>
         /// <param name="page">Which page number of the SignatureRequest List to return. Defaults to 1.</param>
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
-        /// <param name="query">String that includes search terms and/or fields to be used to filter the SignatureRequest objects.</param>
+        /// <param name="query">String that includes search terms and/or fields to be used to filter the SignatureRequest objects. You can use ListQueyBuilder to generate it.</param>
         /// <returns></returns>
         public Task<SignatureRequestListResponse> GetSignatureRequestListAsync(string accountId = null, int page = 1, int pageSize = 20, string query = null)
         {
