@@ -69,8 +69,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RequestsView.xaml.cs">
-      <DependentUpon>RequestsView.xaml</DependentUpon>
+    <Compile Include="ExistRequestsView.xaml.cs">
+      <DependentUpon>ExistRequestsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewRequestsView.xaml.cs">
+      <DependentUpon>NewRequestsView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,7 +87,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RequestsView.xaml">
+    <Page Include="ExistRequestsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NewRequestsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

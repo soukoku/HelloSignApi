@@ -38,8 +38,11 @@
                     BorderThickness="1"
                     ItemContainerStyle="{StaticResource ModernTabItem2}"
                     Style="{StaticResource ModernTabControl}">
-            <TabItem Header="Requests">
-                <local:RequestsView x:Name="viewRequests" />
+            <TabItem Header="New Requests">
+                <local:NewRequestsView x:Name="newViewRequests" />
+            </TabItem>
+            <TabItem Header="Existing Requests">
+                <local:ExistRequestsView x:Name="oldViewRequests" />
             </TabItem>
             <TabItem Header="Logs">
                 <TextBox x:Name="boxLog"

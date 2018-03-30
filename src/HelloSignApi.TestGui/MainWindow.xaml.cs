@@ -32,9 +32,10 @@ namespace HelloSignApi.TestGui
             if (!string.IsNullOrEmpty(key))
             {
                 var client = new HelloSignClient(key, log: this);
-                viewRequests.ChangeClient(client);
+                newViewRequests.ChangeClient(client);
+                oldViewRequests.ChangeClient(client);
 
-                client.GetSignatureRequestListAsync();
+                //client.GetSignatureRequestListAsync();
             }
         }
 

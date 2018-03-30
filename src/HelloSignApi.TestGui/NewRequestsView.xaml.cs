@@ -18,9 +18,9 @@ namespace HelloSignApi.TestGui
     /// <summary>
     /// Interaction logic for RequestsView.xaml
     /// </summary>
-    public partial class RequestsView : UserControl
+    public partial class NewRequestsView : UserControl
     {
-        public RequestsView()
+        public NewRequestsView()
         {
             InitializeComponent();
             this.IsEnabled = false;

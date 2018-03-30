@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{088CD4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloSignApi.TestGui", "src\HelloSignApi.TestGui\HelloSignApi.TestGui.csproj", "{700F256E-FC07-4621-BBF6-4A4249FAE8A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloSignApi", "src\HelloSignApi\HelloSignApi.csproj", "{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloSignApi", "src\HelloSignApi\HelloSignApi.csproj", "{010B204D-0382-4B0C-BC82-8CD3B5D8CCED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloSignApi.UnitTests", "src\HelloSignApi.UnitTests\HelloSignApi.UnitTests.csproj", "{D04D40C6-22B1-404E-BB0F-05F510FEC57E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloSignApi.UnitTests", "src\HelloSignApi.UnitTests\HelloSignApi.UnitTests.csproj", "{D04D40C6-22B1-404E-BB0F-05F510FEC57E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87F979E0-6D67-4E54-9B59-3EEC7ACE3261}
 	EndGlobalSection
 EndGlobal
