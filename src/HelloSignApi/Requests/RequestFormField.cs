@@ -27,8 +27,14 @@ namespace HelloSignApi.Requests
         /// Optional validation for text type fields.
         /// See <see cref="DataValidationTypes"/>.
         /// </summary>
-        [JsonProperty("validation_type", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public string ValidationType { get; set; }
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        public string ValidationCustomRegex { get; set; }
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        public string ValidationCustomRegexFormatLabel { get; set; }
     }
 
 

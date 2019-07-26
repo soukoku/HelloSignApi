@@ -47,6 +47,10 @@ namespace HelloSignApi.Responses
         /// </summary>
         public const string SignatureRequestCancelFailed = "signature_request_cancel_failed";
         /// <summary>
+        /// Could not remove your access to the Signature Request. Either you are not a party to the request, or it is not yet fully executed.
+        /// </summary>
+        public const string SignatureRequestRemoveFailed = "signature_request_remove_failed";
+        /// <summary>
         /// The request could not be completed because we are currently performing site maintenance.
         /// </summary>
         public const string Maintenance = "maintenance";
@@ -78,6 +82,10 @@ namespace HelloSignApi.Responses
         /// Your account's API request rate limit has been exceeded.
         /// </summary>
         public const string ExceededRate = "exceeded_rate";
+        /// <summary>
+        /// A file was invalid. This is usually due to an unsupported file format or a file that exceeds maximum file sizes.
+        /// </summary>
+        public const string InvalidFile = "invalid_file";
 
         /// <summary>
         /// [White labeling] Invalid element name.
@@ -159,5 +167,21 @@ namespace HelloSignApi.Responses
         /// A warning was generated while attempting to add a user to your team.
         /// </summary>
         public const string AddMember = "add_member";
+        /// <summary>
+        /// A parameter was provided with an invalid value. The parameter will be modified or ignored.
+        /// </summary>
+        public const string ParameterInvalid = "parameter_invalid";
+        /// <summary>
+        /// OAuth user access grants have been revoked from this app due to a scope change.
+        /// </summary>
+        public const string OauthGrantsRevoked = "oauth_grants_revoked";
+        /// <summary>
+        /// The option to email a copy to the other signers and anyone CC'd is disabled for given account.
+        /// </summary>
+        public const string CcDisabled = "cc_disabled";
+        /// <summary>
+        /// A template with signer reassignment was used on an endpoint that does not support it (e.g. bulk send with template). The template will still be used, but without signer reassignment enabled.
+        /// </summary>
+        public const string ReassignUnsupported = "reassign_unsupported";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using HelloSignApi.Responses;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,10 @@ namespace HelloSignApi
     {
         internal static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {
-            ContractResolver = new UnderscoreMappingResolver()
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+            }
         };
 
         public static Task<T> ParseApiResponseAsync<T>(this HttpResponseMessage msg, IApiLog log) where T : ApiResponse

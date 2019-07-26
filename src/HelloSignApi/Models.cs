@@ -2,17 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 // this file contains reponse data models.
 
 namespace HelloSignApi
 {
     /// <summary>
-    /// Represents a HelloSign account.
+    /// Min amount of account object.
     /// </summary>
-    public class Account
+    public class AccountMin
     {
         /// <summary>
         /// The id of the Account.
@@ -22,20 +20,31 @@ namespace HelloSignApi
         /// The email address associated with the Account.
         /// </summary>
         public string EmailAddress { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a HelloSign account.
+    /// </summary>
+    public class Account : AccountMin
+    {
         /// <summary>
         /// The URL that HelloSign events will be POSTed to.
         /// </summary>
         public string CallbackUrl { get; set; }
         /// <summary>
+        /// Returns true if the user has been locked out of their account by a team admin.
+        /// </summary>
+        public bool IsLocked { get; set; }
+        /// <summary>
         /// Whether the user has a paid HelloSign account.
         /// </summary>
         [JsonProperty("is_paid_hs")]
-        public bool? IsPaidHelloSign { get; set; }
+        public bool IsPaidHelloSign { get; set; }
         /// <summary>
         /// Whether the user has a paid HelloFax account.
         /// </summary>
         [JsonProperty("is_paid_hf")]
-        public bool? IsPaidHelloFax { get; set; }
+        public bool IsPaidHelloFax { get; set; }
         /// <summary>
         /// An object detailing remaining monthly quotas.
         /// </summary>
@@ -54,15 +63,15 @@ namespace HelloSignApi
         /// <summary>
         /// API templates remaining.
         /// </summary>
-        public int? TemplatesLeft { get; set; }
+        public int TemplatesLeft { get; set; }
         /// <summary>
         /// API signature requests remaining.
         /// </summary>
-        public int? ApiSignatureRequestsLeft { get; set; }
+        public int ApiSignatureRequestsLeft { get; set; }
         /// <summary>
         /// Signature requests remaining.
         /// </summary>
-        public int? DocumentsLeft { get; set; }
+        public int DocumentsLeft { get; set; }
     }
 
     /// <summary>
@@ -225,6 +234,10 @@ namespace HelloSignApi
         /// </summary>
         public string SignerName { get; set; }
         /// <summary>
+        /// The role of the signer.
+        /// </summary>
+        public string SignerRole { get; set; }
+        /// <summary>
         /// If signer order is assigned this is the 0-based index for this signer.
         /// </summary>
         public int? Order { get; set; }
@@ -273,6 +286,21 @@ namespace HelloSignApi
         /// Indicate whether this signature requires a PIN to access.
         /// </summary>
         public bool HasPin { get; set; }
+
+        /// <summary>
+        /// Email address of original signer who reassigned to this signer, or null.
+        /// </summary>
+        public string ReassignedBy { get; set; }
+
+        /// <summary>
+        /// Reason provided by original signer who reassigned to this signer, or null.
+        /// </summary>
+        public string ReassignmentReason { get; set; }
+
+        /// <summary>
+        /// Error message pertaining to this signer, or null.
+        /// </summary>
+        public string Error { get; set; }
     }
 
     /// <summary>
@@ -307,11 +335,15 @@ namespace HelloSignApi
         /// <summary>
         /// An array of the Accounts that can use this Template.
         /// </summary>
-        public Account[] Accounts { get; set; }
+        public AccountMin[] Accounts { get; set; }
         /// <summary>
         /// True if you are the owner of this template, false if it's been shared with you by a team member.
         /// </summary>
         public bool IsCreator { get; set; }
+        /// <summary>
+        /// True if this template was created using an embedded flow, false if it was created on our website.
+        /// </summary>
+        public bool IsEmbedded { get; set; }
         /// <summary>
         /// Indicates whether edit rights have been granted to you by the owner (always true if that's you).
         /// </summary>
@@ -355,6 +387,10 @@ namespace HelloSignApi
         /// </summary>
         public int Index { get; set; }
         /// <summary>
+        /// An array of Form Field Group objects.
+        /// </summary>
+        public FieldGroup[] FieldGroups { get; set; }
+        /// <summary>
         /// An array of Form Field objects containing the name and type of each named textbox and checkmark field.
         /// </summary>
         public FormField[] FormFields { get; set; }
@@ -362,6 +398,21 @@ namespace HelloSignApi
         /// An array of Custom Field objects containing the name and type of each custom field.
         /// </summary>
         public CustomField[] CustomFields { get; set; }
+    }
+
+    /// <summary>
+    /// FieldGroup object for a template <see cref="Document"/>.
+    /// </summary>
+    public class FieldGroup
+    {
+        /// <summary>
+        /// The name of the form field group.
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// The rule used to validate checkboxes in the form field group.
+        /// </summary>
+        public string Rule { get; set; }
     }
 
     /// <summary>
@@ -401,6 +452,43 @@ namespace HelloSignApi
         /// Boolean showing whether or not this field is required.
         /// </summary>
         public bool Required { get; set; }
+
+        /// <summary>
+        /// The name of the group this field is in. If this field is not a group, this defaults to null.
+        /// </summary>
+        public string Group { get; set; }
+    }
+
+    /// <summary>
+    /// Contains information about bulk sent signature requests.
+    /// </summary>
+    public class BulkSendJob
+    {
+        /// <summary>
+        /// The id of the BulkSendJob.
+        /// </summary>
+        public string BulkSendJobId { get; set; }
+
+        /// <summary>
+        /// The total amount of SignatureRequests queued for sending.
+        /// </summary>
+        public int Total { get; set; }
+
+        /// <summary>
+        /// True if you are the owner of this BulkSendJob, false if it's been shared with you by a team member.
+        /// </summary>
+        public bool IsCreator { get; set; }
+
+        /// Actual value of <see cref="CreatedAt"/>.
+        /// </summary>
+        [JsonProperty("created_at"), EditorBrowsable(EditorBrowsableState.Never)]
+        public long? CreatedAtRaw { get; set; }
+
+        /// <summary>
+        /// Time that the BulkSendJob was created.
+        /// </summary>
+        [JsonIgnore]
+        public DateTime? CreatedAt { get { return CreatedAtRaw?.FromUnixTime(); } }
     }
 
     /// <summary>
@@ -419,7 +507,7 @@ namespace HelloSignApi
         /// <summary>
         /// A list of all Accounts that have an outstanding invitation to join your Team. 
         /// </summary>
-        public Account[] InvitedAccounts { get; set; }
+        public AccountMin[] InvitedAccounts { get; set; }
     }
 
     /// <summary>
@@ -428,6 +516,10 @@ namespace HelloSignApi
     public class UnclaimedDraft : ExpiringObject
     {
         /// <summary>
+        /// The ID of the signature request that is represented by this UnclaimedDraft.
+        /// </summary>
+        public string SignatureRequestId { get; set; }
+        /// <summary>
         /// The URL to be used to claim this UnclaimedDraft.
         /// </summary>
         public string ClaimUrl { get; set; }
@@ -435,7 +527,11 @@ namespace HelloSignApi
         /// The URL you want signers redirected to after they successfully sign.
         /// </summary>
         public string SigningRedirectUrl { get; set; }
-        
+        /// <summary>
+        /// The URL you want signers redirected to after they successfully request a signature.
+        /// </summary>
+        public string RequestingRedirectUrl { get; set; }
+
         /// <summary>
         /// Whether this is a test draft. Signature requests made from test drafts have no legal value.
         /// </summary>
@@ -510,7 +606,12 @@ namespace HelloSignApi
         /// <summary>
         /// An object describing the app's owner.
         /// </summary>
-        public Account OwnerAccount { get; set; }
+        public AccountMin OwnerAccount { get; set; }
+
+        /// <summary>
+        /// An object with options that override account settings.
+        /// </summary>
+        public ApiAppOptions Options { get; set; }
 
         /// <summary>
         /// An object describing the app's OAuth properties, or null if OAuth is not configured for the app.
@@ -519,9 +620,21 @@ namespace HelloSignApi
         public OAuth OAuth { get; set; }
 
         /// <summary>
-        /// Serialized <see cref="WhiteLabelingOptions"/>, to be used to customize the app's signer page. (Only applies to some API plans)
+        /// Serialized <see cref="WhiteLabelingOptions"/>, to be used to customize the app's signer page. 
+        /// (Only applies to some API plans)
         /// </summary>
         public string WhiteLabelingOptions { get; set; }
+    }
+
+    /// <summary>
+    /// Contains API app options.
+    /// </summary>
+    public class ApiAppOptions
+    {
+        /// <summary>
+        /// Boolean denoting if signers can "Insert Everywhere" in one click while signing a document
+        /// </summary>
+        public bool CanInsertEverywhere { get; set; }
     }
 
     /// <summary>
@@ -541,9 +654,12 @@ namespace HelloSignApi
         /// Array of OAuth scopes used by the app.
         /// </summary>
         public string[] Scopes { get; set; }
+        /// <summary>
+        /// Boolean indicating whether the app owner or the account granting permission is billed for OAuth requests.
+        /// </summary>
+        public bool ChargesUsers { get; set; }
     }
-
-//#if !PORTABLE
+    
     /// <summary>
     /// Represents an event from callback.
     /// </summary>

@@ -34,8 +34,36 @@ namespace HelloSignApi
         /// A signature input field
         /// </summary>
         public const string Signature = "signature";
+        /// <summary>
+        /// A text field that has default text set by the api.
+        /// </summary>
+        public const string TextMerge = "text-merge";
+        /// <summary>
+        /// A checkbox field that has default value set by the api
+        /// </summary>
+        public const string CheckBoxMerge = "checkbox-merge";
+
     }
-    
+
+    /// <summary>
+    /// Contains rules for field grouping.
+    /// </summary>
+    public static class FieldGroupRules
+    {
+        /// <summary>
+        /// Requires at most one checkbox within the group to be checked (radio button functionality)
+        /// </summary>
+        public const string RequireUpTo1 = "require_0-1";
+        /// <summary>
+        /// Requires only one checkbox within the group to be checked
+        /// </summary>
+        public const string Require1 = "require_1";
+        /// <summary>
+        /// Requires at least one checkbox within the group to be checked
+        /// </summary>
+        public const string Require1OrMore = "require_1-ormore";
+    }
+
     /// <summary>
     /// Contains possible values for <see cref="Event.EventType" />.
     /// </summary>
@@ -50,6 +78,10 @@ namespace HelloSignApi
         /// </summary>
         public const string SignatureRequestSigned = "signature_request_signed";
         /// <summary>
+        /// An updated version of the SignatureRequest PDF is available for download.
+        /// </summary>
+        public const string SignatureRequestDownloadable = "signature_request_downloadable";
+        /// <summary>
         /// The SignatureRequest has been sent successfully.
         /// </summary>
         public const string SignatureRequestSent = "signature_request_sent";
@@ -58,6 +90,10 @@ namespace HelloSignApi
         /// </summary>
         public const string SignatureRequestDeclined = "signature_request_declined";
         /// <summary>
+        /// The signer has reassigned their signature to a different signer.
+        /// </summary>
+        public const string SignatureRequestReassigned = "signature_request_reassigned";
+        /// <summary>
         /// All signers have been sent a reminder to complete the SignatureRequest.
         /// </summary>
         public const string SignatureRequestRemind = "signature_request_remind";
@@ -65,14 +101,6 @@ namespace HelloSignApi
         /// All signers have completed all required fields for the SignatureRequest and the final PDF is ready to be downloaded.
         /// </summary>
         public const string SignatureRequestAllSigned = "signature_request_all_signed";
-        /// <summary>
-        /// We're unable to convert the file you provided.
-        /// </summary>
-        public const string FileError = "file_error";
-        /// <summary>
-        /// An unknown error occurred during while processing a signature request.
-        /// </summary>
-        public const string UnknownError = "unknown_error";
         /// <summary>
         /// An email address for one of the signers on your signature request has bounced. May be correctable by updating
         /// the request.
@@ -83,6 +111,26 @@ namespace HelloSignApi
         /// For example: Invalid text tags
         /// </summary>
         public const string SignatureRequestInvalid = "signature_request_invalid";
+        /// <summary>
+        /// The SignatureRequest has been canceled.
+        /// </summary>
+        public const string SignatureRequestCanceled = "signature_request_canceled";
+        /// <summary>
+        /// The SignatureRequest has been prepared but not sent.
+        /// </summary>
+        public const string SignatureRequestPrepared = "signature_request_prepared";
+        /// <summary>
+        /// We're unable to convert the file you provided.
+        /// </summary>
+        public const string FileError = "file_error";
+        /// <summary>
+        /// An unknown error occurred during while processing a signature request.
+        /// </summary>
+        public const string UnknownError = "unknown_error";
+        /// <summary>
+        /// The embedded sign URL you provided is invalid or expired.
+        /// </summary>
+        public const string SignUrlInvalid = "sign_url_invalid";
         /// <summary>
         /// An account created via one of your apps has been confirmed.
         /// </summary>
@@ -138,6 +186,10 @@ namespace HelloSignApi
         /// File contained invalid text tags
         /// </summary>
         public const string ErrorTextTag = "error_text_tag";
+        /// <summary>
+        /// Request was prepared for signature but has not been sent to signers. Requester must release the request from hold when ready to send.
+        /// </summary>
+        public const string OnHoldByRequester = "on_hold_by_requester";
     }
 
     /// <summary>
@@ -182,6 +234,46 @@ namespace HelloSignApi
         /// 9-digit number
         /// </summary>
         public const string EmployerIdentificationNumber = "employer_identification_number";
+        /// <summary>
+        /// Custom regular expression.
+        /// </summary>
+        public const string CustomRegex = "custom_regex";
+    }
+
+    /// <summary>
+    /// Contains OAuth scopes.
+    /// </summary>
+    public static class OAuthScopes
+    {
+        /// <summary>
+        /// Access to basic account information, such as email address and name.
+        /// </summary>
+        public const string AccountAccess = "account_access";
+        /// <summary>
+        /// Access to send, view, and update signature requests and to download document files.
+        /// </summary>
+        public const string SignatureRequestAccess = "signature_request_access";
+        /// <summary>
+        /// Access to view, create, and modify templates.
+        /// </summary>
+        public const string TemplateAccess = "template_access";
+        /// <summary>
+        /// Access to view and modify team settings and team members.
+        /// </summary>
+        public const string TeamAccess = "team_access";
+        /// <summary>
+        /// Access to view, create, and modify embedded API apps.
+        /// </summary>
+        public const string ApiAppAccess = "api_app_access";
+
+        /// <summary>
+        /// Access basic account information, such as email address and name.
+        /// </summary>
+        public const string BasicAccountInfo = "basic_account_info";
+        /// <summary>
+        /// Send signature requests, access statuses and document files.
+        /// </summary>
+        public const string RequestSignature = "request_signature";
     }
 
     /// <summary>
