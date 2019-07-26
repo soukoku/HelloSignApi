@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HelloSignApi.TestGui</RootNamespace>
     <AssemblyName>HelloSignApi.TestGui</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -34,18 +34,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ModernWpf, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c99d0cfbea7491ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ModernWpf.2.0.0-alpha94\lib\net40-Client\ModernWpf.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\ModernWpf.2.0.0-alpha97\lib\net40-Client\ModernWpf.dll</HintPath>
     </Reference>
     <Reference Include="ModernWpf.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c99d0cfbea7491ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ModernWpf.Core.2.0.0-alpha96\lib\net40-Client\ModernWpf.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\ModernWpf.Core.2.0.0-beta01\lib\net40-Client\ModernWpf.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -114,9 +114,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -73,8 +73,7 @@ namespace HelloSignApi.Requests
             Stream = fileData;
             FileName = fileName;
         }
-
-#if !PORTABLE
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile" /> class.
@@ -94,7 +93,7 @@ namespace HelloSignApi.Requests
         /// Gets the local file path.
         /// </summary>
         public string LocalPath { get; private set; }
-#endif
+
         /// <summary>
         /// Gets the remote (http/https) file path.
         /// </summary>

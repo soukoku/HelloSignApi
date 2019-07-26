@@ -74,14 +74,12 @@ namespace HelloSignApi
                     {
                         content.AddParameter(log, $"file_url[{i}]", file.RemotePath.ToString());
                     }
-#if !PORTABLE
                     else if (file.LocalPath != null)
                     {
                         var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));
                         fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                         content.Add(fc, $"file[{i}]", file.FileName);
                     }
-#endif
                     else if (file.Data != null)
                     {
                         var fc = new ByteArrayContent(file.Data);

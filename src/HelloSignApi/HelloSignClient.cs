@@ -1,6 +1,7 @@
 ﻿using HelloSignApi.Responses;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -15,7 +16,7 @@ namespace HelloSignApi
     /// </summary>
     public partial class HelloSignClient
     {
-        static readonly ThreadSafeDictionary<string, HttpClient> __clientCache = new ThreadSafeDictionary<string, HttpClient>();
+        static readonly ConcurrentDictionary<string, HttpClient> __clientCache = new ConcurrentDictionary<string, HttpClient>();
 
         string _apiKey;
         HttpClient _client;
@@ -90,7 +91,6 @@ namespace HelloSignApi
         }
 
 
-#if !PORTABLE && !WINDOWS_UWP
         /// <summary>
         /// Parsed the data received from the event callback.
         /// </summary>
@@ -113,6 +113,5 @@ namespace HelloSignApi
             }
             return wrap?.Unwrap();
         }
-#endif
     }
 }
