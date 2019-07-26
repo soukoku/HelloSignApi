@@ -30,9 +30,15 @@ namespace HelloSignApi.Requests
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public string ValidationType { get; set; }
 
+        /// <summary>
+        /// Regex value when <see cref="ValidationType"/> is <see cref="DataValidationTypes.CustomRegex"/>.
+        /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public string ValidationCustomRegex { get; set; }
 
+        /// <summary>
+        /// Label for custom regex when <see cref="ValidationType"/> is <see cref="DataValidationTypes.CustomRegex"/>.
+        /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public string ValidationCustomRegexFormatLabel { get; set; }
     }

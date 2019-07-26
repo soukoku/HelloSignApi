@@ -479,6 +479,7 @@ namespace HelloSignApi
         /// </summary>
         public bool IsCreator { get; set; }
 
+        /// <summary>
         /// Actual value of <see cref="CreatedAt"/>.
         /// </summary>
         [JsonProperty("created_at"), EditorBrowsable(EditorBrowsableState.Never)]
