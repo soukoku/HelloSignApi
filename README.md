@@ -109,7 +109,7 @@ switch(response.Error.Name)
 
 
 ### Event model
-If this lib is used in an http server (in full dotnet framework or dotnet core), 
+If this lib is used in an http server, 
 then it can be used to parse the event callback data from HelloSign as well:
 
 ```cs
