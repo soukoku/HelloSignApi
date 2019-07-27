@@ -2,9 +2,7 @@
 using HelloSignApi.Responses;
 using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -103,7 +101,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">request</exception>
         public Task<NewTemplateResponse> CreateEmbeddedTemplateDraftAsync(NewEmbeddedTemplateDraft draft, CancellationToken cancellationToken)
         {
-            if (draft == null) { throw new ArgumentNullException("request"); }
+            if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
             var content = new MultipartFormDataContent();
             content.AddTemplateDraft(_log, draft);

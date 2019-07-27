@@ -28,7 +28,7 @@ namespace HelloSignApi
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException($"Parameter {name} has no value.", name);
+                throw new ArgumentException($"Parameter {name} has no value.", nameof(value));
             }
         }
 

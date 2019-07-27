@@ -2,8 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -18,9 +16,9 @@ namespace HelloSignApi
     {
         static readonly ConcurrentDictionary<string, HttpClient> __clientCache = new ConcurrentDictionary<string, HttpClient>();
 
-        string _apiKey;
-        HttpClient _client;
-        IApiLog _log;
+        readonly string _apiKey;
+        readonly HttpClient _client;
+        readonly IApiLog _log;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HelloSignClient" /> class.
@@ -31,7 +29,8 @@ namespace HelloSignApi
         /// <exception cref="ArgumentException">Api key is required.;apiKey</exception>
         public HelloSignClient(string apiKey, Func<HttpClient> getHttpClientRoutine = null, IApiLog log = null)
         {
-            if (string.IsNullOrEmpty(apiKey)) { throw new ArgumentException("Api key is required.", "apiKey"); }
+            if (string.IsNullOrEmpty(apiKey)) { throw new ArgumentException("Api key is required.", nameof(apiKey)); }
+
             _apiKey = apiKey;
             _log = log ?? NullApiLog.Instance;
 
@@ -41,7 +40,10 @@ namespace HelloSignApi
             {
                 _client = __clientCache.GetOrAdd(apiKey, key =>
                  {
-                     var client = new HttpClient();
+                     var client = new HttpClient(new HttpClientHandler
+                     {
+                         AutomaticDecompression = System.Net.DecompressionMethods.Deflate | System.Net.DecompressionMethods.GZip
+                     });
                      return client;
                  });
             }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HelloSignApi.Responses
+﻿namespace HelloSignApi.Responses
 {
     /// <summary>
     /// Contains possible values for <see cref="Error.Name" />.

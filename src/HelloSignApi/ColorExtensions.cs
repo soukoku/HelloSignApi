@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HelloSignApi
+﻿namespace HelloSignApi
 {
     /// <summary>
     /// Contains extension methods for converting colors to and from html hex string values.

@@ -2,10 +2,7 @@
 using HelloSignApi.Responses;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -67,7 +64,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">request</exception>
         public Task<SignatureRequestResponse> SendSignatureRequestAsync(NewSignatureRequest request, CancellationToken cancellationToken)
         {
-            if (request == null) { throw new ArgumentNullException("request"); }
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
             var content = new MultipartFormDataContent();
             content.AddRequest(_log, request);
@@ -95,7 +92,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">request</exception>
         public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request, CancellationToken cancellationToken)
         {
-            if (request == null) { throw new ArgumentNullException("request"); }
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
             var content = new MultipartFormDataContent();
             content.AddTemplatedRequest(_log, request);
@@ -260,7 +257,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">request</exception>
         public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewSignatureRequest request, CancellationToken cancellationToken)
         {
-            if (request == null) { throw new ArgumentNullException("request"); }
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
             var content = new MultipartFormDataContent();
             content.AddRequest(_log, request);
@@ -287,7 +284,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">request</exception>
         public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request, CancellationToken cancellationToken)
         {
-            if (request == null) { throw new ArgumentNullException("request"); }
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
             var content = new MultipartFormDataContent();
             content.AddTemplatedRequest(_log, request);

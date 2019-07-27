@@ -1,9 +1,4 @@
 ﻿using HelloSignApi.Requests;
-using HelloSignApi.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 // this file contains constant values only
 

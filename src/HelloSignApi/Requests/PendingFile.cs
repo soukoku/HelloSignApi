@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HelloSignApi.Requests
 {
@@ -30,7 +29,7 @@ namespace HelloSignApi.Requests
         /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
         public PendingFile(Uri remoteFilePath)
         {
-            if (remoteFilePath == null) { throw new ArgumentNullException("remoteFilePath"); }
+            if (remoteFilePath == null) { throw new ArgumentNullException(nameof(remoteFilePath)); }
 
             if (string.Equals(remoteFilePath.Scheme, "http") ||
                 string.Equals(remoteFilePath.Scheme, "https"))
@@ -52,7 +51,7 @@ namespace HelloSignApi.Requests
         /// <exception cref="ArgumentException">File name is required.</exception>
         public PendingFile(byte[] fileData, string fileName)
         {
-            if (fileData == null) { throw new ArgumentNullException("fileData"); }
+            if (fileData == null) { throw new ArgumentNullException(nameof(fileData)); }
             if (string.IsNullOrEmpty(fileName)) { throw new ArgumentException("File name is required."); }
 
             Data = fileData;
@@ -67,13 +66,13 @@ namespace HelloSignApi.Requests
         /// <exception cref="ArgumentException">File name is required.</exception>
         public PendingFile(Stream fileData, string fileName)
         {
-            if (fileData == null) { throw new ArgumentNullException("fileData"); }
+            if (fileData == null) { throw new ArgumentNullException(nameof(fileData)); }
             if (string.IsNullOrEmpty(fileName)) { throw new ArgumentException("File name is required."); }
 
             Stream = fileData;
             FileName = fileName;
         }
-        
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile" /> class.
@@ -126,7 +125,7 @@ namespace HelloSignApi.Requests
         }
 
     }
-    
+
     /// <summary>
     /// Container object for files to be uploaded.
     /// </summary>

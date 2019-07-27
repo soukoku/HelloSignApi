@@ -1,10 +1,7 @@
 ﻿using HelloSignApi.Requests;
 using HelloSignApi.Responses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,7 +39,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft, CancellationToken cancellationToken)
         {
-            if (draft == null) { throw new ArgumentNullException("draft"); }
+            if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
             var content = new MultipartFormDataContent();
             content.AddUnclaimedDraft(_log, draft);
@@ -76,7 +73,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft, CancellationToken cancellationToken)
         {
-            if (draft == null) { throw new ArgumentNullException("draft"); }
+            if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
             var content = new MultipartFormDataContent();
             content.AddEmbeddedUnclaimedDraft(_log, draft);
@@ -108,7 +105,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">draft</exception>
         public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewTemplatedEmbeddedUnclaimedDraft draft, CancellationToken cancellationToken)
         {
-            if (draft == null) { throw new ArgumentNullException("draft"); }
+            if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
             var content = new MultipartFormDataContent();
             content.AddTemplatedEmbeddedUnclaimedDraft(_log, draft);

@@ -1,11 +1,7 @@
 ﻿using HelloSignApi.Requests;
 using HelloSignApi.Responses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace HelloSignApi
@@ -52,7 +48,7 @@ namespace HelloSignApi
         /// <exception cref="ArgumentNullException">app</exception>
         public Task<ApiAppResponse> CreateApiAppAsync(NewApiApp app)
         {
-            if (app == null) { throw new ArgumentNullException("app"); }
+            if (app == null) { throw new ArgumentNullException(nameof(app)); }
 
             var content = new MultipartFormDataContent();
             content.AddApiApp(_log, app);
@@ -72,7 +68,7 @@ namespace HelloSignApi
         public Task<ApiAppResponse> UpdateApiAppAsync(string clientId, NewApiApp app)
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id is required."); }
-            if (app == null) { throw new ArgumentNullException("app"); }
+            if (app == null) { throw new ArgumentNullException(nameof(app)); }
 
             var content = new MultipartFormDataContent();
             content.AddApiApp(_log, app);
