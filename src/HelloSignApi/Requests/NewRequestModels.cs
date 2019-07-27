@@ -62,6 +62,11 @@ namespace HelloSignApi.Requests
         /// values up to 500 characters long.
         /// </summary>
         public IDictionary<string, string> Metadata { get; private set; }
+
+        /// <summary>
+        /// Attachment info for new request.
+        /// </summary>
+        public IList<NewAttachment> Attachments { get; set; }
     }
 
     /// <summary>
@@ -116,6 +121,32 @@ namespace HelloSignApi.Requests
         /// See <see cref="!:https://faq.hellosign.com/hc/en-us/articles/217115577"/>.
         /// </summary>
         public IList<IList<RequestFormField>> FormFieldsPerDocument { get; set; }
+    }
+
+    /// <summary>
+    /// Config for file attachment in new requests.
+    /// </summary>
+    public class NewAttachment
+    {
+        /// <summary>
+        /// The name of attachment.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The instructions for uploading the attachment.
+        /// </summary>
+        public string Instructions { get; set; }
+
+        /// <summary>
+        /// The signer's unique number.
+        /// </summary>
+        public int SignerIndex { get; set; }
+
+        /// <summary>
+        /// Determines if the attachment must be uploaded.
+        /// </summary>
+        public bool Required { get; set; }
     }
 
     /// <summary>
@@ -364,6 +395,11 @@ namespace HelloSignApi.Requests
         /// The client ID of the ApiApp you want to associate with this request.
         /// </summary>
         public string ClientId { get; set; }
+
+        /// <summary>
+        /// Attachment info for new template.
+        /// </summary>
+        public IList<NewAttachment> Attachments { get; set; }
 
     }
 

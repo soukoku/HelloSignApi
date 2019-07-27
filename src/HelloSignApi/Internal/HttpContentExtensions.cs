@@ -63,6 +63,19 @@ namespace HelloSignApi
             }
         }
 
+        static void AddAttachments(this MultipartFormDataContent content, IApiLog log, IList<NewAttachment> attachments)
+        {
+            int i = 0;
+            foreach (var att in attachments)
+            {
+                content.AddParameter(log, $"attachments[{i}][name]", att.Name);
+                content.AddParameter(log, $"attachments[{i}][instructions]", att.Instructions);
+                content.AddParameter(log, $"attachments[{i}][signer_index]", att.SignerIndex.ToString());
+                content.AddParameter(log, $"attachments[{i}][required]", att.Required ? "1" : "0");
+                i++;
+            }
+        }
+
         static void AddFiles(this MultipartFormDataContent content, IApiLog log, IList<PendingFile> files)
         {
             try
@@ -112,6 +125,7 @@ namespace HelloSignApi
             content.AddParameter(log, "signing_redirect_url", request.SigningRedirectUrl);
             content.AddSigners(log, request.Signers);
             content.AddMetadata(log, request.Metadata);
+            content.AddAttachments(log, request.Attachments);
         }
 
         public static void AddRequest(this MultipartFormDataContent content, IApiLog log, NewSignatureRequest request)
@@ -121,6 +135,7 @@ namespace HelloSignApi
             content.AddParameter(log, "client_id", request.ClientId);
             content.AddFiles(log, request.Files);
             content.AddParameter(log, "title", request.Title);
+
 
             int i = 0;
             foreach (var cc in request.CcEmailAddresses)
@@ -163,6 +178,8 @@ namespace HelloSignApi
             if (draft.TestMode) { content.AddParameter(log, "test_mode", "1"); }
 
             content.AddFiles(log, draft.Files);
+            content.AddAttachments(log, draft.Attachments);
+
             content.AddParameter(log, "title", draft.Title);
             content.AddParameter(log, "subject", draft.Subject);
             content.AddParameter(log, "message", draft.Message);

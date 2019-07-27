@@ -148,6 +148,10 @@ namespace HelloSignApi
         /// </summary>
         public Signature[] Signatures { get; set; }
         /// <summary>
+        /// File attachment info.
+        /// </summary>
+        public Attachment[] Attachments { get; set; }
+        /// <summary>
         /// Key-value data attached to the signature request. 
         /// </summary>
         public IDictionary<string, string> Metadata { get; set; }
@@ -301,6 +305,50 @@ namespace HelloSignApi
         /// Error message pertaining to this signer, or null.
         /// </summary>
         public string Error { get; set; }
+    }
+
+    /// <summary>
+    /// Attachment info for a request.
+    /// </summary>
+    public class Attachment
+    {
+        /// <summary>
+        /// Attachment id.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// The 1-based (?) signer index in the request.
+        /// </summary>
+        public int Signer { get; set; }
+
+        /// <summary>
+        /// The name of attachment.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The instructions for uploading the attachment.
+        /// </summary>
+        public string Instructions { get; set; }
+
+        /// <summary>
+        /// Determines if the attachment must be uploaded.
+        /// </summary>
+        public bool Required { get; set; }
+
+        /// <summary>
+        /// Actual value of <see cref="UploadedAt"/>.
+        /// </summary>
+        [JsonProperty("uploaded_at"), EditorBrowsable(EditorBrowsableState.Never)]
+        public long? UploadedAtRaw { get; set; }
+
+        /// <summary>
+        /// Time that the attachment was uploaded.
+        /// </summary>
+        [JsonIgnore]
+        public DateTime? UploadedAt { get { return UploadedAtRaw?.FromUnixTime(); } }
+
     }
 
     /// <summary>
@@ -660,7 +708,7 @@ namespace HelloSignApi
         /// </summary>
         public bool ChargesUsers { get; set; }
     }
-    
+
     /// <summary>
     /// Represents an event from callback.
     /// </summary>
