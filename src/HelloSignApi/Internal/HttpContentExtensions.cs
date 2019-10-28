@@ -248,7 +248,7 @@ namespace HelloSignApi
             content.AddParameter(log, "requesting_redirect_url", draft.RequestingRedirectUrl);
             foreach (var cc in draft.Ccs)
             {
-                content.AddParameter(log, $"ccs[{cc.Role}]", cc.Email);
+                content.AddParameter(log, $"ccs[{cc.Role}][email_address]", cc.Email);
             }
             if (draft.CustomFields.Count > 0)
             {
