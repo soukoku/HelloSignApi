@@ -162,7 +162,7 @@ namespace HelloSignApi
             content.AddParameter(log, "title", request.Title);
             foreach (var cc in request.Ccs)
             {
-                content.AddParameter(log, $"ccs[{cc.Role}]", cc.Email);
+                content.AddParameter(log, $"ccs[{cc.Role}][email_address]", cc.Email);
             }
             if (request.CustomFields.Count > 0)
             {
