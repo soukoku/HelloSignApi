@@ -16,6 +16,7 @@ namespace HelloSignApi.Requests
         {
             Metadata = new Dictionary<string, string>();
             Signers = new List<Signer>();
+            Attachments = new List<NewAttachment>();
         }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace HelloSignApi.Requests
         /// <summary>
         /// Attachment info for new request.
         /// </summary>
-        public IList<NewAttachment> Attachments { get; set; }
+        public IList<NewAttachment> Attachments { get; private set; }
     }
 
     /// <summary>
@@ -330,6 +331,7 @@ namespace HelloSignApi.Requests
             CcRoles = new List<string>();
             MergeFields = new List<MergeField>();
             Metadata = new Dictionary<string, string>();
+            Attachments = new List<NewAttachment>();
         }
 
         /// <summary>
@@ -394,7 +396,7 @@ namespace HelloSignApi.Requests
         /// <summary>
         /// Attachment info for new template.
         /// </summary>
-        public IList<NewAttachment> Attachments { get; set; }
+        public IList<NewAttachment> Attachments { get; private set; }
 
     }
 
