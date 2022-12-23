@@ -404,6 +404,10 @@ namespace HelloSignApi
         /// Key-value data attached to the template. 
         /// </summary>
         public IDictionary<string, string> Metadata { get; set; }
+        /// <summary>
+        /// An array of Custom Field objects containing the name and type of each custom field.
+        /// </summary>
+        public CustomField[] CustomFields { get; set; }
     }
 
     /// <summary>
