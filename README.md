@@ -12,12 +12,12 @@ This lib is available via the NuGet package
 All API access is done through an instance of the `HelloSignClient`.
 
 ```cs
-// all examples later will make use if this 'client' object
+// all examples later will make use of this 'client' object
 var client = new HelloSignClient("your apiKey here");
 ```
 
 ### Request models
-This library defines tailored models for different requests parameters
+This library defines tailored models for different requests parameters,
 so it's easy to see what are the supported properties for each 
 request type.
 
@@ -30,8 +30,8 @@ SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRe
 ```
 
 #### Files in requests
-Any request paramters that take a file to upload to HelloSign will have the `Files` property.
-Either remote http files or local file are supported (though not both in a single request).
+Any request parameters that take a file to upload to HelloSign will have the `Files` property.
+Either remote http files or local file are supported, though not both in a single request.
 
 ```cs
 // remote file
@@ -53,7 +53,7 @@ Note that for stream data, the stream will be disposed after the API call is mad
 
 
 ### Response models
-All API calls will return the `ApiResponse` class (and its sub-classes).
+All API calls will return the `ApiResponse` class and its sub-classes.
 The `ApiResponse` contains all the returned information from the API call,
 including any error, warnings, and rate-limiting information.
 This means that, assuming the parameters are valid and there are no network errors, 
@@ -85,8 +85,8 @@ else
 
 ### Magic string values
 Many of the models contain string properties that have pre-defined values.
-Where applicable, the property doc (intellisense) will indicate where you can find those values
-(usually defined as string constants in a similarly-named static class). 
+Where applicable, the property doc (intellisense) will indicate where you can find those values.
+They are usually defined as string constants in a similarly-named static class. 
 
 For example, the `ErrorNames` class contains the possible values for the `Error.Name` property
 
