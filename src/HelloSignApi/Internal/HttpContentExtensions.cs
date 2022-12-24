@@ -29,6 +29,7 @@ namespace HelloSignApi
 
         static void AddMetadata(this MultipartFormDataContent content, IApiLog log, IDictionary<string, string> metadata)
         {
+            if (metadata == null) return;
             foreach (var kv in metadata)
             {
                 content.AddParameter(log, $"metadata[{kv.Key}]", kv.Value);

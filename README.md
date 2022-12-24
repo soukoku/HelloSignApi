@@ -1,5 +1,5 @@
 # HelloSignApi
-This is an unofficial task-based HelloSign API lib for dotnet 4.0+ and dotnet core.
+This is an unofficial task-based HelloSign API lib for dotnet 4.5.2+ and core versions.
 It aims to support all of the non-deprecated HelloSign's v3 API operations.
 
 

@@ -19,7 +19,7 @@
         }
 
 
-#if FULLFX
+#if NET40_OR_GREATER || NET5_0_OR_GREATER
 
         /// <summary>
         /// Converts html color string to color.
@@ -40,6 +40,9 @@
             //return System.Drawing.ColorTranslator.ToHtml(color); // doesn't convert known colors
             return ToHtmlColor(color.R, color.G, color.B);
         }
+#endif
+
+#if NET40_OR_GREATER
 
         /// <summary>
         /// Converts html color string to WPF color.

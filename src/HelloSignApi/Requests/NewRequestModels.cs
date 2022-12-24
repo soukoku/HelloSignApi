@@ -57,7 +57,7 @@ namespace HelloSignApi.Requests
         /// Each request can include up to 10 metadata keys, with key names up to 40 characters long and 
         /// values up to 500 characters long.
         /// </summary>
-        public IDictionary<string, string> Metadata { get; private set; }
+        public IDictionary<string, string> Metadata { get; set; }
 
         /// <summary>
         /// Attachment info for new request.
