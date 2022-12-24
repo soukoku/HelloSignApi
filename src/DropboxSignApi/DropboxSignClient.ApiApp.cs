@@ -2,6 +2,7 @@
 using DropboxSignApi.Responses;
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DropboxSignApi
@@ -18,11 +19,11 @@ namespace DropboxSignApi
         /// <param name="clientId">The client ID of the ApiApp to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Client id required.</exception>
-        public Task<ApiAppResponse> GetApiAppAsync(string clientId)
+        public Task<ApiAppResponse> GetApiAppAsync(string clientId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id required."); }
 
-            return GetAsync<ApiAppResponse>($"{ApiAppUrl}/{clientId}");
+            return GetAsync<ApiAppResponse>($"{ApiAppUrl}/{clientId}", cancellationToken);
         }
 
         /// <summary>
@@ -32,12 +33,13 @@ namespace DropboxSignApi
         /// <param name="page">Which page number of the ApiApp List to return. Defaults to 1.</param>
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
         /// <returns></returns>
-        public Task<ApiAppListResponse> GetApiAppListAsync(int page = 1, int pageSize = 20)
+        public Task<ApiAppListResponse> GetApiAppListAsync(int page = 1, int pageSize = 20,
+            CancellationToken cancellationToken = default)
         {
             page = Math.Max(1, page);
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
-            return GetAsync<ApiAppListResponse>($"{ApiAppUrl}/list?page={page}&page_size={pageSize}");
+            return GetAsync<ApiAppListResponse>($"{ApiAppUrl}/list?page={page}&page_size={pageSize}", cancellationToken);
         }
 
         /// <summary>
@@ -46,14 +48,15 @@ namespace DropboxSignApi
         /// <param name="app">The application.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">app</exception>
-        public Task<ApiAppResponse> CreateApiAppAsync(NewApiApp app)
+        public Task<ApiAppResponse> CreateApiAppAsync(NewApiApp app,
+            CancellationToken cancellationToken = default)
         {
             if (app == null) { throw new ArgumentNullException(nameof(app)); }
 
             var content = new MultipartFormDataContent();
             content.AddApiApp(_log, app);
 
-            return PostAsync<ApiAppResponse>(ApiAppUrl, content);
+            return PostAsync<ApiAppResponse>(ApiAppUrl, content, cancellationToken);
         }
 
         /// <summary>
@@ -65,7 +68,8 @@ namespace DropboxSignApi
         /// <param name="app">The application.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">app</exception>
-        public Task<ApiAppResponse> UpdateApiAppAsync(string clientId, NewApiApp app)
+        public Task<ApiAppResponse> UpdateApiAppAsync(string clientId, NewApiApp app,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id is required."); }
             if (app == null) { throw new ArgumentNullException(nameof(app)); }
@@ -73,7 +77,7 @@ namespace DropboxSignApi
             var content = new MultipartFormDataContent();
             content.AddApiApp(_log, app);
 
-            return PostAsync<ApiAppResponse>($"{ApiAppUrl}/{clientId}", content);
+            return PostAsync<ApiAppResponse>($"{ApiAppUrl}/{clientId}", content, cancellationToken);
         }
 
         /// <summary>
@@ -82,11 +86,12 @@ namespace DropboxSignApi
         /// <param name="clientId">The client id of the ApiApp to delete.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Client id is required.</exception>
-        public Task<ApiResponse> DeleteApiAppAsync(string clientId)
+        public Task<ApiResponse> DeleteApiAppAsync(string clientId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id is required."); }
 
-            return PostAsync<ApiResponse>($"{ApiAppUrl}/{clientId}", null);
+            return PostAsync<ApiResponse>($"{ApiAppUrl}/{clientId}", null, cancellationToken);
         }
     }
 }

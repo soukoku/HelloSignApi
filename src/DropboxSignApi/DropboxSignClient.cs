@@ -52,46 +52,6 @@ namespace DropboxSignApi
                 Convert.ToBase64String(Encoding.UTF8.GetBytes(apiKey + ":")));
         }
 
-        /// <summary>
-        /// Performs an http GET opertion to the api.
-        /// </summary>
-        /// <typeparam name="TResp">Api response type.</typeparam>
-        /// <param name="apiUrl">The api URL.</param>
-        /// <returns></returns>
-        protected Task<TResp> GetAsync<TResp>(string apiUrl) where TResp : ApiResponse
-        {
-            _log.Requesting("GET", apiUrl);
-            var resp = _client.GetAsync(apiUrl)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TResp>(_log));
-            return resp.Unwrap();
-        }
-        /// <summary>
-        /// Performs an http POST opertion to the api.
-        /// </summary>
-        /// <typeparam name="TResp">Api response type.</typeparam>
-        /// <param name="apiUrl">The api URL.</param>
-        /// <param name="content">The content.</param>
-        /// <returns></returns>
-        protected Task<TResp> PostAsync<TResp>(string apiUrl, HttpContent content) where TResp : ApiResponse
-        {
-            return PostAsync<TResp>(apiUrl, content, CancellationToken.None);
-        }
-        /// <summary>
-        /// Performs an http POST opertion to the api.
-        /// </summary>
-        /// <typeparam name="TResp">Api response type.</typeparam>
-        /// <param name="apiUrl">The api URL.</param>
-        /// <param name="content">The content.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns></returns>
-        protected Task<TResp> PostAsync<TResp>(string apiUrl, HttpContent content, CancellationToken cancellationToken) where TResp : ApiResponse
-        {
-            _log.Requesting("POST", apiUrl);
-            var resp = _client.PostAsync(apiUrl, content, cancellationToken)
-                .ContinueWith(t => t.Result.ParseApiResponseAsync<TResp>(_log));
-            return resp.Unwrap();
-        }
-
 
         /// <summary>
         /// Parsed the data received from the event callback.
@@ -114,6 +74,33 @@ namespace DropboxSignApi
                 }
             }
             return wrap?.Unwrap();
+        }
+
+
+        /// <summary>
+        /// Performs an http GET opertion to the api.
+        /// </summary>
+        /// <typeparam name="TResp">Api response type.</typeparam>
+        /// <returns></returns>
+        async Task<TResp> GetAsync<TResp>(string apiUrl,
+            CancellationToken cancellationToken) where TResp : ApiResponse
+        {
+           _log.Requesting("GET", apiUrl);
+            var resp = await _client.GetAsync(apiUrl, cancellationToken).ConfigureAwait(false);
+            return await resp.ParseApiResponseAsync<TResp>(_log).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Performs an http POST opertion to the api.
+        /// </summary>
+        /// <typeparam name="TResp">Api response type.</typeparam>
+        /// <returns></returns>
+        async Task<TResp> PostAsync<TResp>(string apiUrl, HttpContent content,
+            CancellationToken cancellationToken) where TResp : ApiResponse
+        {
+            _log.Requesting("POST", apiUrl);
+            var resp = await _client.PostAsync(apiUrl, content, cancellationToken).ConfigureAwait(false);
+            return await resp.ParseApiResponseAsync<TResp>(_log).ConfigureAwait(false);
         }
     }
 }

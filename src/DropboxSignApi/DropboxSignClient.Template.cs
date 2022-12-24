@@ -20,11 +20,12 @@ namespace DropboxSignApi
         /// <param name="templateId">The id of the Template to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<TemplateResponse> GetTemplateAsync(string templateId)
+        public Task<TemplateResponse> GetTemplateAsync(string templateId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            return GetAsync<TemplateResponse>($"{TemplateUrl}/{templateId}");
+            return GetAsync<TemplateResponse>($"{TemplateUrl}/{templateId}", cancellationToken);
         }
 
         /// <summary>
@@ -35,12 +36,13 @@ namespace DropboxSignApi
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
         /// <param name="query">String that includes search terms and/or fields to be used to filter the Template objects. You can use ListQueyBuilder to generate it.</param>
         /// <returns></returns>
-        public Task<TemplateListResponse> GetTemplateListAsync(string accountId = null, int page = 1, int pageSize = 20, string query = null)
+        public Task<TemplateListResponse> GetTemplateListAsync(string accountId = null, int page = 1, int pageSize = 20, string query = null,
+            CancellationToken cancellationToken = default)
         {
             page = Math.Max(1, page);
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
-            return GetAsync<TemplateListResponse>($"{TemplateUrl}/list?account_id={accountId}&page={page}&page_size={pageSize}&query={query}");
+            return GetAsync<TemplateListResponse>($"{TemplateUrl}/list?account_id={accountId}&page={page}&page_size={pageSize}&query={query}", cancellationToken);
         }
 
         /// <summary>
@@ -51,7 +53,8 @@ namespace DropboxSignApi
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<TemplateResponse> AddTemplateUserAsync(string templateId, string accountId, string emailAddress)
+        public Task<TemplateResponse> AddTemplateUserAsync(string templateId, string accountId, string emailAddress,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
@@ -59,7 +62,7 @@ namespace DropboxSignApi
             content.AddParameter(_log, "account_id", accountId);
             content.AddParameter(_log, "email_address", emailAddress);
 
-            return PostAsync<TemplateResponse>($"{TemplateUrl}/add_user/{templateId}", content);
+            return PostAsync<TemplateResponse>($"{TemplateUrl}/add_user/{templateId}", content, cancellationToken);
         }
 
         /// <summary>
@@ -70,7 +73,8 @@ namespace DropboxSignApi
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<TemplateResponse> RemoveTemplateUserAsync(string templateId, string accountId, string emailAddress)
+        public Task<TemplateResponse> RemoveTemplateUserAsync(string templateId, string accountId, string emailAddress,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
@@ -78,20 +82,9 @@ namespace DropboxSignApi
             content.AddParameter(_log, "account_id", accountId);
             content.AddParameter(_log, "email_address", emailAddress);
 
-            return PostAsync<TemplateResponse>($"{TemplateUrl}/remove_user/{templateId}", content);
+            return PostAsync<TemplateResponse>($"{TemplateUrl}/remove_user/{templateId}", content, cancellationToken);
         }
 
-
-        /// <summary>
-        /// The first step in an embedded template workflow. Creates a draft template that can then be further set up in the template 'edit' stage.
-        /// </summary>
-        /// <param name="draft">The draft.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">request</exception>
-        public Task<NewTemplateResponse> CreateEmbeddedTemplateDraftAsync(NewEmbeddedTemplateDraft draft)
-        {
-            return CreateEmbeddedTemplateDraftAsync(draft, CancellationToken.None);
-        }
         /// <summary>
         /// The first step in an embedded template workflow. Creates a draft template that can then be further set up in the template 'edit' stage.
         /// </summary>
@@ -99,7 +92,8 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<NewTemplateResponse> CreateEmbeddedTemplateDraftAsync(NewEmbeddedTemplateDraft draft, CancellationToken cancellationToken)
+        public Task<NewTemplateResponse> CreateEmbeddedTemplateDraftAsync(NewEmbeddedTemplateDraft draft,
+            CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
@@ -115,11 +109,12 @@ namespace DropboxSignApi
         /// <param name="templateId">The id of the Template to delete.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<ApiResponse> DeleteTemplateAsync(string templateId)
+        public Task<ApiResponse> DeleteTemplateAsync(string templateId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            return PostAsync<ApiResponse>($"{TemplateUrl}/delete/{templateId}", null);
+            return PostAsync<ApiResponse>($"{TemplateUrl}/delete/{templateId}", null, cancellationToken);
         }
 
         /// <summary>
@@ -128,28 +123,23 @@ namespace DropboxSignApi
         /// <param name="templateId">The id of the template files to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<DownloadInfoResponse> GetTemplateFileUrlAsync(string templateId)
+        public async Task<DownloadInfoResponse> GetTemplateFileUrlAsync(string templateId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
             var url = $"{TemplateUrl}/files/{templateId}?get_url=1";
             _log.Requesting("GET", url);
-            var resp = _client.GetAsync(url)
-                .ContinueWith(t =>
-                {
-                    var dir = new DownloadInfoResponse();
-                    dir.FillExtraValues(t.Result);
+            var resp = await _client.GetAsync(url, cancellationToken).ConfigureAwait(false);
 
-                    return t.Result.Content.ReadAsStringAsync().ContinueWith(t2 =>
-                    {
-                        var json = t2.Result;
+            var dir = new DownloadInfoResponse();
+            dir.FillExtraValues(resp);
 
-                        var model = JsonConvert.DeserializeObject<DownloadInfo>(json, HttpResponseExtensions.JsonSettings);
-                        dir.DownloadInfo = model;
-                        return dir;
-                    });
-                });
-            return resp.Unwrap();
+            var json = await resp.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            var model = JsonConvert.DeserializeObject<DownloadInfo>(json, HttpResponseExtensions.JsonSettings);
+            dir.DownloadInfo = model;
+            return dir;
         }
 
         /// <summary>
@@ -160,7 +150,8 @@ namespace DropboxSignApi
         /// <see cref="FileType.Zip" /> for a collection of individual documents.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<DownloadDataResponse> GetTemplateFilesAsync(string templateId, FileType fileType)
+        public async Task<DownloadDataResponse> GetTemplateFilesAsync(string templateId, FileType fileType,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
@@ -168,15 +159,12 @@ namespace DropboxSignApi
 
             var url = $"{TemplateUrl}/files/{templateId}?file_type={ft}";
             _log.Requesting("GET", url);
-            var resp = _client.GetAsync(url)
-                .ContinueWith(t =>
-                {
-                    var apiR = new DownloadDataResponse();
-                    apiR.FillExtraValues(t.Result);
-                    apiR.FileResponse = t.Result;
-                    return apiR;
-                });
-            return resp;
+            var resp = await _client.GetAsync(url, cancellationToken).ConfigureAwait(false);
+
+            var apiR = new DownloadDataResponse();
+            apiR.FillExtraValues(resp);
+            apiR.FileResponse = resp;
+            return apiR;
         }
 
     }

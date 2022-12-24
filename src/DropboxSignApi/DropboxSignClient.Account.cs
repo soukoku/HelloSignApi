@@ -1,6 +1,7 @@
 ﻿using DropboxSignApi.Responses;
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DropboxSignApi
@@ -15,9 +16,9 @@ namespace DropboxSignApi
         /// Returns the properties and settings of your account.
         /// </summary>
         /// <returns></returns>
-        public Task<AccountResponse> GetAccountAsync()
+        public Task<AccountResponse> GetAccountAsync(CancellationToken cancellationToken = default)
         {
-            return GetAsync<AccountResponse>(AccountUrl);
+            return GetAsync<AccountResponse>(AccountUrl, cancellationToken);
         }
 
         /// <summary>
@@ -25,7 +26,8 @@ namespace DropboxSignApi
         /// </summary>
         /// <param name="callbackUrl">The URL that HelloSign should POST events to.</param>
         /// <returns></returns>
-        public Task<AccountResponse> UpdateAccountAsync(string callbackUrl)
+        public Task<AccountResponse> UpdateAccountAsync(string callbackUrl,
+            CancellationToken cancellationToken = default)
         {
             MultipartFormDataContent content = null;
 
@@ -35,7 +37,7 @@ namespace DropboxSignApi
                 content.AddParameter(_log, "callback_url", callbackUrl);
             }
 
-            return PostAsync<AccountResponse>(AccountUrl, content);
+            return PostAsync<AccountResponse>(AccountUrl, content, cancellationToken);
         }
 
         /// <summary>
@@ -44,14 +46,15 @@ namespace DropboxSignApi
         /// <param name="emailAddress">The email address to create a new account for.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Email address is required.</exception>
-        public Task<AccountResponse> CreateAccountAsync(string emailAddress)
+        public Task<AccountResponse> CreateAccountAsync(string emailAddress,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
             var content = new MultipartFormDataContent();
             content.AddParameter(_log, "email_address", emailAddress);
 
-            return PostAsync<AccountResponse>($"{AccountUrl}/create", content);
+            return PostAsync<AccountResponse>($"{AccountUrl}/create", content, cancellationToken);
         }
 
         /// <summary>
@@ -61,14 +64,15 @@ namespace DropboxSignApi
         /// <param name="emailAddress">Email address to run the verification for.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Email address is required.</exception>
-        public Task<AccountResponse> VerifyAccountAsync(string emailAddress)
+        public Task<AccountResponse> VerifyAccountAsync(string emailAddress,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
             var content = new MultipartFormDataContent();
             content.AddParameter(_log, "email_address", emailAddress);
 
-            return PostAsync<AccountResponse>($"{AccountUrl}/verify", content);
+            return PostAsync<AccountResponse>($"{AccountUrl}/verify", content, cancellationToken);
         }
     }
 }

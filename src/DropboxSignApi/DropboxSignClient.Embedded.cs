@@ -1,5 +1,6 @@
 ﻿using DropboxSignApi.Responses;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DropboxSignApi
@@ -16,11 +17,12 @@ namespace DropboxSignApi
         /// <param name="signatureId">The id of the signature to get a signature url for.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature id is required.</exception>
-        public Task<EmbeddedSignResponse> GetEmbeddedSignUrlAsync(string signatureId)
+        public Task<EmbeddedSignResponse> GetEmbeddedSignUrlAsync(string signatureId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
 
-            return GetAsync<EmbeddedSignResponse>($"{EmbeddedUrl}/sign_url/{signatureId}");
+            return GetAsync<EmbeddedSignResponse>($"{EmbeddedUrl}/sign_url/{signatureId}", cancellationToken);
         }
 
         /// <summary>
@@ -33,7 +35,8 @@ namespace DropboxSignApi
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public Task<EmbeddedTemplateResponse> GetEmbeddedTemplateEditUrlAsync(string templateId,
-            bool testMode = false, bool skipSignerRoles = false, bool skipSubjectMessage = false)
+            bool testMode = false, bool skipSignerRoles = false, bool skipSubjectMessage = false,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
@@ -41,7 +44,7 @@ namespace DropboxSignApi
             var signer = skipSignerRoles ? 1 : 0;
             var sm = skipSubjectMessage ? 1 : 0;
 
-            return GetAsync<EmbeddedTemplateResponse>($"{EmbeddedUrl}/edit_url/{templateId}?test_mode={test}&skip_signer_roles={signer}&skip_subject_message={sm}");
+            return GetAsync<EmbeddedTemplateResponse>($"{EmbeddedUrl}/edit_url/{templateId}?test_mode={test}&skip_signer_roles={signer}&skip_subject_message={sm}", cancellationToken);
         }
 
     }

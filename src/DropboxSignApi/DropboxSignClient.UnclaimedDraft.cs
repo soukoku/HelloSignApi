@@ -20,24 +20,11 @@ namespace DropboxSignApi
         /// Subsequent access to the claim URL will result in a 404.
         /// </summary>
         /// <param name="draft">The draft.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft)
-        {
-            return CreateUnclaimedDraftAsync(draft, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Creates a new Draft that can be claimed using the claim URL.
-        /// The first authenticated user to access the URL will claim the Draft and will be shown either
-        /// the "Sign and send" or the "Request signature" page with the Draft loaded.
-        /// Subsequent access to the claim URL will result in a 404.
-        /// </summary>
-        /// <param name="draft">The draft.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft, CancellationToken cancellationToken)
+        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft, 
+            CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
@@ -54,24 +41,11 @@ namespace DropboxSignApi
         /// result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required.
         /// </summary>
         /// <param name="draft">The draft.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft)
-        {
-            return CreateEmbeddedUnclaimedDraftAsync(draft, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Creates a new Draft that can be claimed and used in an embedded iFrame.
-        /// The first authenticated user to access the URL will claim the Draft and will be shown
-        /// the "Request signature" page with the Draft loaded. Subsequent access to the claim URL will
-        /// result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required.
-        /// </summary>
-        /// <param name="draft">The draft.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft, CancellationToken cancellationToken)
+        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftAsync(NewEmbeddedUnclaimedDraft draft, 
+            CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
@@ -88,22 +62,11 @@ namespace DropboxSignApi
         /// Subsequent access to the claim URL will result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required.
         /// </summary>
         /// <param name="draft">The draft.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewTemplatedEmbeddedUnclaimedDraft draft)
-        {
-            return CreateEmbeddedUnclaimedDraftWithTemplateAsync(draft, CancellationToken.None);
-        }
-        /// <summary>
-        /// Creates a new Draft with a previously saved template that can be claimed and used in an embedded iFrame. 
-        /// The first authenticated user to access the URL will claim the Draft and will be shown the "Request signature" page with the Draft loaded. 
-        /// Subsequent access to the claim URL will result in a 404. For this embedded endpoint the RequesterEmailAddress parameter is required.
-        /// </summary>
-        /// <param name="draft">The draft.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewTemplatedEmbeddedUnclaimedDraft draft, CancellationToken cancellationToken)
+        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewTemplatedEmbeddedUnclaimedDraft draft, 
+            CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 

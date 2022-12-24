@@ -1,6 +1,7 @@
 ﻿using DropboxSignApi.Responses;
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DropboxSignApi
@@ -16,9 +17,9 @@ namespace DropboxSignApi
         /// a 404 error with an error name of <see cref="ErrorNames.NotFound" /> will be returned.
         /// </summary>
         /// <returns></returns>
-        public Task<TeamResponse> GetTeamAsync()
+        public Task<TeamResponse> GetTeamAsync(CancellationToken cancellationToken = default)
         {
-            return GetAsync<TeamResponse>(TeamUrl);
+            return GetAsync<TeamResponse>(TeamUrl, cancellationToken);
         }
 
         /// <summary>
@@ -27,14 +28,15 @@ namespace DropboxSignApi
         /// <param name="name">The name of your team.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Name is required.</exception>
-        public Task<TeamResponse> CreateTeamAsync(string name)
+        public Task<TeamResponse> CreateTeamAsync(string name,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
             var content = new MultipartFormDataContent();
             content.AddParameter(_log, "name", name);
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/create", content);
+            return PostAsync<TeamResponse>($"{TeamUrl}/create", content, cancellationToken);
         }
 
         /// <summary>
@@ -43,23 +45,24 @@ namespace DropboxSignApi
         /// <param name="name">The name of your team.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Name is required.</exception>
-        public Task<TeamResponse> UpdateTeamAsync(string name)
+        public Task<TeamResponse> UpdateTeamAsync(string name,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
             var content = new MultipartFormDataContent();
             content.AddParameter(_log, "name", name);
 
-            return PostAsync<TeamResponse>(TeamUrl, content);
+            return PostAsync<TeamResponse>(TeamUrl, content, cancellationToken);
         }
 
         /// <summary>
         /// Deletes your Team. Can only be invoked when you have a Team with only one member (yourself).
         /// </summary>
         /// <returns></returns>
-        public Task<ApiResponse> DeleteTeamAsync()
+        public Task<ApiResponse> DeleteTeamAsync(CancellationToken cancellationToken = default)
         {
-            return PostAsync<ApiResponse>($"{TeamUrl}/destroy", null);
+            return PostAsync<ApiResponse>($"{TeamUrl}/destroy", null, cancellationToken);
         }
 
         /// <summary>
@@ -72,13 +75,14 @@ namespace DropboxSignApi
         /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
         /// <returns></returns>
-        public Task<TeamResponse> AddTeamUserAsync(string accountId, string emailAddress)
+        public Task<TeamResponse> AddTeamUserAsync(string accountId, string emailAddress,
+            CancellationToken cancellationToken = default)
         {
             var content = new MultipartFormDataContent();
             content.AddParameter(_log, "account_id", accountId);
             content.AddParameter(_log, "email_address", emailAddress);
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", content);
+            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", content, cancellationToken);
         }
 
         /// <summary>
@@ -87,13 +91,14 @@ namespace DropboxSignApi
         /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
         /// <returns></returns>
-        public Task<TeamResponse> RemoveTeamUserAsync(string accountId, string emailAddress)
+        public Task<TeamResponse> RemoveTeamUserAsync(string accountId, string emailAddress,
+            CancellationToken cancellationToken = default)
         {
             var content = new MultipartFormDataContent();
             content.AddParameter(_log, "account_id", accountId);
             content.AddParameter(_log, "email_address", emailAddress);
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", content);
+            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", content, cancellationToken);
         }
     }
 }

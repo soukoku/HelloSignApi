@@ -20,11 +20,12 @@ namespace DropboxSignApi
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public Task<SignatureRequestResponse> GetSignatureRequestAsync(string signatureRequestId)
+        public Task<SignatureRequestResponse> GetSignatureRequestAsync(string signatureRequestId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
-            return GetAsync<SignatureRequestResponse>($"{SignatureUrl}/{signatureRequestId}");
+            return GetAsync<SignatureRequestResponse>($"{SignatureUrl}/{signatureRequestId}", cancellationToken);
         }
 
         /// <summary>
@@ -35,25 +36,15 @@ namespace DropboxSignApi
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
         /// <param name="query">String that includes search terms and/or fields to be used to filter the SignatureRequest objects. You can use ListQueyBuilder to generate it.</param>
         /// <returns></returns>
-        public Task<SignatureRequestListResponse> GetSignatureRequestListAsync(string accountId = null, int page = 1, int pageSize = 20, string query = null)
+        public Task<SignatureRequestListResponse> GetSignatureRequestListAsync(string accountId = null, int page = 1, int pageSize = 20, string query = null,
+            CancellationToken cancellationToken = default)
         {
             page = Math.Max(1, page);
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
-            return GetAsync<SignatureRequestListResponse>($"{SignatureUrl}/list?account_id={accountId}&page={page}&page_size={pageSize}&query={query}");
+            return GetAsync<SignatureRequestListResponse>($"{SignatureUrl}/list?account_id={accountId}&page={page}&page_size={pageSize}&query={query}", cancellationToken);
         }
 
-        /// <summary>
-        /// Creates and sends a new SignatureRequest with the submitted documents. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
-        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendSignatureRequestAsync(NewSignatureRequest request)
-        {
-            return SendSignatureRequestAsync(request, CancellationToken.None);
-        }
         /// <summary>
         /// Creates and sends a new SignatureRequest with the submitted documents. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
         /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
@@ -62,7 +53,8 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendSignatureRequestAsync(NewSignatureRequest request, CancellationToken cancellationToken)
+        public Task<SignatureRequestResponse> SendSignatureRequestAsync(NewSignatureRequest request,
+            CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
@@ -72,17 +64,6 @@ namespace DropboxSignApi
             return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/send", content, cancellationToken);
         }
 
-
-        /// <summary>
-        /// Creates and sends a new SignatureRequest based off of the Template specified.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request)
-        {
-            return SendSignatureFromTemplateRequestAsync(request, CancellationToken.None);
-        }
         /// <summary>
         /// Creates and sends a new SignatureRequest based off of the Template specified.
         /// </summary>
@@ -90,7 +71,8 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request, CancellationToken cancellationToken)
+        public Task<SignatureRequestResponse> SendSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request,
+            CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
@@ -113,7 +95,8 @@ namespace DropboxSignApi
         /// or
         /// Email address is required.
         /// </exception>
-        public Task<SignatureRequestResponse> SendRequestReminderAsync(string signatureRequestId, string emailAddress, string name = null)
+        public Task<SignatureRequestResponse> SendRequestReminderAsync(string signatureRequestId, string emailAddress, string name = null,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
@@ -122,7 +105,7 @@ namespace DropboxSignApi
             content.AddParameter(_log, "email_address", emailAddress);
             content.AddParameter(_log, "name", name);
 
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/remind/{signatureRequestId}", content);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/remind/{signatureRequestId}", content, cancellationToken);
         }
 
         /// <summary>
@@ -134,7 +117,8 @@ namespace DropboxSignApi
         /// <param name="emailAddress">The new email address for the recipient.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public Task<SignatureRequestResponse> UpdateSignatureRequestAsync(string signatureRequestId, string signatureId, string emailAddress)
+        public Task<SignatureRequestResponse> UpdateSignatureRequestAsync(string signatureRequestId, string signatureId, string emailAddress,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
             if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
@@ -144,7 +128,7 @@ namespace DropboxSignApi
             content.AddParameter(_log, "signature_id", signatureId);
             content.AddParameter(_log, "email_address", emailAddress);
 
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/update/{signatureRequestId}", content);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/update/{signatureRequestId}", content, cancellationToken);
         }
 
 
@@ -154,11 +138,12 @@ namespace DropboxSignApi
         /// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public Task<ApiResponse> CancelSignatureRequestAsync(string signatureRequestId)
+        public Task<ApiResponse> CancelSignatureRequestAsync(string signatureRequestId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
-            return PostAsync<ApiResponse>($"{SignatureUrl}/cancel/{signatureRequestId}", null);
+            return PostAsync<ApiResponse>($"{SignatureUrl}/cancel/{signatureRequestId}", null, cancellationToken);
         }
 
         /// <summary>
@@ -168,28 +153,22 @@ namespace DropboxSignApi
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public Task<DownloadInfoResponse> GetFileUrlAsync(string signatureRequestId)
+        public async Task<DownloadInfoResponse> GetFileUrlAsync(string signatureRequestId,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
             var url = $"{SignatureUrl}/files/{signatureRequestId}?get_url=1";
             _log.Requesting("GET", url);
-            var resp = _client.GetAsync(url)
-                .ContinueWith(t =>
-                {
-                    var dir = new DownloadInfoResponse();
-                    dir.FillExtraValues(t.Result);
+            var resp = await _client.GetAsync(url, cancellationToken).ConfigureAwait(false);
+            var dir = new DownloadInfoResponse();
+            dir.FillExtraValues(resp);
 
-                    return t.Result.Content.ReadAsStringAsync().ContinueWith(t2 =>
-                    {
-                        var json = t2.Result;
+            var json = await resp.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                        var model = JsonConvert.DeserializeObject<DownloadInfo>(json, HttpResponseExtensions.JsonSettings);
-                        dir.DownloadInfo = model;
-                        return dir;
-                    });
-                });
-            return resp.Unwrap();
+            var model = JsonConvert.DeserializeObject<DownloadInfo>(json, HttpResponseExtensions.JsonSettings);
+            dir.DownloadInfo = model;
+            return dir;
         }
 
         /// <summary>
@@ -201,22 +180,19 @@ namespace DropboxSignApi
         /// <see cref="FileType.Zip" /> for a collection of individual documents.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public Task<DownloadDataResponse> GetFilesAsync(string signatureRequestId, FileType fileType)
+        public async Task<DownloadDataResponse> GetFilesAsync(string signatureRequestId, FileType fileType,
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
             var ft = fileType == FileType.Zip ? "zip" : "pdf";
             var url = $"{SignatureUrl}/files/{signatureRequestId}?file_type={ft}";
             _log.Requesting("GET", url);
-            var resp = _client.GetAsync(url)
-                .ContinueWith(t =>
-                {
-                    var apiR = new DownloadDataResponse();
-                    apiR.FillExtraValues(t.Result);
-                    apiR.FileResponse = t.Result;
-                    return apiR;
-                });
-            return resp;
+            var resp = await _client.GetAsync(url, cancellationToken).ConfigureAwait(false);
+            var apiR = new DownloadDataResponse();
+            apiR.FillExtraValues(resp);
+            apiR.FileResponse = resp;
+            return apiR;
         }
 
         /// <summary>
@@ -240,22 +216,11 @@ namespace DropboxSignApi
         /// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewSignatureRequest request)
-        {
-            return SendEmbeddedSignatureRequestAsync(request, CancellationToken.None);
-        }
-        /// <summary>
-        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
-        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. 
-        /// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
-        /// </summary>
-        /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewSignatureRequest request, CancellationToken cancellationToken)
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureRequestAsync(NewSignatureRequest request,
+            CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
@@ -269,20 +234,11 @@ namespace DropboxSignApi
         /// Creates a new SignatureRequest based on the given Template to be signed in an embedded iFrame.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request)
-        {
-            return SendEmbeddedSignatureFromTemplateRequestAsync(request, CancellationToken.None);
-        }
-        /// <summary>
-        /// Creates a new SignatureRequest based on the given Template to be signed in an embedded iFrame.
-        /// </summary>
-        /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request, CancellationToken cancellationToken)
+        public Task<SignatureRequestResponse> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request,
+            CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
