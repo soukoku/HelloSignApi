@@ -4,15 +4,14 @@
     <AssemblyName>DropboxSignApi</AssemblyName>
     <RootNamespace>DropboxSignApi</RootNamespace>
     <PackageId>DropboxSignApi</PackageId>
-    <Description>Unofficial Dropbox Sign API lib for dotnet with async support and uses HttpClient.</Description>
+    <Description>Unofficial Dropbox Sign API lib for dotnet with async support and uses HttpClient. This was previously HelloSignApi.</Description>
     <Company>Eugene Wang</Company>
     <Product>DropboxSignApi</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <IncludeSymbols>true</IncludeSymbols>
     <Authors>Eugene Wang</Authors>
-    <PackageTags>eSignature</PackageTags>
+    <PackageTags>eSignature;HelloSign;Dropbox Sign</PackageTags>
     <AssemblyTitle>DropboxSignApi</AssemblyTitle>
-    <Copyright>Copyright (C) Eugene Wang 2017-2022</Copyright>
+    <Copyright>Copyright (C) Eugene Wang 2016-2022</Copyright>
     <Authors>Eugene Wang</Authors>
     <WarningsAsErrors>true</WarningsAsErrors>
     <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
@@ -24,13 +23,13 @@
     <FileVersion>3.0.0.0</FileVersion>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="$(TargetFramework)=='net6.0-windows'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Net.Http" />
