@@ -1,7 +1,6 @@
-# HelloSignApi
-This is an unofficial task-based HelloSign API lib for dotnet 4.5.2+ and core versions.
-It aims to support all of the non-deprecated HelloSign's v3 API operations.
-
+# DropboxSignApi
+This is an unofficial Dropbox Sign (previously HelloSign) API lib for dotnet 4.6.2+ and core versions.
+It uses HttpClient to do the API calls and supports the async goodness.
 
 ## How to get it
 This lib is available via the NuGet package 
@@ -9,11 +8,11 @@ This lib is available via the NuGet package
 
 
 ## Using the library
-All API access is done through an instance of the `HelloSignClient`.
+All API access is done through an instance of the `DropboxSignClient`.
 
 ```cs
 // all examples later will make use of this 'client' object
-var client = new HelloSignClient("your apiKey here");
+var client = new DropboxSignClient("your apiKey here");
 ```
 
 ### Request models
@@ -30,7 +29,7 @@ SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRe
 ```
 
 #### Files in requests
-Any request parameters that take a file to upload to HelloSign will have the `Files` property.
+Any request parameters that take a file to upload will have the `Files` property.
 Either remote http files or local file are supported, though not both in a single request.
 
 ```cs
@@ -110,7 +109,7 @@ switch(response.Error.Name)
 
 ### Event model
 If this lib is used in an http server, 
-then it can be used to parse the event callback data from HelloSign as well:
+then it can be used to parse the webhook event callback data as well:
 
 ```cs
 string jsonData = ...;// somehow get the event callback json content

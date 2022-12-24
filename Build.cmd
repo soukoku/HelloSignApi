@@ -1,2 +1,1 @@
-dotnet pack src\HelloSignApi\HelloSignApi.csproj -c Release /p:ContinuousIntegrationBuild=true
-explorer src\HelloSignApi\bin\release
+dotnet pack src\DropboxSignApi\DropboxSignApi.csproj -c Release /p:ContinuousIntegrationBuild=true -o ./
