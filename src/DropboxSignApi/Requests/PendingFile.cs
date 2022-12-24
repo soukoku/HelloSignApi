@@ -11,15 +11,15 @@ namespace DropboxSignApi.Requests
     /// </summary>
     public class PendingFile
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PendingFile" /> class.
-        /// </summary>
-        /// <param name="remoteFilePath">The remote file path.</param>
-		/// <param name="fileName">Obsolete. Has no bearing on the name of the remote file.</param>
-        /// <exception cref="ArgumentNullException">remoteFilePath</exception>
-        /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
-        [Obsolete("Use constructor without fileName for Uri files.")]
-        public PendingFile(Uri remoteFilePath, string fileName) : this(remoteFilePath) { }
+  //      /// <summary>
+  //      /// Initializes a new instance of the <see cref="PendingFile" /> class.
+  //      /// </summary>
+  //      /// <param name="remoteFilePath">The remote file path.</param>
+		///// <param name="fileName">Obsolete. Has no bearing on the name of the remote file.</param>
+  //      /// <exception cref="ArgumentNullException">remoteFilePath</exception>
+  //      /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
+  //      [Obsolete("Use constructor without fileName for Uri files.")]
+  //      public PendingFile(Uri remoteFilePath, string fileName) : this(remoteFilePath) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile" /> class.
