@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-// this file contains reponse wrapper models.
-
 namespace DropboxSignApi.Responses
 {
     /// <summary>

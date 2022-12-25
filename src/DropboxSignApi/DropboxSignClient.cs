@@ -1,4 +1,5 @@
 ﻿using DropboxSignApi.Common;
+using DropboxSignApi.Internal;
 using DropboxSignApi.Responses;
 using Newtonsoft.Json;
 using System;
@@ -63,7 +64,7 @@ namespace DropboxSignApi
         /// <returns></returns>
         public Event ParseEvent(string eventData, bool verify = true)
         {
-            var wrap = JsonConvert.DeserializeObject<EventWrap>(eventData ?? "", HttpResponseExtensions.JsonSettings);
+            var wrap = JsonConvert.DeserializeObject<EventWrap>(eventData ?? "", JsonExtensions.JsonSettings);
             if (verify && wrap != null && wrap.Event != null)
             {
                 var key = Encoding.UTF8.GetBytes(_apiKey);
@@ -101,6 +102,19 @@ namespace DropboxSignApi
         {
             _log.Requesting("POST", apiUrl);
             var resp = await _client.PostAsync(apiUrl, content, cancellationToken).ConfigureAwait(false);
+            return await resp.ParseApiResponseAsync<TResp>(_log).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Performs an http PUT opertion to the api.
+        /// </summary>
+        /// <typeparam name="TResp">Api response type.</typeparam>
+        /// <returns></returns>
+        async Task<TResp> PutAsync<TResp>(string apiUrl, HttpContent content,
+            CancellationToken cancellationToken) where TResp : ApiResponse
+        {
+            _log.Requesting("PUT", apiUrl);
+            var resp = await _client.PutAsync(apiUrl, content, cancellationToken).ConfigureAwait(false);
             return await resp.ParseApiResponseAsync<TResp>(_log).ConfigureAwait(false);
         }
     }

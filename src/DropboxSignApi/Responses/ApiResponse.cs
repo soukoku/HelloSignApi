@@ -3,8 +3,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 
-// this file contains reponse wrapper models.
-
 namespace DropboxSignApi.Responses
 {
     /// <summary>
@@ -13,12 +11,12 @@ namespace DropboxSignApi.Responses
     public class ApiResponse
     {
         /// <summary>
-        /// Gets the error.
+        /// Contains information about an error that occurred.
         /// </summary>
         public Error Error { get; set; }
 
         /// <summary>
-        /// Gets the warnings.
+        /// A list of warnings.
         /// </summary>
         public Warning[] Warnings { get; set; }
 

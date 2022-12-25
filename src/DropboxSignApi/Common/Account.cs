@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-// this file contains reponse data models.
-
 namespace DropboxSignApi.Common
 {
     /// <summary>
@@ -10,30 +8,45 @@ namespace DropboxSignApi.Common
     public class Account : AccountMin
     {
         /// <summary>
-        /// The URL that HelloSign events will be POSTed to.
-        /// </summary>
-        public string CallbackUrl { get; set; }
-        /// <summary>
-        /// Returns true if the user has been locked out of their account by a team admin.
+        /// Returns <code>true</code> if the user has been locked out of their account by a team admin.
         /// </summary>
         public bool IsLocked { get; set; }
+
         /// <summary>
-        /// Whether the user has a paid HelloSign account.
+        /// Returns <code>true</code> if the user has a paid Dropbox Sign account.
         /// </summary>
         [JsonProperty("is_paid_hs")]
         public bool IsPaidHelloSign { get; set; }
+
         /// <summary>
-        /// Whether the user has a paid HelloFax account.
+        /// Returns <code>true</code> if the user has a paid HelloFax account.
         /// </summary>
         [JsonProperty("is_paid_hf")]
         public bool IsPaidHelloFax { get; set; }
+        
         /// <summary>
-        /// An object detailing remaining monthly quotas.
+        /// Details concerning remaining monthly quotas.
         /// </summary>
         public Quota Quotas { get; set; }
+        
+        /// <summary>
+        /// The URL that Dropbox Sign events will POST to.
+        /// </summary>
+        public string CallbackUrl { get; set; }
+
         /// <summary>
         /// The membership role for the team. a = Admin, m = Member.
         /// </summary>
         public string RoleCode { get; set; }
+
+        /// <summary>
+        /// The id of the team account belongs to.
+        /// </summary>
+        public string TeamId { get; set; }
+
+        /// <summary>
+        /// The locale used in this Account. Check out the <see cref="SupportedLocales"/> to learn more about the possible values.
+        /// </summary>
+        public string Locale { get; set; }
     }
 }

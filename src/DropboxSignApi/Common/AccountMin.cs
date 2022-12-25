@@ -1,6 +1,4 @@
-﻿// this file contains reponse data models.
-
-namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Min amount of account object.
@@ -8,7 +6,7 @@ namespace DropboxSignApi.Common
     public class AccountMin
     {
         /// <summary>
-        /// The id of the Account.
+        /// The ID of the Account.
         /// </summary>
         public string AccountId { get; set; }
         /// <summary>
