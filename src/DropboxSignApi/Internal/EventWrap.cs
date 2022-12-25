@@ -1,4 +1,6 @@
-﻿namespace DropboxSignApi
+﻿using DropboxSignApi.Common;
+
+namespace DropboxSignApi
 {
     /// <summary>
     /// Used to deserialize raw event only.

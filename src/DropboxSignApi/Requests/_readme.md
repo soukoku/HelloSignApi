@@ -1,0 +1,1 @@
+﻿This should contain request-use only and other wrapper data models.

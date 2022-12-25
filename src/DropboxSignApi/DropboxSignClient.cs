@@ -1,4 +1,5 @@
-﻿using DropboxSignApi.Responses;
+﻿using DropboxSignApi.Common;
+using DropboxSignApi.Responses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;

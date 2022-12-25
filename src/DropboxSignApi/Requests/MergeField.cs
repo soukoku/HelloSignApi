@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DropboxSignApi.Common;
+using Newtonsoft.Json;
 
 namespace DropboxSignApi.Requests
 {

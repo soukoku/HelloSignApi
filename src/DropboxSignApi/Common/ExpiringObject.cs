@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel;
 
-namespace DropboxSignApi
+namespace DropboxSignApi.Common
 {
     /// <summary>
     /// An object with an expiration time.

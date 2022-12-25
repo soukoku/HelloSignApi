@@ -2,7 +2,7 @@
 
 // this file contains constant values only
 
-namespace DropboxSignApi
+namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Contains possible values for field types.

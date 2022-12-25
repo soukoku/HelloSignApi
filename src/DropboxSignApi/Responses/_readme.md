@@ -1,0 +1,1 @@
+﻿This should contain response wrapper data models.
