@@ -5,11 +5,11 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Response for the embedded template edit api call.
     /// </summary>
-    public class EmbeddedTemplateResponse : ApiResponse
+    public class EmbeddedTemplateEditUrlResponse : ApiResponse
     {
         /// <summary>
         /// An embedded template object.
         /// </summary>
-        public EmbeddedTemplate Embedded { get; set; }
+        public EmbeddedEditUrl Embedded { get; set; }
     }
 }

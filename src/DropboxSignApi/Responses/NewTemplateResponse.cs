@@ -10,6 +10,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// The embedded edit object for the new template.
         /// </summary>
-        public EmbeddedTemplate Template { get; set; }
+        public EmbeddedTemplateUrl Template { get; set; }
     }
 }

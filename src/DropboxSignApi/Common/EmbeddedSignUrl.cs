@@ -3,7 +3,7 @@
     /// <summary>
     /// An object that contains necessary information to set up embedded signing.
     /// </summary>
-    public class EmbeddedSign : ExpiringObject
+    public class EmbeddedSignUrl : ExpiringObject
     {
         /// <summary>
         /// A signature url that can be opened in an iFrame.

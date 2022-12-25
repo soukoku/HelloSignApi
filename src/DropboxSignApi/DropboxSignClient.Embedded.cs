@@ -21,12 +21,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature id is required.</exception>
-        public Task<EmbeddedSignResponse> GetEmbeddedSignUrlAsync(string signatureId,
+        public Task<EmbeddedSignUrlResponse> GetEmbeddedSignUrlAsync(string signatureId,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
 
-            return GetAsync<EmbeddedSignResponse>($"{EmbeddedUrl}/sign_url/{Uri.EscapeDataString(signatureId)}", cancellationToken);
+            return GetAsync<EmbeddedSignUrlResponse>($"{EmbeddedUrl}/sign_url/{Uri.EscapeDataString(signatureId)}", cancellationToken);
         }
 
         /// <summary>
@@ -38,13 +38,13 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<EmbeddedTemplateResponse> GetEmbeddedTemplateEditUrlAsync(string templateId,
+        public Task<EmbeddedTemplateEditUrlResponse> GetEmbeddedTemplateEditUrlAsync(string templateId,
             EmbeddedTemplateEditUrlRequest request,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            return PostAsync<EmbeddedTemplateResponse>($"{EmbeddedUrl}/edit_url/{Uri.EscapeDataString(templateId)}", request.ToJsonContent(), cancellationToken);
+            return PostAsync<EmbeddedTemplateEditUrlResponse>($"{EmbeddedUrl}/edit_url/{Uri.EscapeDataString(templateId)}", request.ToJsonContent(), cancellationToken);
         }
 
     }

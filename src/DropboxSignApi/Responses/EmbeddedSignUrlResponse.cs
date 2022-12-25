@@ -5,11 +5,11 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Response for the embedded sign api call.
     /// </summary>
-    public class EmbeddedSignResponse : ApiResponse
+    public class EmbeddedSignUrlResponse : ApiResponse
     {
         /// <summary>
         /// An object that contains necessary information to set up embedded signing.
         /// </summary>
-        public EmbeddedSign Embedded { get; set; }
+        public EmbeddedSignUrl Embedded { get; set; }
     }
 }

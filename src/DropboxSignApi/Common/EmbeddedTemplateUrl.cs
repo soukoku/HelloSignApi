@@ -3,7 +3,7 @@
     /// <summary>
     /// An object that contains necessary information to set up embedded template editing.
     /// </summary>
-    public class EmbeddedTemplate : ExpiringObject
+    public class EmbeddedTemplateUrl : ExpiringObject
     {
         /// <summary>
         /// The template id if applicable.

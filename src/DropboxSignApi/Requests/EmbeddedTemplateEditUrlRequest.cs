@@ -1,4 +1,6 @@
-﻿namespace DropboxSignApi.Requests
+﻿using System.Collections.Generic;
+
+namespace DropboxSignApi.Requests
 {
     public class EmbeddedTemplateEditUrlRequest
     {
@@ -11,12 +13,12 @@
         /// The CC roles that must be assigned when using the template to send a signature request. 
         /// To remove all CC roles, pass in a single role with no name. 
         /// </summary>
-        public string[] CCRoles { get; set; }
+        public IList<string> CCRoles { get; set; }
 
         /// <summary>
         /// This allows the requester to specify editor options when a preparing a document.
         /// </summary>
-        public EditorOptions EditorOptions { get; set; }
+        public SubEditorOptions EditorOptions { get; set; }
 
         /// <summary>
         /// Provide users the ability to review/edit the template signer roles.
@@ -33,7 +35,7 @@
         /// pre-fill data by passing values into signature requests made with that template.
         /// Remove all merge fields on the template by passing an empty array.
         /// </summary>
-        public SubMergeField[] MergeFields { get; set; }
+        public IList<SubMergeField> MergeFields { get; set; }
 
         /// <summary>
         /// This allows the requester to enable the preview experience 
@@ -57,31 +59,5 @@
         /// if this is set to true. Defaults to false.
         /// </summary>
         public bool TestMode { get; set; }
-    }
-
-    public class SubMergeField
-    {
-        /// <summary>
-        /// The name of the merge field. Must be unique.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// The type of merge field. "text" and "checkbox".
-        /// </summary>
-        public string Type { get; set; }
-    }
-
-    public class EditorOptions
-    {
-        /// <summary>
-        /// Allows requesters to edit the list of signers.
-        /// </summary>
-        public bool AllowEditSigners { get; set; }
-
-        /// <summary>
-        /// Allows requesters to edit documents, including delete and add.
-        /// </summary>
-        public bool AllowEditDocuments { get; set; }
     }
 }
