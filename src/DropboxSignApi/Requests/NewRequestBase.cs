@@ -14,7 +14,7 @@ namespace DropboxSignApi.Requests
         {
             Metadata = new Dictionary<string, string>();
             Signers = new List<Signer>();
-            Attachments = new List<NewAttachment>();
+            Attachments = new List<SubAttachment>();
         }
 
         /// <summary>
@@ -52,14 +52,14 @@ namespace DropboxSignApi.Requests
         /// This metadata is included in all API responses and events involving the signature request. 
         /// For example, use the metadata field to store a signer's order number for look up when 
         /// receiving events for the signature request.
-        /// Each request can include up to 10 metadata keys, with key names up to 40 characters long and 
-        /// values up to 500 characters long.
+        /// Each request can include up to 10 metadata keys (or 50 nested metadata keys), 
+        /// with key names up to 40 characters long and values up to 1000 characters long.
         /// </summary>
         public IDictionary<string, string> Metadata { get; set; }
 
         /// <summary>
         /// Attachment info for new request.
         /// </summary>
-        public IList<NewAttachment> Attachments { get; private set; }
+        public IList<SubAttachment> Attachments { get; private set; }
     }
 }

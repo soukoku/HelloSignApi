@@ -4,16 +4,27 @@ using System.Collections.Generic;
 namespace DropboxSignApi.Requests
 {
     /// <summary>
-    /// Object used to create a new unclaimed draft.
+    /// Object used to create a new embedded unclaimed draft.
     /// </summary>
-    public class NewUnclaimedDraftRequest : NewUnclaimedDraftBase
+    public class NewEmbeddedUnclaimedDraftRequest : NewUnclaimedDraftBase
     {
         /// <summary>
-        /// The type of unclaimed draft to create. Use values from <see cref="UnclaimedDraftTypes"/>.
-        /// If the type is <see cref="UnclaimedDraftTypes.RequestSignature"/> then signers name and 
-        /// email_address are not optional.
+        /// The email address of the user that should be designated as the requester of this draft, 
+        /// if the draft type is <see cref="UnclaimedDraftTypes.RequestSignature"/>.
         /// </summary>
-        public string Type { get; set; }
+        public string RequesterEmailAddress { get; set; }
+
+        /// <summary>
+        /// This allows the requester to specify whether the user 
+        /// is allowed to provide email addresses to CC when claiming the draft.
+        /// </summary>
+        public bool AllowCCs { get; set; } = true;
+
+        /// <summary>
+        /// Allows signers to reassign their signature requests to other signers 
+        /// if set to true. Defaults to false.
+        /// </summary>
+        public bool AllowReassign { get; set; }
 
         /// <summary>
         /// A list describing the attachments.
@@ -23,7 +34,22 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// The email addresses that should be CCed.
         /// </summary>
-        public IList<string> CcEmailAddresses { get; private set; } = new List<string>();
+        public IList<string> CCEmailAddresses { get; private set; } = new List<string>();
+
+        /// <summary>
+        /// This allows the requester to specify editor options when a preparing a document.
+        /// </summary>
+        public SubEditorOptions EditorOptions { get; set; }
+
+        /// <summary>
+        /// Provide users the ability to review/edit the signers.
+        /// </summary>
+        public bool ForceSignerPage { get; set; }
+
+        /// <summary>
+        /// Provide users the ability to review/edit the subject and message.
+        /// </summary>
+        public bool ForceSubjectMessage { get; set; }
 
         /// <summary>
         /// Group information for fields defined in form_fields_per_document. 
@@ -54,9 +80,45 @@ namespace DropboxSignApi.Requests
         public bool HideTextTags { get; set; }
 
         /// <summary>
+        /// The request from this draft will not automatically send to signers 
+        /// post-claim if set to true. Requester must release the request 
+        /// from hold when ready to send. Defaults to false.
+        /// </summary>
+        public bool HoldRequest { get; set; }
+
+        /// <summary>
+        /// The request created from this draft will also be signable in 
+        /// embedded mode if set to <code>true</code>.
+        /// </summary>
+        public bool IsForEmbeddedSigning { get; set; }
+
+        /// <summary>
+        /// The URL you want signers redirected to after they successfully request a signature.
+        /// </summary>
+        public string RequestingRedirectUrl { get; set; }
+
+        /// <summary>
+        /// This allows the requester to enable the editor/preview experience.
+        /// </summary>
+        public string ShowPreview { get; set; }
+
+        /// <summary>
         /// Add Signers to your Unclaimed Draft Signature Request.
         /// </summary>
         public IList<SubUnclaimedDraftSigner> Signers { get; set; } = new List<SubUnclaimedDraftSigner>();
+
+        /// <summary>
+        /// Disables the "Me (Now)" option for the person preparing the document. 
+        /// Does not work with type send_document. Defaults to false.
+        /// </summary>
+        public string SkipMeNow { get; set; }
+
+        /// <summary>
+        /// The type of unclaimed draft to create. Use values from <see cref="UnclaimedDraftTypes"/>.
+        /// If the type is <see cref="UnclaimedDraftTypes.RequestSignature"/> then signers name and 
+        /// email_address are not optional.
+        /// </summary>
+        public string Type { get; set; }
 
         /// <summary>
         /// Set use_text_tags to true to enable Text Tags parsing in your document 
@@ -77,9 +139,15 @@ namespace DropboxSignApi.Requests
         public bool UseTextTags { get; set; }
 
         /// <summary>
+        /// Controls whether auto fill fields can automatically populate a signer's information during signing.
+        /// </summary>
+        public bool PopulateAutoFillFields { get; set; }
+
+        /// <summary>
         /// When the signature request will expire. 
         /// Unsigned signatures will be moved to the expired status, and no longer signable.
         /// </summary>
         public long? ExpiresAt { get; set; }
+
     }
 }
