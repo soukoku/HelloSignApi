@@ -21,7 +21,6 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// The type of this form field. See <see cref="DropboxSignApi.Common.FieldTypes"/> values.
         /// </summary>
-        [JsonIgnore]
         public virtual string Type { get => FieldTypes.Text; }
 
         /// <summary>

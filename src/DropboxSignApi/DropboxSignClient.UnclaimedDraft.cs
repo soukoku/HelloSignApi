@@ -23,7 +23,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraft draft, 
+        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
