@@ -10,6 +10,11 @@ namespace DropboxSignApi.Common
     public class ApiApp
     {
         /// <summary>
+        /// The app's callback URL (for events).
+        /// </summary>
+        public string CallbackUrl { get; set; }
+
+        /// <summary>
         /// The app's client ID.
         /// </summary>
         public string ClientId { get; set; }
@@ -27,30 +32,19 @@ namespace DropboxSignApi.Common
         public DateTime CreatedAt { get { return CreatedAtRaw.FromUnixTime(); } }
 
         /// <summary>
+        /// The domain name(s) associated with the app.
+        /// </summary>
+        public string[] Domains { get; set; }
+
+        /// <summary>
         /// The name of the app.
         /// </summary>
         public string Name { get; set; }
-        /// <summary>
-        /// The domain name associated with the app.
-        /// </summary>
-        public string Domain { get; set; }
-        /// <summary>
-        /// The app's callback URL (for events).
-        /// </summary>
-        public string CallbackUrl { get; set; }
+
         /// <summary>
         /// Boolean to indicate if the app has been approved.
         /// </summary>
         public bool? IsApproved { get; set; }
-        /// <summary>
-        /// An object describing the app's owner.
-        /// </summary>
-        public AccountMin OwnerAccount { get; set; }
-
-        /// <summary>
-        /// An object with options that override account settings.
-        /// </summary>
-        public ApiAppOptions Options { get; set; }
 
         /// <summary>
         /// An object describing the app's OAuth properties, or null if OAuth is not configured for the app.
@@ -59,9 +53,18 @@ namespace DropboxSignApi.Common
         public OAuth OAuth { get; set; }
 
         /// <summary>
-        /// Serialized <see cref="WhiteLabelingOptions"/>, to be used to customize the app's signer page. 
-        /// (Only applies to some API plans)
+        /// An object with options that override account settings.
         /// </summary>
-        public string WhiteLabelingOptions { get; set; }
+        public ApiAppOptions Options { get; set; }
+
+        /// <summary>
+        /// An object describing the app's owner.
+        /// </summary>
+        public AccountMin OwnerAccount { get; set; }
+
+        /// <summary>
+        /// An object with options to customize the app's signer page.
+        /// </summary>
+        public WhiteLabelingOptions WhiteLabelingOptions { get; set; }
     }
 }

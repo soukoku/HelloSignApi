@@ -1,4 +1,5 @@
-﻿using DropboxSignApi.Requests;
+﻿using DropboxSignApi.Internal;
+using DropboxSignApi.Requests;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -145,7 +146,7 @@ namespace DropboxSignApi
             if (request.HideTextTags) { content.AddParameter(log, "hide_text_tags", "1"); }
             if (request.FormFieldsPerDocument.Count > 0)
             {
-                content.AddParameter(log, "form_fields_per_document", JsonConvert.SerializeObject(request.FormFieldsPerDocument, HttpResponseExtensions.JsonSettings));
+                content.AddParameter(log, "form_fields_per_document", JsonConvert.SerializeObject(request.FormFieldsPerDocument, JsonExtensions.JsonSettings));
             }
 
         }
@@ -167,7 +168,7 @@ namespace DropboxSignApi
             }
             if (request.CustomFields.Count > 0)
             {
-                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(request.CustomFields, HttpResponseExtensions.JsonSettings));
+                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(request.CustomFields, JsonExtensions.JsonSettings));
             }
         }
 
@@ -196,7 +197,7 @@ namespace DropboxSignApi
 
             if (draft.MergeFields.Count > 0)
             {
-                content.AddParameter(log, "merge_fields", JsonConvert.SerializeObject(draft.MergeFields, HttpResponseExtensions.JsonSettings));
+                content.AddParameter(log, "merge_fields", JsonConvert.SerializeObject(draft.MergeFields, JsonExtensions.JsonSettings));
             }
             if (draft.UsePreexistingFields) { content.AddParameter(log, "use_preexisting_fields", "1"); }
             content.AddMetadata(log, draft.Metadata);
@@ -221,7 +222,7 @@ namespace DropboxSignApi
             if (draft.HideTextTags) { content.AddParameter(log, "hide_text_tags", "1"); }
             if (draft.FormFieldsPerDocument.Count > 0)
             {
-                content.AddParameter(log, "form_fields_per_document", JsonConvert.SerializeObject(draft.FormFieldsPerDocument, HttpResponseExtensions.JsonSettings));
+                content.AddParameter(log, "form_fields_per_document", JsonConvert.SerializeObject(draft.FormFieldsPerDocument, JsonExtensions.JsonSettings));
             }
 
         }
@@ -253,20 +254,20 @@ namespace DropboxSignApi
             }
             if (draft.CustomFields.Count > 0)
             {
-                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(draft.CustomFields, HttpResponseExtensions.JsonSettings));
+                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(draft.CustomFields, JsonExtensions.JsonSettings));
             }
             if (draft.IsForEmbeddedSigning) { content.AddParameter(log, "is_for_embedded_signing", "1"); }
         }
 
-        public static void AddApiApp(this MultipartFormDataContent content, IApiLog log, NewApiApp app)
-        {
-            content.AddParameter(log, "name", app.Name);
-            content.AddParameter(log, "domain", app.Domain);
-            content.AddParameter(log, "callback_url", app.CallbackUrl);
-            content.AddParameter(log, "custom_logo_file", app.CustomLogoFile);
-            content.AddParameter(log, "oauth[callback_url]", app.OAuthCallbackUrl);
-            content.AddParameter(log, "oauth[scopes]", app.OAuthScopes);
-            content.AddParameter(log, "white_labeling_options", app.WhiteLabelingOptions);
-        }
+        //public static void AddApiApp(this MultipartFormDataContent content, IApiLog log, ApiAppRequest app)
+        //{
+        //    content.AddParameter(log, "name", app.Name);
+        //    content.AddParameter(log, "domain", app.Domain);
+        //    content.AddParameter(log, "callback_url", app.CallbackUrl);
+        //    content.AddParameter(log, "custom_logo_file", app.CustomLogoFile);
+        //    content.AddParameter(log, "oauth[callback_url]", app.OAuthCallbackUrl);
+        //    content.AddParameter(log, "oauth[scopes]", app.OAuthScopes);
+        //    content.AddParameter(log, "white_labeling_options", app.WhiteLabelingOptions);
+        //}
     }
 }

@@ -6,7 +6,7 @@
     public class ListApiResponse : ApiResponse
     {
         /// <summary>
-        /// Gets the paging info for the response.
+        /// Contains pagination information about the data returned.
         /// </summary>
         public ListInfo ListInfo { get; set; }
     }
