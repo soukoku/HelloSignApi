@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
@@ -18,7 +19,7 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// A list of warnings.
         /// </summary>
-        public Warning[] Warnings { get; set; }
+        public IList<Warning> Warnings { get; set; }
 
         internal void FillExtraValues(HttpResponseMessage httpResponse)
         {

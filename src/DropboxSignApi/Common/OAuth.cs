@@ -1,4 +1,6 @@
-﻿namespace DropboxSignApi.Common
+﻿using System.Collections.Generic;
+
+namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Contains OAuth info.
@@ -19,7 +21,7 @@
         /// Array of OAuth scopes used by the app.
         /// See <see cref="OAuthScopes"/>.
         /// </summary>
-        public string[] Scopes { get; set; }
+        public IList<string> Scopes { get; set; }
 
         /// <summary>
         /// Boolean indicating whether the app owner or the account granting permission is billed for OAuth requests.
@@ -41,7 +43,7 @@
         /// A list of OAuth scopes to be granted to the app. (Required if <see cref="CallbackUrl"/> is provided).
         /// See <see cref="OAuthScopes"/>.
         /// </summary>
-        public string[] Scopes { get; set; }
+        public IList<string> Scopes { get; set; }
     }
 
 }

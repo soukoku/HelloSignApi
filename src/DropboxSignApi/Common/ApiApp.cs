@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace DropboxSignApi.Common
@@ -34,7 +35,7 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// The domain name(s) associated with the app.
         /// </summary>
-        public string[] Domains { get; set; }
+        public IList<string> Domains { get; set; }
 
         /// <summary>
         /// The name of the app.

@@ -1,4 +1,5 @@
 ﻿using DropboxSignApi.Common;
+using System.Collections.Generic;
 
 namespace DropboxSignApi.Responses
 {
@@ -11,6 +12,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// The api app objects.
         /// </summary>
-        public ApiApp[] ApiApps { get; set; }
+        public IList<ApiApp> ApiApps { get; set; }
     }
 }

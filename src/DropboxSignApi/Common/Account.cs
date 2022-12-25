@@ -27,7 +27,7 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// Details concerning remaining monthly quotas.
         /// </summary>
-        public AccountResponseQuotas Quotas { get; set; }
+        public AccountQuotas Quotas { get; set; }
         
         /// <summary>
         /// The URL that Dropbox Sign events will POST to.

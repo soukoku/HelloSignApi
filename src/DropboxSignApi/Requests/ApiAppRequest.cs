@@ -1,5 +1,6 @@
 ﻿using DropboxSignApi.Common;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace DropboxSignApi.Requests
 {
@@ -18,7 +19,7 @@ namespace DropboxSignApi.Requests
         /// The domain names the ApiApp will be associated with.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string[] Domains { get; set; }
+        public IList<string> Domains { get; set; }
 
         /// <summary>
         /// The URL at which the ApiApp should receive event callbacks.
@@ -30,7 +31,7 @@ namespace DropboxSignApi.Requests
         /// An image file to use as a custom logo in embedded contexts. (Only applies to some API plans)
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string CustomLogoFile { get; set; }
+        public byte[] CustomLogoFile { get; set; }
 
         /// <summary>
         /// OAuth related parameters.
