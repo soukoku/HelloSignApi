@@ -75,5 +75,22 @@ namespace DropboxSignApi
 
             return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded_with_template", content, cancellationToken);
         }
+
+        /// <summary>
+        /// Creates a new signature request from an embedded request that can be edited prior to being sent to the recipients. 
+        /// Parameter test_mode can be edited prior to request. Signers can be edited in embedded editor. 
+        /// Requester's email address will remain unchanged if requester_email_address parameter is not set.
+        /// </summary>
+        /// <param name="signatureRequestId">The ID of the signature request to edit and resend.</param>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public Task<UnclaimedDraftResponse> EditAndResendUnclaimedDraft(string signatureRequestId,
+            EditAndResendRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/edit_and_resend/{Uri.EscapeDataString(signatureRequestId)}", 
+                request.ToJsonContent(), cancellationToken);
+        }
     }
 }

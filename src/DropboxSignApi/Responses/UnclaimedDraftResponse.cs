@@ -8,7 +8,7 @@ namespace DropboxSignApi.Responses
     public class UnclaimedDraftResponse : ApiResponse
     {
         /// <summary>
-        /// The unclaimed draft object.
+        /// A group of documents that a user can take ownership of via the claim URL.
         /// </summary>
         public UnclaimedDraft UnclaimedDraft { get; set; }
     }
