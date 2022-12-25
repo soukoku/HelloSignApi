@@ -1,5 +1,5 @@
 ﻿using DropboxSignApi.Internal;
-﻿using DropboxSignApi.Requests;
+using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
 using System;
 using System.Net.Http;
@@ -66,7 +66,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateEmbeddedUnclaimedDraftWithTemplateAsync(NewTemplatedEmbeddedUnclaimedDraft draft, 
+        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewTemplatedEmbeddedUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }

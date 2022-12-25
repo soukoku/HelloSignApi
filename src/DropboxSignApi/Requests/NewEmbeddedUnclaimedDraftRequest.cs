@@ -100,7 +100,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// This allows the requester to enable the editor/preview experience.
         /// </summary>
-        public string ShowPreview { get; set; }
+        public bool ShowPreview { get; set; }
 
         /// <summary>
         /// Add Signers to your Unclaimed Draft Signature Request.
@@ -111,7 +111,7 @@ namespace DropboxSignApi.Requests
         /// Disables the "Me (Now)" option for the person preparing the document. 
         /// Does not work with type send_document. Defaults to false.
         /// </summary>
-        public string SkipMeNow { get; set; }
+        public bool SkipMeNow { get; set; }
 
         /// <summary>
         /// The type of unclaimed draft to create. Use values from <see cref="UnclaimedDraftTypes"/>.
