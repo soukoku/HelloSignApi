@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-// this file contains reponse data models.
-
 namespace DropboxSignApi.Common
 {
     /// <summary>

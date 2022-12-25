@@ -1,6 +1,4 @@
-﻿// this file contains reponse wrapper models.
-
-namespace DropboxSignApi.Responses
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Response for the get file api call with download url.

@@ -1,6 +1,4 @@
-﻿// this file contains reponse data models.
-
-namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Represents a signer role in a template.

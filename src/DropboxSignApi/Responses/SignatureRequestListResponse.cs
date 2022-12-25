@@ -1,7 +1,5 @@
 ﻿using DropboxSignApi.Common;
 
-// this file contains reponse wrapper models.
-
 namespace DropboxSignApi.Responses
 {
     /// <summary>

@@ -1,6 +1,4 @@
-﻿// this file contains reponse data models.
-
-namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Common
 {
     /// <summary>
     /// An object that contains necessary information to set up embedded template editing.

@@ -1,6 +1,4 @@
-﻿// this file contains reponse wrapper models.
-
-namespace DropboxSignApi.Responses
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Basic response from calling a list api.

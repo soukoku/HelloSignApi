@@ -2,8 +2,6 @@
 using System;
 using System.ComponentModel;
 
-// this file contains reponse data models.
-
 namespace DropboxSignApi.Common
 {
     /// <summary>

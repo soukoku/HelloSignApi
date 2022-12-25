@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-// this file contains objects for creating new things.
-
 namespace DropboxSignApi.Requests
 {
     /// <summary>

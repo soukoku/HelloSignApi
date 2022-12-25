@@ -1,6 +1,4 @@
-﻿// this file contains objects for creating new things.
-
-namespace DropboxSignApi.Requests
+﻿namespace DropboxSignApi.Requests
 {
     /// <summary>
     /// Config for file attachment in new requests.

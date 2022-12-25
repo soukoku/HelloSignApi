@@ -1,6 +1,4 @@
-﻿// this file contains reponse data models.
-
-namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Field object for a template <see cref="Document"/>.

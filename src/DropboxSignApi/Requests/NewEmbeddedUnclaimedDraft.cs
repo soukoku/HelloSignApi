@@ -1,7 +1,5 @@
 ﻿using DropboxSignApi.Common;
 
-// this file contains objects for creating new things.
-
 namespace DropboxSignApi.Requests
 {
     /// <summary>

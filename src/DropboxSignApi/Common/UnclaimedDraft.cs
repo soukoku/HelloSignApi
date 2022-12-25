@@ -1,6 +1,4 @@
-﻿// this file contains reponse data models.
-
-namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Represents a group of documents that a user can take ownership of via the claim URL.

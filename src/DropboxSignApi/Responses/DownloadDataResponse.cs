@@ -1,7 +1,5 @@
 ﻿using System.Net.Http;
 
-// this file contains reponse wrapper models.
-
 namespace DropboxSignApi.Responses
 {
     /// <summary>
