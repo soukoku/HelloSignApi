@@ -1,10 +1,11 @@
 # DropboxSignApi
 This is an unofficial Dropbox Sign (previously HelloSign) API lib for dotnet 4.6.2+ and core versions.
-It uses HttpClient to do the API calls and supports the async goodness.
+It uses HttpClient to do the API calls and supports the async operations out of the box, unlike the
+official SDK.
 
 ## How to get it
 This lib is available via the NuGet package 
-[HelloSignApi](https://www.nuget.org/packages/hellosignapi).
+[DropboxSignApi](https://www.nuget.org/packages/dropboxsignapi).
 
 
 ## Using the library

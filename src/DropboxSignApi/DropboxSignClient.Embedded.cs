@@ -1,11 +1,13 @@
-﻿using DropboxSignApi.Responses;
+﻿using DropboxSignApi.Internal;
+using DropboxSignApi.Requests;
+using DropboxSignApi.Responses;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace DropboxSignApi
 {
-    // this contains account api methods
+    // this contains embedded url api methods
 
     partial class DropboxSignClient
     {
@@ -13,8 +15,10 @@ namespace DropboxSignApi
 
         /// <summary>
         /// Retrieves an embedded object containing a signature url that can be opened in an iFrame.
+        /// Note that templates created via the embedded template process will only be accessible through the API.
         /// </summary>
         /// <param name="signatureId">The id of the signature to get a signature url for.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature id is required.</exception>
         public Task<EmbeddedSignResponse> GetEmbeddedSignUrlAsync(string signatureId,
@@ -22,29 +26,25 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
 
-            return GetAsync<EmbeddedSignResponse>($"{EmbeddedUrl}/sign_url/{signatureId}", cancellationToken);
+            return GetAsync<EmbeddedSignResponse>($"{EmbeddedUrl}/sign_url/{Uri.EscapeDataString(signatureId)}", cancellationToken);
         }
 
         /// <summary>
-        /// Retrieves an embedded object containing a template url that can be opened in an iFrame. Note that only templates created via the embedded template process are available to be edited with this endpoint.
+        /// Retrieves an embedded object containing a template url that can be opened in an iFrame. 
+        /// Note that only templates created via the embedded template process are available to be edited with this endpoint.
         /// </summary>
         /// <param name="templateId">The id of the template to edit.</param>
-        /// <param name="testMode">Whether this is a test, locked templates will only be available for editing if this is set.</param>
-        /// <param name="skipSignerRoles">If signer roles are already provided, the user will not be prompted to edit them.</param>
-        /// <param name="skipSubjectMessage">If the subject and message has already been provided, the user will not be prompted to edit them.</param>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public Task<EmbeddedTemplateResponse> GetEmbeddedTemplateEditUrlAsync(string templateId,
-            bool testMode = false, bool skipSignerRoles = false, bool skipSubjectMessage = false,
+            EmbeddedTemplateEditUrlRequest request,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            var test = testMode ? 1 : 0;
-            var signer = skipSignerRoles ? 1 : 0;
-            var sm = skipSubjectMessage ? 1 : 0;
-
-            return GetAsync<EmbeddedTemplateResponse>($"{EmbeddedUrl}/edit_url/{templateId}?test_mode={test}&skip_signer_roles={signer}&skip_subject_message={sm}", cancellationToken);
+            return PostAsync<EmbeddedTemplateResponse>($"{EmbeddedUrl}/edit_url/{Uri.EscapeDataString(templateId)}", request.ToJsonContent(), cancellationToken);
         }
 
     }

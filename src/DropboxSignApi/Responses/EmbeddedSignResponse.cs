@@ -8,7 +8,7 @@ namespace DropboxSignApi.Responses
     public class EmbeddedSignResponse : ApiResponse
     {
         /// <summary>
-        /// The <see cref="EmbeddedSign"/> object.
+        /// An object that contains necessary information to set up embedded signing.
         /// </summary>
         public EmbeddedSign Embedded { get; set; }
     }

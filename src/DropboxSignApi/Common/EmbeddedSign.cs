@@ -6,7 +6,7 @@
     public class EmbeddedSign : ExpiringObject
     {
         /// <summary>
-        /// URL of the signature page to display in the embedded iFrame.
+        /// A signature url that can be opened in an iFrame.
         /// </summary>
         public string SignUrl { get; set; }
     }

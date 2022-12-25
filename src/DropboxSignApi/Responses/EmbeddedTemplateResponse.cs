@@ -8,7 +8,7 @@ namespace DropboxSignApi.Responses
     public class EmbeddedTemplateResponse : ApiResponse
     {
         /// <summary>
-        /// The <see cref="EmbeddedTemplate"/> object.
+        /// An embedded template object.
         /// </summary>
         public EmbeddedTemplate Embedded { get; set; }
     }
