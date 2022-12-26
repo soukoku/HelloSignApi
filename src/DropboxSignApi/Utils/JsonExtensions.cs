@@ -5,6 +5,9 @@ using System.Text;
 
 namespace DropboxSignApi.Utils
 {
+    /// <summary>
+    /// Contains methods for converting to/from json according to the API's rules.
+    /// </summary>
     public static class JsonExtensions
     {
         /// <summary>

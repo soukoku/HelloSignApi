@@ -98,7 +98,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// Gets the byte array data.
         /// </summary>
-        public byte[] Data { get; set; }
+        public byte[] Data { get; private set; }
 
         /// <summary>
         /// Gets the stream data.
@@ -118,6 +118,7 @@ namespace DropboxSignApi.Requests
         /// </returns>
         public override string ToString()
         {
+            if (RemotePath != null) return RemotePath.ToString();
             return FileName;
         }
 

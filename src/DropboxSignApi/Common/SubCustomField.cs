@@ -1,5 +1,8 @@
 ﻿namespace DropboxSignApi.Common
 {
+    /// <summary>
+    /// Custom field for requests.
+    /// </summary>
     public class SubCustomField
     {
         /// <summary>

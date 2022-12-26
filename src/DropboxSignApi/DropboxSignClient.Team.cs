@@ -28,6 +28,7 @@ namespace DropboxSignApi
         /// Creates a new Team and makes you a member. You must not currently belong to a Team to invoke.
         /// </summary>
         /// <param name="name">The name of your team.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Name is required.</exception>
         public Task<TeamResponse> CreateTeamAsync(string name,
@@ -42,6 +43,7 @@ namespace DropboxSignApi
         /// Updates the name of your Team.
         /// </summary>
         /// <param name="name">The name of your team.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Name is required.</exception>
         public Task<TeamResponse> UpdateTeamAsync(string name,
@@ -55,6 +57,7 @@ namespace DropboxSignApi
         /// <summary>
         /// Deletes your Team. Can only be invoked when you have a Team with only one member (yourself).
         /// </summary>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public Task<ApiResponse> DeleteTeamAsync(CancellationToken cancellationToken = default)
         {
@@ -70,6 +73,7 @@ namespace DropboxSignApi
         /// </summary>
         /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public Task<TeamResponse> AddTeamUserAsync(string accountId, string emailAddress,
             CancellationToken cancellationToken = default)
@@ -88,6 +92,7 @@ namespace DropboxSignApi
         /// </summary>
         /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public Task<TeamResponse> RemoveTeamUserAsync(string accountId, string emailAddress,
             CancellationToken cancellationToken = default)

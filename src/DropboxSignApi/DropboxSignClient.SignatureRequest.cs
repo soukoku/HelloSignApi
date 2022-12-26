@@ -21,6 +21,7 @@ namespace DropboxSignApi
         /// Returns the status of the SignatureRequest specified by the signature_request_id parameter.
         /// </summary>
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
         public Task<SignatureRequestResponse> GetSignatureRequestAsync(string signatureRequestId,
@@ -39,6 +40,7 @@ namespace DropboxSignApi
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
         /// <param name="query">String that includes search terms and/or fields to be used to filter the SignatureRequest objects. 
         /// You can use <see cref="ListQueyBuilder"/> to generate it.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public Task<SignatureRequestListResponse> GetSignatureRequestListAsync(string accountId = null, int page = 1, int pageSize = 20, string query = null,
             CancellationToken cancellationToken = default)
@@ -87,6 +89,7 @@ namespace DropboxSignApi
         /// <param name="signatureRequestId">The id of the SignatureRequest to send a reminder for.</param>
         /// <param name="emailAddress">The email address of the signer to send a reminder to.</param>
         /// <param name="name">The name of the signer to send a reminder to. Include if two or more signers share an email address.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">
         /// Signature request id is required.
@@ -111,6 +114,7 @@ namespace DropboxSignApi
         /// <param name="signatureRequestId">The id of the SignatureRequest to update.</param>
         /// <param name="signatureId">The signature ID for the recipient.</param>
         /// <param name="emailAddress">The new email address for the recipient.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public Task<SignatureRequestResponse> UpdateSignatureRequestAsync(string signatureRequestId, string signatureId, string emailAddress,
@@ -130,6 +134,7 @@ namespace DropboxSignApi
         /// Queues a SignatureRequest to be canceled. The cancelation is asynchronous and a successful call to this endpoint will return a 200 OK response if the signature request is eligible to be canceled and has been successfully queued. To be eligible for cancelation, a signature request must have been sent successfully and must be unsigned. Once canceled, singers will not be able to sign the signature request or access its documents. Canceling a signature request is not reversible.
         /// </summary>
         /// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
         public Task<ApiResponse> CancelSignatureRequestAsync(string signatureRequestId,
@@ -145,6 +150,7 @@ namespace DropboxSignApi
         /// If the files are currently being prepared, a status code of 409 will be returned instead.
         /// </summary>
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
         public async Task<DownloadInfoResponse> GetFileUrlAsync(string signatureRequestId,
@@ -172,6 +178,7 @@ namespace DropboxSignApi
         /// <param name="signatureRequestId">The id of the SignatureRequest to retrieve.</param>
         /// <param name="fileType">Set to <see cref="FileType.Pdf" /> for a single merged document or
         /// <see cref="FileType.Zip" /> for a collection of individual documents.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
         public async Task<DownloadDataResponse> GetFilesAsync(string signatureRequestId, FileType fileType,

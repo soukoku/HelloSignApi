@@ -2,6 +2,9 @@
 
 namespace DropboxSignApi.Requests
 {
+    /// <summary>
+    /// Request for <see cref="DropboxSignClient.GetEmbeddedTemplateEditUrlAsync(string, EmbeddedTemplateEditUrlRequest, System.Threading.CancellationToken)"/>.
+    /// </summary>
     public class EmbeddedTemplateEditUrlRequest
     {
         /// <summary>

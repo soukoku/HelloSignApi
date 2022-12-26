@@ -1,6 +1,5 @@
 ﻿namespace DropboxSignApi.Common
 {
-
     /// <summary>
     /// Represents the white labeling options for the document view.
     /// </summary>
@@ -97,7 +96,9 @@
 
     }
 
-
+    /// <summary>
+    /// White labeling options for API app requests.
+    /// </summary>
     public class SubWhiteLabelingOptions : WhiteLabelingOptions
     {
         /// <summary>

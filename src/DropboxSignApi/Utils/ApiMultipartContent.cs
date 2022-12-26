@@ -1,6 +1,5 @@
 ﻿using DropboxSignApi.Requests;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections;
@@ -30,14 +29,21 @@ namespace DropboxSignApi.Utils
         public ApiMultipartContent(object obj, IApiLog log)
         {
             this.log = log ?? NullApiLog.Instance;
-            AddObjectProperties(obj, null);
+            AddProperties(obj, null);
         }
 
-        private void AddObjectProperties(object obj, string arrayPrefix)
+        /// <summary>
+        /// Add all properties of the object as parts in the multipart data.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="arrayPrefix"></param>
+        void AddProperties(object obj, string arrayPrefix)
         {
             var skipRole = obj is IRoleIndexedSigner;
+            var properties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                .Select(p => new PropertyInfoEx(p));
 
-            foreach (var prop in GetProperties(obj))
+            foreach (var prop in properties)
             {
                 if (skipRole && prop.Name == "role") continue;
 
@@ -51,10 +57,6 @@ namespace DropboxSignApi.Utils
                 if (value is bool bValue)
                 {
                     AddParameter(name, bValue ? "1" : "0");
-                }
-                else if (prop.IsPrimitive)
-                {
-                    AddParameter(name, value.ToString());
                 }
                 else if (value is string sValue)
                 {
@@ -79,80 +81,20 @@ namespace DropboxSignApi.Utils
                     {
                         if (subObj is IRoleIndexedSigner roleSigner)
                         {
-                            AddObjectProperties(subObj, $"{name}[{roleSigner.Role}]");
+                            AddProperties(subObj, $"{name}[{roleSigner.Role}]");
                         }
                         else
                         {
-                            AddObjectProperties(subObj, $"{name}[{count++}]");
+                            AddProperties(subObj, $"{name}[{count++}]");
                         }
                     }
                 }
                 else
                 {
-                    // TODO: finish this
+                    // TODO: verify this
                     // json-serialize and add the string as value???
                     AddParameter(name, value.ToJson());
                 }
-            }
-        }
-
-        private static IEnumerable<PropertyInfoEx> GetProperties(object obj)
-        {
-            return obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Select(p => new PropertyInfoEx(p));
-        }
-
-        private class PropertyInfoEx
-        {
-            static readonly NamingStrategy __namer = new SnakeCaseNamingStrategy();
-
-            public PropertyInfoEx(PropertyInfo prop)
-            {
-                Info = prop;
-                JPAttribute = prop.GetCustomAttribute(typeof(JsonPropertyAttribute)) as JsonPropertyAttribute;
-                if (JPAttribute != null && !string.IsNullOrEmpty(JPAttribute.PropertyName)) Name = JPAttribute.PropertyName;
-                else Name = __namer.GetPropertyName(prop.Name, false);
-
-                hasIgnoreAttr = prop.GetCustomAttribute(typeof(JsonIgnoreAttribute)) != null;
-            }
-
-            PropertyInfo Info;
-
-            JsonPropertyAttribute JPAttribute;
-            bool hasIgnoreAttr;
-
-            public bool IsPrimitive { get { return Info.PropertyType.IsPrimitive; } }
-
-            /// <summary>
-            /// Serialized name.
-            /// </summary>
-            public string Name { get; set; }
-
-            public bool ShouldIgnore(object obj)
-            {
-                if (hasIgnoreAttr) return true;
-
-                if (JPAttribute != null)
-                {
-                    if (JPAttribute.DefaultValueHandling == DefaultValueHandling.Ignore)
-                    {
-                        var dva = Info.GetCustomAttribute(typeof(DefaultValueAttribute)) as DefaultValueAttribute;
-                        if (dva != null) return dva.Value != null && dva.Value.Equals(GetValue(obj));
-
-                        if (Info.PropertyType.IsValueType && Nullable.GetUnderlyingType(Info.PropertyType) == null)
-                        {
-                            var defaultValue = Activator.CreateInstance(Info.PropertyType);
-                            return defaultValue.Equals(GetValue(obj));
-                        }
-                    }
-                }
-                return false;
-            }
-
-            public object GetValue(object obj)
-            {
-                var value = Info.GetValue(obj);
-                return value;
             }
         }
 
@@ -165,7 +107,7 @@ namespace DropboxSignApi.Utils
         /// <param name="fileName"></param>
         void AddParameter(string name, string value, string fileName = null)
         {
-            // empty string is still passed
+            // empty string is still added, only null is excluded.
             if (value != null)
             {
                 log.MultipartAdded(name, value);
@@ -222,6 +164,60 @@ namespace DropboxSignApi.Utils
             {
                 Dispose();
                 throw;
+            }
+        }
+
+
+        private class PropertyInfoEx
+        {
+            static readonly NamingStrategy __namer = new SnakeCaseNamingStrategy();
+
+            public PropertyInfoEx(PropertyInfo prop)
+            {
+                _prop = prop;
+                _jpAttr = prop.GetCustomAttribute(typeof(JsonPropertyAttribute)) as JsonPropertyAttribute;
+                if (_jpAttr != null && !string.IsNullOrEmpty(_jpAttr.PropertyName)) Name = _jpAttr.PropertyName;
+                else Name = __namer.GetPropertyName(prop.Name, false);
+
+                _hasIgnoreAttr = prop.GetCustomAttribute(typeof(JsonIgnoreAttribute)) != null;
+            }
+
+            PropertyInfo _prop;
+            JsonPropertyAttribute _jpAttr;
+            bool _hasIgnoreAttr;
+
+            public bool IsPrimitive { get { return _prop.PropertyType.IsPrimitive; } }
+
+            /// <summary>
+            /// Serialized name.
+            /// </summary>
+            public string Name { get; set; }
+
+            public bool ShouldIgnore(object obj)
+            {
+                if (_hasIgnoreAttr) return true;
+
+                if (_jpAttr != null)
+                {
+                    if (_jpAttr.DefaultValueHandling == DefaultValueHandling.Ignore)
+                    {
+                        var dva = _prop.GetCustomAttribute(typeof(DefaultValueAttribute)) as DefaultValueAttribute;
+                        if (dva != null) return dva.Value != null && dva.Value.Equals(GetValue(obj));
+
+                        if (_prop.PropertyType.IsValueType && Nullable.GetUnderlyingType(_prop.PropertyType) == null)
+                        {
+                            var defaultValue = Activator.CreateInstance(_prop.PropertyType);
+                            return defaultValue.Equals(GetValue(obj));
+                        }
+                    }
+                }
+                return false;
+            }
+
+            public object GetValue(object obj)
+            {
+                var value = _prop.GetValue(obj);
+                return value;
             }
         }
     }

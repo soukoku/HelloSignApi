@@ -20,6 +20,7 @@ namespace DropboxSignApi
         /// Returns the Template specified by the id.
         /// </summary>
         /// <param name="templateId">The id of the Template to retrieve.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public Task<TemplateResponse> GetTemplateAsync(string templateId,
@@ -38,6 +39,7 @@ namespace DropboxSignApi
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
         /// <param name="query">String that includes search terms and/or fields to be used to filter the Template objects. 
         /// You can use <see cref="ListQueyBuilder"/> to generate it.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public Task<TemplateListResponse> GetTemplateListAsync(string accountId = null, int page = 1, int pageSize = 20, string query = null,
             CancellationToken cancellationToken = default)
@@ -54,6 +56,7 @@ namespace DropboxSignApi
         /// <param name="templateId">The id of the Template to give the Account access to.</param>
         /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public Task<TemplateResponse> AddTemplateUserAsync(string templateId, string accountId, string emailAddress,
@@ -76,6 +79,7 @@ namespace DropboxSignApi
         /// <param name="templateId">The id of the Template to remove the Account's access to.</param>
         /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
         /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public Task<TemplateResponse> RemoveTemplateUserAsync(string templateId, string accountId, string emailAddress,
@@ -111,6 +115,7 @@ namespace DropboxSignApi
         /// Completely deletes the template specified from the account.
         /// </summary>
         /// <param name="templateId">The id of the Template to delete.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public Task<ApiResponse> DeleteTemplateAsync(string templateId,
@@ -125,6 +130,7 @@ namespace DropboxSignApi
         /// Obtain a copy of the original files specified by the template id parameter.
         /// </summary>
         /// <param name="templateId">The id of the template files to retrieve.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public async Task<DownloadInfoResponse> GetTemplateFileUrlAsync(string templateId,
@@ -152,6 +158,7 @@ namespace DropboxSignApi
         /// <param name="templateId">The id of the template files to retrieve.</param>
         /// <param name="fileType">Set to <see cref="FileType.Pdf" /> for a single merged document or
         /// <see cref="FileType.Zip" /> for a collection of individual documents.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
         public async Task<DownloadDataResponse> GetTemplateFilesAsync(string templateId, FileType fileType,

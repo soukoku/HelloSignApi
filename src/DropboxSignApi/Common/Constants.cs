@@ -44,7 +44,9 @@ namespace DropboxSignApi.Common
         /// </summary>
         public const string CheckBoxMerge = "checkbox-merge";
 
-
+        /// <summary>
+        /// A hyperlink field?
+        /// </summary>
         public const string Hyperlink = "hyperlink";
 
     }

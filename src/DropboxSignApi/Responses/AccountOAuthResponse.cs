@@ -5,6 +5,9 @@
     /// </summary>
     public class AccountOAuthResponse : AccountResponse
     {
+        /// <summary>
+        /// OAuth token for new account.
+        /// </summary>
         public OAuthToken OAuthData { get; set; }
     }
 }
