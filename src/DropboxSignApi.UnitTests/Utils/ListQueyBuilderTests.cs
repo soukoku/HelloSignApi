@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DropboxSignApi
+namespace DropboxSignApi.Utils
 {
     [TestClass]
     public class ListQueyBuilderTests

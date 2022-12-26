@@ -101,7 +101,7 @@ namespace DropboxSignApi
 
             var request = new { emailAddress, name };
 
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/remind/{signatureRequestId}", request.ToJsonContent(), cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/remind/{signatureRequestId}", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace DropboxSignApi
 
             var request = new { signatureId, emailAddress };
 
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/update/{signatureRequestId}", request.ToJsonContent(), cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/update/{signatureRequestId}", request.ToJsonContent(_log), cancellationToken);
         }
 
 

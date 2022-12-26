@@ -36,7 +36,7 @@ namespace DropboxSignApi
             // empty string is still passed
             if (value != null)
             {
-                log.ParameterAdded(name, value);
+                log.MultipartAdded(name, value);
                 var sc = new StringContent(value);
                 sc.Headers.ContentType = null;
                 if (fileName == null)

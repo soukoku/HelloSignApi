@@ -1,6 +1,7 @@
 ﻿using DropboxSignApi.Internal;
 using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
+using DropboxSignApi.Utils;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace DropboxSignApi
         public Task<AccountResponse> UpdateAccountAsync(UpdateAccountRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PutAsync<AccountResponse>(AccountUrl, request.ToJsonContent(), cancellationToken);
+            return PutAsync<AccountResponse>(AccountUrl, request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace DropboxSignApi
         public Task<AccountOAuthResponse> CreateAccountAsync(NewAccountRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<AccountOAuthResponse>($"{AccountUrl}/create", request.ToJsonContent(), cancellationToken);
+            return PostAsync<AccountOAuthResponse>($"{AccountUrl}/create", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace DropboxSignApi
         public Task<AccountVerifyResponse> VerifyAccountAsync(string emailAddress,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<AccountVerifyResponse>($"{AccountUrl}/verify", new { emailAddress }.ToJsonContent(), cancellationToken);
+            return PostAsync<AccountVerifyResponse>($"{AccountUrl}/verify", new { emailAddress }.ToJsonContent(_log), cancellationToken);
         }
     }
 }

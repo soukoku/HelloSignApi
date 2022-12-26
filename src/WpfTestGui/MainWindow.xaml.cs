@@ -1,4 +1,5 @@
 ﻿using DropboxSignApi;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,13 +39,17 @@ namespace WpfTestGui
             }
         }
 
+        void IApiLog.MultipartAdded(string key, string value)
+        {
+            LogIt($"\t{key}={value}\n");
+        }
+        void IApiLog.JsonSerialized<TReq>(string json)
+        {
+            LogIt($"\tSerialized {typeof(TReq).Name} as {json}\n");
+        }
         void IApiLog.Requesting(string httpMethod, string apiUrl)
         {
             LogIt($"[{httpMethod}] {apiUrl}\n");
-        }
-        void IApiLog.ParameterAdded(string key, string value)
-        {
-            LogIt($"\t{key}={value}\n");
         }
         void IApiLog.ResponseRead<TResp>(string content)
         {
@@ -66,9 +71,9 @@ namespace WpfTestGui
 
         private string FormatJson(string content)
         {
-            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
-            var f = Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
-            return f;
+            JToken jt = JToken.Parse(content);
+            string formatted = jt.ToString(Newtonsoft.Json.Formatting.Indented);
+            return formatted;
         }
     }
 }

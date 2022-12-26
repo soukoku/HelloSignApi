@@ -1,6 +1,7 @@
 ﻿using DropboxSignApi.Internal;
 using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
+using DropboxSignApi.Utils;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,7 +45,8 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            return PostAsync<EmbeddedTemplateEditUrlResponse>($"{EmbeddedUrl}/edit_url/{Uri.EscapeDataString(templateId)}", request.ToJsonContent(), cancellationToken);
+            return PostAsync<EmbeddedTemplateEditUrlResponse>($"{EmbeddedUrl}/edit_url/{Uri.EscapeDataString(templateId)}", 
+                request.ToJsonContent(_log), cancellationToken);
         }
 
     }

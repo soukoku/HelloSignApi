@@ -1,7 +1,5 @@
-﻿using DropboxSignApi.Internal;
-using DropboxSignApi.Responses;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using DropboxSignApi.Responses;
+using DropboxSignApi.Utils;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +13,7 @@ namespace DropboxSignApi
             var json = await msg.Content.ReadAsStringAsync().ConfigureAwait(false);
             log.ResponseRead<T>(json);
 
-            var model = JsonConvert.DeserializeObject<T>(json, JsonExtensions.JsonSettings);
+            var model = json.FromJson<T>();
             if (model == null) { model = Activator.CreateInstance<T>(); }
 
             model.FillExtraValues(msg);

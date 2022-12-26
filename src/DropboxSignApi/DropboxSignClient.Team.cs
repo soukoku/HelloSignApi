@@ -1,5 +1,6 @@
 ﻿using DropboxSignApi.Internal;
 using DropboxSignApi.Responses;
+using DropboxSignApi.Utils;
 using System;
 using System.Net.Http;
 using System.Threading;
@@ -34,7 +35,7 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/create", new { name }.ToJsonContent(), cancellationToken);
+            return PostAsync<TeamResponse>($"{TeamUrl}/create", new { name }.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
-            return PostAsync<TeamResponse>(TeamUrl, new { name }.ToJsonContent(), cancellationToken);
+            return PostAsync<TeamResponse>(TeamUrl, new { name }.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -79,7 +80,7 @@ namespace DropboxSignApi
                 emailAddress
             };
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", request.ToJsonContent(), cancellationToken);
+            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace DropboxSignApi
                 emailAddress
             };
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", request.ToJsonContent(), cancellationToken);
+            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", request.ToJsonContent(_log), cancellationToken);
         }
     }
 }

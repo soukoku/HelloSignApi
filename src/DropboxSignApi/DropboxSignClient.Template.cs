@@ -67,7 +67,7 @@ namespace DropboxSignApi
                 emailAddress
             };
 
-            return PostAsync<TemplateResponse>($"{TemplateUrl}/add_user/{templateId}", request.ToJsonContent(), cancellationToken);
+            return PostAsync<TemplateResponse>($"{TemplateUrl}/add_user/{templateId}", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace DropboxSignApi
                 emailAddress
             };
 
-            return PostAsync<TemplateResponse>($"{TemplateUrl}/remove_user/{templateId}", request.ToJsonContent(), cancellationToken);
+            return PostAsync<TemplateResponse>($"{TemplateUrl}/remove_user/{templateId}", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>

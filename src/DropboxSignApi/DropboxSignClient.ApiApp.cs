@@ -1,6 +1,7 @@
 ﻿using DropboxSignApi.Internal;
 using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
+using DropboxSignApi.Utils;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,7 +55,7 @@ namespace DropboxSignApi
         public Task<ApiAppResponse> CreateApiAppAsync(ApiAppRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<ApiAppResponse>(ApiAppUrl, request.ToJsonContent(), cancellationToken);
+            return PostAsync<ApiAppResponse>(ApiAppUrl, request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace DropboxSignApi
         public Task<ApiAppResponse> UpdateApiAppAsync(string clientId, ApiAppRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PutAsync<ApiAppResponse>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", request.ToJsonContent(), cancellationToken);
+            return PutAsync<ApiAppResponse>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>

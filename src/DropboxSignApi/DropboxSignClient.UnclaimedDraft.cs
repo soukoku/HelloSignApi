@@ -1,6 +1,7 @@
 ﻿using DropboxSignApi.Internal;
 using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
+using DropboxSignApi.Utils;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -81,7 +82,7 @@ namespace DropboxSignApi
             CancellationToken cancellationToken = default)
         {
             return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/edit_and_resend/{Uri.EscapeDataString(signatureRequestId)}",
-                request.ToJsonContent(), cancellationToken);
+                request.ToJsonContent(_log), cancellationToken);
         }
     }
 }
