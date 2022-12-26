@@ -1,7 +1,5 @@
-﻿using DropboxSignApi.Utils;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.ComponentModel;
 
 namespace DropboxSignApi.Common
 {
@@ -29,6 +27,6 @@ namespace DropboxSignApi.Common
         /// Time that the BulkSendJob was created.
         /// </summary>
         [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
