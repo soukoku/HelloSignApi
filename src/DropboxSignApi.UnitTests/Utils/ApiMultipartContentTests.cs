@@ -1,7 +1,9 @@
+using DropboxSignApi.Requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace DropboxSignApi.Utils
 {
@@ -155,7 +157,6 @@ namespace DropboxSignApi.Utils
             log.AssertHasPart("my_string", "howdy");
         }
 
-
         [TestMethod]
         public void Can_Write_List_Type_Property_In_Array_Syntax()
         {
@@ -184,6 +185,57 @@ namespace DropboxSignApi.Utils
             log.AssertHasPart("children[4][name]", "4");
         }
 
+        [TestMethod]
+        public void Can_Write_Remote_Files()
+        {
+            //Arrange
+            var sample = new SampleObject
+            {
+                Files = new PendingFileCollection()
+            };
+            for (var i = 0; i < 5; i++)
+            {
+                sample.Files.Add(new PendingFile(new System.Uri($"https://test.com/fake-file-{i}.pdf")));
+            }
+            var log = new TestUseApiLog();
+
+            //Act
+            _ = new ApiMultipartContent(sample, log);
+            log.AssertHasPart("file_url[0]", sample.Files[0].RemotePath.ToString());
+            log.AssertHasPart("file_url[1]", sample.Files[1].RemotePath.ToString());
+            log.AssertHasPart("file_url[2]", sample.Files[2].RemotePath.ToString());
+            log.AssertHasPart("file_url[3]", sample.Files[3].RemotePath.ToString());
+            log.AssertHasPart("file_url[4]", sample.Files[4].RemotePath.ToString());
+        }
+
+        [TestMethod]
+        public void Can_Write_NonRemote_Files()
+        {
+            //Arrange
+            var sample = new SampleObject
+            {
+                Files = new PendingFileCollection()
+            };
+            for (var i = 0; i < 5; i++)
+            {
+                sample.Files.Add(new PendingFile(new byte[10], $"fake file {i}.pdf"));
+            }
+            var log = new TestUseApiLog();
+
+            //Act
+            var parts = new ApiMultipartContent(sample, log);
+            for (var i = 0; i < 5; i++)
+            {
+                var found = parts
+                    .FirstOrDefault(p => p.Headers.ContentDisposition != null &&
+                    // names could be quoted by framework so a trim
+                    p.Headers.ContentDisposition.Name.Trim('"') == $"file[{i}]" && 
+                    p.Headers.ContentDisposition.FileName.Trim('"') == $"fake file {i}.pdf");
+                Assert.IsNotNull(found, $"File part {i} not found.");
+                Assert.AreEqual("application/octet-stream", found.Headers.ContentType?.MediaType, "Wrong content type");
+            }
+        }
+
 
         class SampleObject
         {
@@ -196,6 +248,8 @@ namespace DropboxSignApi.Utils
             public string MyString { get; set; }
 
             public IList<SampleSubObject> Children { get; set; }
+
+            public PendingFileCollection Files { get; set; }
 
 
             // attrib tests
