@@ -19,7 +19,6 @@ namespace DropboxSignApi
         /// </summary>
         /// <param name="clientId">The client ID of the ApiApp to retrieve.</param>
         /// <param name="cancellationToken"></param>
-        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Client id required.</exception>
         public Task<ApiAppResponse> GetApiAppAsync(string clientId, CancellationToken cancellationToken = default)
