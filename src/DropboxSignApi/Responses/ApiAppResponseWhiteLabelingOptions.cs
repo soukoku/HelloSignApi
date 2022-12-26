@@ -1,9 +1,9 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Represents the white labeling options for the document view.
     /// </summary>
-    public class WhiteLabelingOptions
+    public class ApiAppResponseWhiteLabelingOptions
     {
         ///// <summary>
         ///// Deserializes the serialized data into a <see cref="WhiteLabelingOptions"/>.
@@ -48,37 +48,37 @@
         /// 
         /// </summary>
         public string PrimaryButtonColor { get; set; } = "#00B3E6";
-        
+
         /// <summary>
         /// 
         /// </summary>
         public string PrimaryButtonColorHover { get; set; } = "#00B3E6";
-        
+
         /// <summary>
         /// 
         /// </summary>
         public string PrimaryButtonTextColor { get; set; } = "#FFFFFF";
-        
+
         /// <summary>
         /// 
         /// </summary>
         public string PrimaryButtonTextColorHover { get; set; } = "#FFFFFF";
-        
+
         /// <summary>
         /// 
         /// </summary>
         public string SecondaryButtonColor { get; set; } = "#FFFFFF";
-        
+
         /// <summary>
         /// 
         /// </summary>
         public string SecondaryButtonColorHover { get; set; } = "#FFFFFF";
-        
+
         /// <summary>
         /// 
         /// </summary>
         public string SecondaryButtonTextColor { get; set; } = "#00B3E6";
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -99,7 +99,7 @@
     /// <summary>
     /// White labeling options for API app requests.
     /// </summary>
-    public class SubWhiteLabelingOptions : WhiteLabelingOptions
+    public class SubWhiteLabelingOptions : ApiAppResponseWhiteLabelingOptions
     {
         /// <summary>
         /// Resets white labeling options to defaults. Only useful when updating an API App.

@@ -1,4 +1,5 @@
 ﻿using DropboxSignApi.Common;
+using DropboxSignApi.Responses;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -42,7 +43,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// Additional options supported by API App.
         /// </summary>
-        public ApiAppOptions Options { get; set; }
+        public ApiAppResponseOptions Options { get; set; }
 
         /// <summary>
         /// White labeling options to be used to customize the app's signer page. (Only applies to some API plans)

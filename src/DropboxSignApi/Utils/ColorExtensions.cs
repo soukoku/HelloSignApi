@@ -1,10 +1,10 @@
-﻿using DropboxSignApi.Common;
+﻿using DropboxSignApi.Responses;
 
 namespace DropboxSignApi.Utils
 {
     /// <summary>
     /// Contains extension methods for converting colors to and from html hex string values.
-    /// This can be used by <see cref="WhiteLabelingOptions"/>.
+    /// This can be used by <see cref="ApiAppResponseWhiteLabelingOptions"/>.
     /// </summary>
     public static class ColorExtensions
     {

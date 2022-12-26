@@ -21,11 +21,11 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Client id required.</exception>
-        public Task<ApiAppResponse> GetApiAppAsync(string clientId, CancellationToken cancellationToken = default)
+        public Task<ApiAppResponseWrap> GetApiAppAsync(string clientId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id required."); }
 
-            return GetAsync<ApiAppResponse>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", cancellationToken);
+            return GetAsync<ApiAppResponseWrap>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", cancellationToken);
         }
 
         /// <summary>
@@ -36,13 +36,13 @@ namespace DropboxSignApi
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<ApiAppListResponse> GetApiAppListAsync(int page = 1, int pageSize = 20,
+        public Task<ApiAppListResponseWrap> GetApiAppListAsync(int page = 1, int pageSize = 20,
             CancellationToken cancellationToken = default)
         {
             page = Math.Max(1, page);
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
-            return GetAsync<ApiAppListResponse>($"{ApiAppUrl}/list?page={page}&page_size={pageSize}", cancellationToken);
+            return GetAsync<ApiAppListResponseWrap>($"{ApiAppUrl}/list?page={page}&page_size={pageSize}", cancellationToken);
         }
 
         /// <summary>
@@ -51,10 +51,10 @@ namespace DropboxSignApi
         /// <param name="request">The application to add.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<ApiAppResponse> CreateApiAppAsync(ApiAppRequest request,
+        public Task<ApiAppResponseWrap> CreateApiAppAsync(ApiAppRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<ApiAppResponse>(ApiAppUrl, request.ToJsonContent(_log), cancellationToken);
+            return PostAsync<ApiAppResponseWrap>(ApiAppUrl, request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -67,10 +67,10 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">app</exception>
-        public Task<ApiAppResponse> UpdateApiAppAsync(string clientId, ApiAppRequest request,
+        public Task<ApiAppResponseWrap> UpdateApiAppAsync(string clientId, ApiAppRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PutAsync<ApiAppResponse>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", request.ToJsonContent(_log), cancellationToken);
+            return PutAsync<ApiAppResponseWrap>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>

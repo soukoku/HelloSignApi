@@ -1,9 +1,9 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Contains API app options.
     /// </summary>
-    public class ApiAppOptions
+    public class ApiAppResponseOptions
     {
         /// <summary>
         /// Boolean denoting if signers can "Insert Everywhere" in one click while signing a document.

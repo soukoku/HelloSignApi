@@ -18,6 +18,6 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// A list of all Accounts that have an outstanding invitation to join your Team. 
         /// </summary>
-        public AccountMin[] InvitedAccounts { get; set; }
+        public ApiAppResponseOwnerAccount[] InvitedAccounts { get; set; }
     }
 }

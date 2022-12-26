@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DropboxSignApi.Responses;
 
 namespace DropboxSignApi.Common
 {
@@ -34,7 +35,7 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// An array of the Accounts that can use this Template.
         /// </summary>
-        public AccountMin[] Accounts { get; set; }
+        public ApiAppResponseOwnerAccount[] Accounts { get; set; }
         /// <summary>
         /// True if you are the owner of this template, false if it's been shared with you by a team member.
         /// </summary>

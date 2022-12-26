@@ -18,9 +18,9 @@ namespace DropboxSignApi
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<ApiReportResponse> CreateReportAsync(CreateReportRequest request, CancellationToken cancellationToken = default)
+        public Task<ReportResponseWrap> CreateReportAsync(CreateReportRequest request, CancellationToken cancellationToken = default)
         {
-            return PostAsync<ApiReportResponse>($"{ReportUrl}/create", request.ToJsonContent(_log), cancellationToken);
+            return PostAsync<ReportResponseWrap>($"{ReportUrl}/create", request.ToJsonContent(_log), cancellationToken);
         }
 
     }

@@ -1,9 +1,9 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Min amount of account object.
     /// </summary>
-    public class AccountMin
+    public class ApiAppResponseOwnerAccount
     {
         /// <summary>
         /// The ID of the Account.

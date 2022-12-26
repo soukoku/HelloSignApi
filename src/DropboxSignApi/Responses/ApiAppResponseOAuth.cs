@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using DropboxSignApi.Common;
 
-namespace DropboxSignApi.Common
+namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Contains OAuth info.
     /// </summary>
-    public class OAuth
+    public class ApiAppResponseOAuth
     {
         /// <summary>
         /// The app's OAuth callback URL.
@@ -27,23 +28,6 @@ namespace DropboxSignApi.Common
         /// Boolean indicating whether the app owner or the account granting permission is billed for OAuth requests.
         /// </summary>
         public bool ChargesUsers { get; set; }
-    }
-
-    /// <summary>
-    /// Limited oauth options for API app use.
-    /// </summary>
-    public class SubOAuth
-    {
-        /// <summary>
-        /// The callback URL to be used for OAuth flows. (Required if <see cref="Scopes"/> is provided).
-        /// </summary>
-        public string CallbackUrl { get; set; }
-
-        /// <summary>
-        /// A list of OAuth scopes to be granted to the app. (Required if <see cref="CallbackUrl"/> is provided).
-        /// See <see cref="OAuthScopes"/>.
-        /// </summary>
-        public IList<string> Scopes { get; set; }
     }
 
 }
