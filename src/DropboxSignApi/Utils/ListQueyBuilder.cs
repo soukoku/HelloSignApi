@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace DropboxSignApi
+namespace DropboxSignApi.Utils
 {
     /// <summary>
     /// Can be used to generate the search query when listing signatures or templates.
@@ -163,7 +163,7 @@ namespace DropboxSignApi
         /// <param name="to">The to value.</param>
         /// <param name="inclusive">Whether the range value is inclusive or exclusive.</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentException">'From' value cannot be greater than 'To'.</exception>
+        /// <exception cref="ArgumentException">'From' value cannot be greater than 'To'.</exception>
         public QueryChain CreatedBetween(DateTime from, DateTime to, bool inclusive = true)
         {
             if (from > to) { throw new ArgumentException("'From' value cannot be greater than 'To'."); }

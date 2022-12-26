@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DropboxSignApi.Utils;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 
@@ -10,16 +11,9 @@ namespace DropboxSignApi.Common
     public class ExpiringObject
     {
         /// <summary>
-        /// Actual value for <see cref="ExpiresAt"/>
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [JsonProperty("expires_at")]
-        public long ExpiresAtRaw { get; set; }
-
-        /// <summary>
         /// Gets when the link expires.
         /// </summary>
-        [JsonIgnore]
-        public DateTime ExpiresAt { get { return ExpiresAtRaw.FromUnixTime(); } }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime ExpiresAt { get; set; }
     }
 }

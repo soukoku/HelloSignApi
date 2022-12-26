@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DropboxSignApi.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,16 +22,10 @@ namespace DropboxSignApi.Common
         public string ClientId { get; set; }
 
         /// <summary>
-        /// Actual value of <see cref="CreatedAt"/>.
-        /// </summary>
-        [JsonProperty("created_at"), EditorBrowsable(EditorBrowsableState.Never)]
-        public long CreatedAtRaw { get; set; }
-
-        /// <summary>
         /// The time that the app was created.
         /// </summary>
-        [JsonIgnore]
-        public DateTime CreatedAt { get { return CreatedAtRaw.FromUnixTime(); } }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// The domain name(s) associated with the app.

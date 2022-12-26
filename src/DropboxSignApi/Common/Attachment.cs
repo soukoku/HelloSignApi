@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DropboxSignApi.Utils;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 
@@ -35,16 +36,10 @@ namespace DropboxSignApi.Common
         public bool Required { get; set; }
 
         /// <summary>
-        /// Actual value of <see cref="UploadedAt"/>.
-        /// </summary>
-        [JsonProperty("uploaded_at"), EditorBrowsable(EditorBrowsableState.Never)]
-        public long? UploadedAtRaw { get; set; }
-
-        /// <summary>
         /// Time that the attachment was uploaded.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? UploadedAt { get { return UploadedAtRaw?.FromUnixTime(); } }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime? UploadedAt { get; set; }
 
     }
 }

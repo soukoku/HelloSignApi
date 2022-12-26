@@ -3,7 +3,8 @@
 namespace DropboxSignApi
 {
     /// <summary>
-    /// Used to deserialize raw event only.
+    /// Used to deserialize raw event json only.
+    /// Unwrap to have all properties put in place.
     /// </summary>
     class EventWrap
     {

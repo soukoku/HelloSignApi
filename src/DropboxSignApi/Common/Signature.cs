@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DropboxSignApi.Utils;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 
@@ -39,36 +40,20 @@ namespace DropboxSignApi.Common
         public string DeclineReason { get; set; }
 
         /// <summary>
-        /// Actual value of <see cref="SignedAt"/>.
-        /// </summary>
-        [JsonProperty("signed_at"), EditorBrowsable(EditorBrowsableState.Never)]
-        public long? SignedAtRaw { get; set; }
-        /// <summary>
-        /// Actual value of <see cref="LastViewedAt"/>.
-        /// </summary>
-        [JsonProperty("last_viewed_at"), EditorBrowsable(EditorBrowsableState.Never)]
-        public long? LastViewedAtRaw { get; set; }
-        /// <summary>
-        /// Actual value of <see cref="LastRemindedAt"/>.
-        /// </summary>
-        [JsonProperty("last_reminded_at"), EditorBrowsable(EditorBrowsableState.Never)]
-        public long? LastRemindedAtRaw { get; set; }
-
-        /// <summary>
         /// Time that the document was signed or null.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? SignedAt { get { return SignedAtRaw?.FromUnixTime(); } }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime? SignedAt { get; set; }
         /// <summary>
         /// The time that the document was last viewed by this signer or null.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? LastViewedAt { get { return LastViewedAtRaw?.FromUnixTime(); } }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime? LastViewedAt { get; set; }
         /// <summary>
         /// The time the last reminder email was sent to the signer or null.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? LastRemindedAt { get { return LastRemindedAtRaw?.FromUnixTime(); } }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime? LastRemindedAt { get; set; }
 
         /// <summary>
         /// Indicate whether this signature requires a PIN to access.

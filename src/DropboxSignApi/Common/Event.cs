@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.ComponentModel;
 
 namespace DropboxSignApi.Common
 {
@@ -10,16 +9,10 @@ namespace DropboxSignApi.Common
     public class Event
     {
         /// <summary>
-        /// Actual value of <see cref="EventTime"/>.
-        /// </summary>
-        [JsonProperty("event_time"), EditorBrowsable(EditorBrowsableState.Never)]
-        public long? EventTimeRaw { get; set; }
-
-        /// <summary>
         /// When the event was created.
         /// </summary>
-        [JsonIgnore]
-        public DateTime? EventTime { get { return EventTimeRaw?.FromUnixTime(); } }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime EventTime { get; set; }
 
         /// <summary>
         /// Type of event being reported. See <see cref="EventTypes"/> values.

@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 
-namespace DropboxSignApi
+namespace DropboxSignApi.Internal
 {
+    /// <summary>
+    /// Produces hashes.
+    /// </summary>
     static class Hasher
     {
-        public static string GetHMACSHA256Hash(byte[] key, byte[] input)
+        /// <summary>
+        /// Generates a HMACSHA256 hash from a string input.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string GetHMACSHA256Hash(byte[] key, string input)
         {
             using (var algo = new HMACSHA256(key))
             {
-                var hash = BitConverter.ToString(algo.ComputeHash(input));
+                var inputBytes = Encoding.UTF8.GetBytes(input);
+                var hash = BitConverter.ToString(algo.ComputeHash(inputBytes));
                 return hash.Replace("-", "");
             }
 

@@ -1,6 +1,6 @@
 ﻿using DropboxSignApi.Common;
 
-namespace DropboxSignApi
+namespace DropboxSignApi.Utils
 {
     /// <summary>
     /// Contains extension methods for converting colors to and from html hex string values.

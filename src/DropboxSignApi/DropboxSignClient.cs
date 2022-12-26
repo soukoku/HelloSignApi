@@ -1,6 +1,7 @@
 ﻿using DropboxSignApi.Common;
 using DropboxSignApi.Internal;
 using DropboxSignApi.Responses;
+using DropboxSignApi.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -68,8 +69,8 @@ namespace DropboxSignApi
             if (verify && wrap != null && wrap.Event != null)
             {
                 var key = Encoding.UTF8.GetBytes(_apiKey);
-                var input = Encoding.UTF8.GetBytes($"{wrap.Event.EventTimeRaw}{wrap.Event.EventType}");
-                var hash = Hasher.GetHMACSHA256Hash(key, input);
+                var hashInput = $"{wrap.Event.EventTime.ToUnixTime()}{wrap.Event.EventType}";
+                var hash = Hasher.GetHMACSHA256Hash(key, hashInput);
                 if (!string.Equals(hash, wrap.Event.EventHash, StringComparison.OrdinalIgnoreCase))
                 {
                     wrap = null;
