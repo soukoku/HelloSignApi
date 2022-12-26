@@ -120,6 +120,10 @@ namespace DropboxSignApi.Common
         /// </summary>
         public const string SignatureRequestCanceled = "signature_request_canceled";
         /// <summary>
+        /// The signature request has expired, signers who failed to sign will be marked expired.
+        /// </summary>
+        public const string SignatureRequestExpired = "signature_request_expired";
+        /// <summary>
         /// The SignatureRequest has been prepared but not sent.
         /// </summary>
         public const string SignatureRequestPrepared = "signature_request_prepared";
