@@ -24,12 +24,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewUnclaimedDraftRequest draft,
+        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(NewUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create", new ApiMultipartContent(draft, _log), cancellationToken);
+            return PostAsync<UnclaimedDraftResponseWrap>($"{DraftUrl}/create", new ApiMultipartContent(draft, _log), cancellationToken);
         }
 
         /// <summary>
@@ -42,12 +42,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewEmbeddedUnclaimedDraftRequest draft,
+        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(NewEmbeddedUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded", new ApiMultipartContent(draft, _log), cancellationToken);
+            return PostAsync<UnclaimedDraftResponseWrap>($"{DraftUrl}/create_embedded", new ApiMultipartContent(draft, _log), cancellationToken);
         }
 
 
@@ -60,12 +60,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponse> CreateUnclaimedDraftAsync(NewTemplatedEmbeddedUnclaimedDraftRequest draft,
+        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(NewTemplatedEmbeddedUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded_with_template", new ApiMultipartContent(draft, _log), cancellationToken);
+            return PostAsync<UnclaimedDraftResponseWrap>($"{DraftUrl}/create_embedded_with_template", new ApiMultipartContent(draft, _log), cancellationToken);
         }
 
         /// <summary>
@@ -77,11 +77,11 @@ namespace DropboxSignApi
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<UnclaimedDraftResponse> EditAndResendUnclaimedDraft(string signatureRequestId,
+        public Task<UnclaimedDraftResponseWrap> EditAndResendUnclaimedDraft(string signatureRequestId,
             EditAndResendRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/edit_and_resend/{Uri.EscapeDataString(signatureRequestId)}",
+            return PostAsync<UnclaimedDraftResponseWrap>($"{DraftUrl}/edit_and_resend/{Uri.EscapeDataString(signatureRequestId)}",
                 request.ToJsonContent(_log), cancellationToken);
         }
     }
