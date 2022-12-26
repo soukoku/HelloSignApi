@@ -1,6 +1,6 @@
 ﻿namespace DropboxSignApi.Requests
 {
-    public class SubUnclaimedDraftTemplateSigner
+    public class SubUnclaimedDraftTemplateSigner : IRoleIndexedSigner
     {
         /// <summary>
         /// Must match an existing role in chosen Template(s).

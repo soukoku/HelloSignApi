@@ -35,8 +35,12 @@ namespace DropboxSignApi.Utils
 
         private void AddObjectProperties(object obj, string arrayPrefix)
         {
+            var skipRole = obj is IRoleIndexedSigner;
+
             foreach (var prop in GetProperties(obj))
             {
+                if (skipRole && prop.Name == "role") continue;
+
                 var value = prop.GetValue(obj);
                 if (value == null || prop.ShouldIgnore(obj)) continue;
 
@@ -73,13 +77,21 @@ namespace DropboxSignApi.Utils
                     var count = 0;
                     foreach (var subObj in ieValue)
                     {
-                        AddObjectProperties(subObj, $"{name}[{count++}]");
+                        if (subObj is IRoleIndexedSigner roleSigner)
+                        {
+                            AddObjectProperties(subObj, $"{name}[{roleSigner.Role}]");
+                        }
+                        else
+                        {
+                            AddObjectProperties(subObj, $"{name}[{count++}]");
+                        }
                     }
                 }
                 else
                 {
                     // TODO: finish this
-                    // ?
+                    // json-serialize and add the string as value???
+                    AddParameter(name, value.ToJson());
                 }
             }
         }
@@ -212,31 +224,5 @@ namespace DropboxSignApi.Utils
                 throw;
             }
         }
-        ///// <summary>
-        ///// Adds the metadata value.
-        ///// </summary>
-        ///// <param name="metadata"></param>
-        //public void AddMetadata(IDictionary<string, string> metadata)
-        //{
-        //    if (metadata == null) return;
-        //    foreach (var kv in metadata)
-        //    {
-        //        AddParameter($"metadata[{kv.Key}]", kv.Value);
-        //    }
-        //}
-
-        //void AddAttachments(IList<SubAttachment> attachments)
-        //{
-        //    int i = 0;
-        //    foreach (var att in attachments)
-        //    {
-        //        AddParameter($"attachments[{i}][name]", att.Name);
-        //        AddParameter($"attachments[{i}][instructions]", att.Instructions);
-        //        AddParameter($"attachments[{i}][signer_index]", att.SignerIndex.ToString());
-        //        AddParameter($"attachments[{i}][required]", att.Required ? "1" : "0");
-        //        i++;
-        //    }
-        //}
-
     }
 }

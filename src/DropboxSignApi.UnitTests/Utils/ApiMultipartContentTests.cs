@@ -229,10 +229,35 @@ namespace DropboxSignApi.Utils
                 var found = parts
                     .FirstOrDefault(p => p.Headers.ContentDisposition != null &&
                     // names could be quoted by framework so a trim
-                    p.Headers.ContentDisposition.Name.Trim('"') == $"file[{i}]" && 
+                    p.Headers.ContentDisposition.Name.Trim('"') == $"file[{i}]" &&
                     p.Headers.ContentDisposition.FileName.Trim('"') == $"fake file {i}.pdf");
                 Assert.IsNotNull(found, $"File part {i} not found.");
                 Assert.AreEqual("application/octet-stream", found.Headers.ContentType?.MediaType, "Wrong content type");
+            }
+        }
+
+        [TestMethod]
+        public void RoleIndexedSigners_Index_Use_Role_Name()
+        {
+            //Arrange
+            var sample = new SampleObject
+            {
+                RoleSigners = new List<RoleSigner>()
+            };
+            for (var i = 0; i < 5; i++)
+            {
+                sample.RoleSigners.Add(new RoleSigner { Name = i.ToString(), EmailAddress = $"{i}@test.com", Role = $"role {i}" });
+            }
+            var log = new TestUseApiLog();
+
+            //Act
+            _ = new ApiMultipartContent(sample, log);
+            for (var i = 0; i < 5; i++)
+            {
+                // not that role property is not written
+                log.AssertHasPart($"role_signers[role {i}][name]", sample.RoleSigners[i].Name);
+                log.AssertHasPart($"role_signers[role {i}][email_address]", sample.RoleSigners[i].EmailAddress);
+                log.AssertHasNoPart($"role_signers[role {i}][role]");
             }
         }
 
@@ -250,6 +275,8 @@ namespace DropboxSignApi.Utils
             public IList<SampleSubObject> Children { get; set; }
 
             public PendingFileCollection Files { get; set; }
+
+            public IList<RoleSigner> RoleSigners { get; set; }
 
 
             // attrib tests
@@ -273,6 +300,15 @@ namespace DropboxSignApi.Utils
             public int Id { get; set; }
 
             public string Name { get; set; }
+        }
+
+        class RoleSigner : IRoleIndexedSigner
+        {
+            public string Role { get; set; }
+
+            public string Name { get; set; }
+
+            public string EmailAddress { get; set; }
         }
     }
 }
