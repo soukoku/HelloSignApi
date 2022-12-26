@@ -6,11 +6,11 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Response for <see cref="DropboxSignClient.GetBulkSendJobListAsync(int, int, System.Threading.CancellationToken)"/>.
     /// </summary>
-    public class BulkSendJobListResponse : ListApiResponse
+    public class BulkSendJobListResponseWrap : ListApiResponse
     {
         /// <summary>
         /// Contains a list of BulkSendJobs that the API caller has access to.
         /// </summary>
-        public IList<BulkSendJob> BulkSendJobs { get; set; }
+        public IList<BulkSendJobResponse> BulkSendJobs { get; set; }
     }
 }

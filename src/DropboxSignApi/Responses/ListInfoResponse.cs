@@ -5,7 +5,7 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Contains paging info for a <see cref="ListApiResponse"/>.
     /// </summary>
-    public class ListInfo
+    public class ListInfoResponse
     {
         /// <summary>
         /// Total number of pages available.

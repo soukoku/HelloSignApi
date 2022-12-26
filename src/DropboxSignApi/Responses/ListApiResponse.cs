@@ -8,6 +8,6 @@
         /// <summary>
         /// Contains pagination information about the data returned.
         /// </summary>
-        public ListInfo ListInfo { get; set; }
+        public ListInfoResponse ListInfo { get; set; }
     }
 }

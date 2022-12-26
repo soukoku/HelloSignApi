@@ -18,11 +18,11 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Id required.</exception>
-        public Task<BulkSendJobResponse> GetBulkSendJobAsync(string bulkSendJobId, CancellationToken cancellationToken = default)
+        public Task<BulkSendJobResponseWrap> GetBulkSendJobAsync(string bulkSendJobId, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(bulkSendJobId)) { throw new ArgumentException("Id required."); }
 
-            return GetAsync<BulkSendJobResponse>($"{BulkSendUrl}/{Uri.EscapeDataString(bulkSendJobId)}", cancellationToken);
+            return GetAsync<BulkSendJobResponseWrap>($"{BulkSendUrl}/{Uri.EscapeDataString(bulkSendJobId)}", cancellationToken);
         }
 
         /// <summary>
@@ -32,13 +32,13 @@ namespace DropboxSignApi
         /// <param name="pageSize">Number of objects to be returned per page. Must be between 1 and 100. Default is 20.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<BulkSendJobListResponse> GetBulkSendJobListAsync(int page = 1, int pageSize = 20,
+        public Task<BulkSendJobListResponseWrap> GetBulkSendJobListAsync(int page = 1, int pageSize = 20,
             CancellationToken cancellationToken = default)
         {
             page = Math.Max(1, page);
             pageSize = Math.Min(100, Math.Max(1, pageSize));
 
-            return GetAsync<BulkSendJobListResponse>($"{BulkSendUrl}/list?page={page}&page_size={pageSize}", cancellationToken);
+            return GetAsync<BulkSendJobListResponseWrap>($"{BulkSendUrl}/list?page={page}&page_size={pageSize}", cancellationToken);
         }
     }
 }
