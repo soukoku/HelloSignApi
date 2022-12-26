@@ -5,6 +5,7 @@ using DropboxSignApi.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -55,31 +56,6 @@ namespace DropboxSignApi
                 Convert.ToBase64String(Encoding.UTF8.GetBytes(apiKey + ":")));
         }
 
-
-        /// <summary>
-        /// Parsed the data received from the event callback.
-        /// </summary>
-        /// <param name="eventData">json data from the callback.</param>
-        /// <param name="verify">Validate the event for integrity. 
-        /// If validation fails the return value is null.</param>
-        /// <returns></returns>
-        public Event ParseEvent(string eventData, bool verify = true)
-        {
-            var wrap = JsonConvert.DeserializeObject<EventWrap>(eventData ?? "", JsonExtensions.JsonSettings);
-            if (verify && wrap != null && wrap.Event != null)
-            {
-                var key = Encoding.UTF8.GetBytes(_apiKey);
-                var hashInput = $"{wrap.Event.EventTime.ToUnixTime()}{wrap.Event.EventType}";
-                var hash = Hasher.GetHMACSHA256Hash(key, hashInput);
-                if (!string.Equals(hash, wrap.Event.EventHash, StringComparison.OrdinalIgnoreCase))
-                {
-                    wrap = null;
-                }
-            }
-            return wrap?.Unwrap();
-        }
-
-
         /// <summary>
         /// Performs an http GET opertion to the api.
         /// </summary>
@@ -88,7 +64,7 @@ namespace DropboxSignApi
         async Task<TResp> GetAsync<TResp>(string apiUrl,
             CancellationToken cancellationToken) where TResp : ApiResponse
         {
-           _log.Requesting("GET", apiUrl);
+            _log.Requesting("GET", apiUrl);
             var resp = await _client.GetAsync(apiUrl, cancellationToken).ConfigureAwait(false);
             return await resp.ParseApiResponseAsync<TResp>(_log).ConfigureAwait(false);
         }

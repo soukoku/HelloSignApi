@@ -22,7 +22,7 @@ namespace DropboxSignApi
         /// <param name="emailAddress">The email address of the Account.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<AccountResponse> GetAccountAsync(
+        public Task<AccountResponseWrap> GetAccountAsync(
             string accountId, string emailAddress,
             CancellationToken cancellationToken = default)
         {
@@ -35,7 +35,7 @@ namespace DropboxSignApi
             {
                 url += $"?email_address={Uri.EscapeDataString(emailAddress)}";
             }
-            return GetAsync<AccountResponse>(url, cancellationToken);
+            return GetAsync<AccountResponseWrap>(url, cancellationToken);
         }
 
         /// <summary>
@@ -45,10 +45,10 @@ namespace DropboxSignApi
         /// <param name="request">Updated account info.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<AccountResponse> UpdateAccountAsync(UpdateAccountRequest request,
+        public Task<AccountResponseWrap> UpdateAccountAsync(UpdateAccountRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PutAsync<AccountResponse>(AccountUrl, request.ToJsonContent(_log), cancellationToken);
+            return PutAsync<AccountResponseWrap>(AccountUrl, request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -57,10 +57,10 @@ namespace DropboxSignApi
         /// <param name="request">New account info.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<AccountOAuthResponse> CreateAccountAsync(NewAccountRequest request,
+        public Task<AccountCreateResponseWrap> CreateAccountAsync(NewAccountRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<AccountOAuthResponse>($"{AccountUrl}/create", request.ToJsonContent(_log), cancellationToken);
+            return PostAsync<AccountCreateResponseWrap>($"{AccountUrl}/create", request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -69,10 +69,10 @@ namespace DropboxSignApi
         /// <param name="emailAddress">Email address to run the verification for.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<AccountVerifyResponse> VerifyAccountAsync(string emailAddress,
+        public Task<AccountVerifyResponseWrap> VerifyAccountAsync(string emailAddress,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<AccountVerifyResponse>($"{AccountUrl}/verify", new { emailAddress }.ToJsonContent(_log), cancellationToken);
+            return PostAsync<AccountVerifyResponseWrap>($"{AccountUrl}/verify", new { emailAddress }.ToJsonContent(_log), cancellationToken);
         }
     }
 }

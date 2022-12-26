@@ -3,7 +3,7 @@
     /// <summary>
     /// Extended account api response with oauth token data.
     /// </summary>
-    public class AccountOAuthResponse : AccountResponse
+    public class AccountCreateResponseWrap : AccountResponseWrap
     {
         /// <summary>
         /// OAuth token for new account.

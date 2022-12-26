@@ -1,9 +1,9 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Quotas for an <see cref="Account"/>.
+    /// Quotas for an <see cref="AccountResponse"/>.
     /// </summary>
-    public class AccountQuotas
+    public class AccountResponseQuotas
     {
         /// <summary>
         /// API templates remaining.

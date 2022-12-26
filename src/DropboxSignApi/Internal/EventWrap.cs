@@ -1,4 +1,5 @@
 ﻿using DropboxSignApi.Common;
+using DropboxSignApi.Responses;
 
 namespace DropboxSignApi
 {
@@ -11,7 +12,7 @@ namespace DropboxSignApi
         public Event Event { get; set; }
 
         public SignatureRequest SignatureRequest { get; set; }
-        public Account Account { get; set; }
+        public AccountResponse Account { get; set; }
         public Template Template { get; set; }
 
         public Event Unwrap()

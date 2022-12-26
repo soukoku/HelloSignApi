@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DropboxSignApi.Responses;
+using Newtonsoft.Json;
 using System;
 
 namespace DropboxSignApi.Common
@@ -42,6 +43,6 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// Attached account info if applicable.
         /// </summary>
-        public Account Account { get; set; }
+        public AccountResponse Account { get; set; }
     }
 }

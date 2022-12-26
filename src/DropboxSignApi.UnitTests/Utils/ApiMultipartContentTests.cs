@@ -114,7 +114,7 @@ namespace DropboxSignApi.Utils
 
 
         [TestMethod]
-        public void Nullable_Bool_Is_Written_Only_If_Set()
+        public void Nullable_Bool_Is_Added_Only_If_Set()
         {
             //Arrange
             var sample1 = new SampleObject { NullableBool = null };
@@ -136,7 +136,7 @@ namespace DropboxSignApi.Utils
         }
 
         [TestMethod]
-        public void Empty_String_Is_Written_But_Not_Null()
+        public void Empty_String_Is_Added_But_Not_Null()
         {
             //Arrange
             var sample1 = new SampleObject { MyString = null };
@@ -158,7 +158,7 @@ namespace DropboxSignApi.Utils
         }
 
         [TestMethod]
-        public void Can_Write_List_Type_Property_In_Array_Syntax()
+        public void Can_Add_List_Type_Property_In_Array_Syntax()
         {
             //Arrange
             var sample = new SampleObject
@@ -186,7 +186,7 @@ namespace DropboxSignApi.Utils
         }
 
         [TestMethod]
-        public void Can_Write_Remote_Files()
+        public void Can_Add_Remote_Files()
         {
             //Arrange
             var sample = new SampleObject
@@ -209,7 +209,7 @@ namespace DropboxSignApi.Utils
         }
 
         [TestMethod]
-        public void Can_Write_NonRemote_Files()
+        public void Can_Add_NonRemote_Files()
         {
             //Arrange
             var sample = new SampleObject

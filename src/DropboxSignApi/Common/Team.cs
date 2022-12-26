@@ -1,4 +1,6 @@
-﻿namespace DropboxSignApi.Common
+﻿using DropboxSignApi.Responses;
+
+namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Contains information about your team and its members
@@ -12,7 +14,7 @@
         /// <summary>
         /// A list of all Accounts belonging to your Team.
         /// </summary>
-        public Account[] Accounts { get; set; }
+        public AccountResponse[] Accounts { get; set; }
         /// <summary>
         /// A list of all Accounts that have an outstanding invitation to join your Team. 
         /// </summary>
