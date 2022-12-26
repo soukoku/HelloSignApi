@@ -1,15 +1,23 @@
-﻿using DropboxSignApi.Common;
+﻿using System.Collections.Generic;
 
 namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Response for the team api calls.
+    /// Contains information about your team and its members
     /// </summary>
-    public class TeamResponse : ApiResponse
+    public class TeamResponse
     {
         /// <summary>
-        /// The team object.
+        /// The name of your Team.
         /// </summary>
-        public Team Team { get; set; }
+        public string Name { get; set; }
+        /// <summary>
+        /// A list of all Accounts belonging to your Team.
+        /// </summary>
+        public IList<AccountResponse> Accounts { get; set; }
+        /// <summary>
+        /// A list of all Accounts that have an outstanding invitation to join your Team. 
+        /// </summary>
+        public IList<AccountResponse> InvitedAccounts { get; set; }
     }
 }

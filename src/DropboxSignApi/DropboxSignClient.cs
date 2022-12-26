@@ -94,5 +94,18 @@ namespace DropboxSignApi
             var resp = await _client.PutAsync(apiUrl, content, cancellationToken).ConfigureAwait(false);
             return await resp.ParseApiResponseAsync<TResp>(_log).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Performs an http DELETE opertion to the api.
+        /// </summary>
+        /// <typeparam name="TResp">Api response type.</typeparam>
+        /// <returns></returns>
+        async Task<TResp> DeleteAsync<TResp>(string apiUrl,
+            CancellationToken cancellationToken) where TResp : ApiResponse
+        {
+            _log.Requesting("DELETE", apiUrl);
+            var resp = await _client.DeleteAsync(apiUrl, cancellationToken).ConfigureAwait(false);
+            return await resp.ParseApiResponseAsync<TResp>(_log).ConfigureAwait(false);
+        }
     }
 }

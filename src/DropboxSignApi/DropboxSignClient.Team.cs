@@ -1,8 +1,6 @@
-﻿using DropboxSignApi.Internal;
-using DropboxSignApi.Responses;
+﻿using DropboxSignApi.Responses;
 using DropboxSignApi.Utils;
 using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,9 +17,9 @@ namespace DropboxSignApi
         /// a 404 error with an error name of <see cref="ErrorNames.NotFound" /> will be returned.
         /// </summary>
         /// <returns></returns>
-        public Task<TeamResponse> GetTeamAsync(CancellationToken cancellationToken = default)
+        public Task<TeamResponseWrap> GetTeamAsync(CancellationToken cancellationToken = default)
         {
-            return GetAsync<TeamResponse>(TeamUrl, cancellationToken);
+            return GetAsync<TeamResponseWrap>(TeamUrl, cancellationToken);
         }
 
         /// <summary>
@@ -31,12 +29,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Name is required.</exception>
-        public Task<TeamResponse> CreateTeamAsync(string name,
+        public Task<TeamResponseWrap> CreateTeamAsync(string name,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/create", new { name }.ToJsonContent(_log), cancellationToken);
+            return PostAsync<TeamResponseWrap>($"{TeamUrl}/create", new { name }.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -46,12 +44,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Name is required.</exception>
-        public Task<TeamResponse> UpdateTeamAsync(string name,
+        public Task<TeamResponseWrap> UpdateTeamAsync(string name,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
-            return PostAsync<TeamResponse>(TeamUrl, new { name }.ToJsonContent(_log), cancellationToken);
+            return PutAsync<TeamResponseWrap>(TeamUrl, new { name }.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
@@ -61,49 +59,67 @@ namespace DropboxSignApi
         /// <returns></returns>
         public Task<ApiResponse> DeleteTeamAsync(CancellationToken cancellationToken = default)
         {
-            return PostAsync<ApiResponse>($"{TeamUrl}/destroy", null, cancellationToken);
+            return DeleteAsync<ApiResponse>($"{TeamUrl}/destroy", cancellationToken);
         }
 
         /// <summary>
-        /// Adds or invites a user (specified using the email_address parameter) to your Team.
-        /// If the user does not currently have a HelloSign Account, a new one will be created for them.
-        /// If the user currently has a paid subscription, they will not automatically join the Team but
-        /// instead will be sent an invitation to join. If a user is already a part of another Team,
-        /// a <see cref="ErrorNames.TeamInviteFailed" /> error will be returned.
+        /// Invites a user (specified using the email_address parameter) to your Team. 
+        /// If the user does not currently have a Dropbox Sign Account, 
+        /// a new one will be created for them. If a user is already a part of another Team, 
+        /// a team_invite_failed error will be returned.
         /// </summary>
-        /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
-        /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
+        /// <param name="accountId">Account id of the user to invite to your Team. Exclusive with emailAddress parameter.</param>
+        /// <param name="emailAddress">Email address of the user to invite to your Team. Exclusive with accountId parameter.</param>
+        /// <param name="teamId">The id of the team.</param>
+        /// <param name="role">A role member will take in a new Team. This parameter is used only if team_id is provided.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<TeamResponse> AddTeamUserAsync(string accountId, string emailAddress,
+        public Task<TeamResponseWrap> AddTeamUserAsync(string accountId, string emailAddress,
+            string role = null, string teamId = null,
             CancellationToken cancellationToken = default)
         {
             var request = new
             {
                 accountId,
-                emailAddress
+                emailAddress,
+                role
             };
+            var url = $"{TeamUrl}/add_member";
+            if (!string.IsNullOrEmpty(teamId)) url += $"?team_id={Uri.EscapeDataString(teamId)}";
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", request.ToJsonContent(_log), cancellationToken);
+            return PutAsync<TeamResponseWrap>(url, request.ToJsonContent(_log), cancellationToken);
         }
 
         /// <summary>
-        /// Removes a user from your Team. If the user had an outstanding invitation to your Team the invitation will be expired.
+        /// Removes the provided user Account from your Team. If the Account had an outstanding 
+        /// invitation to your Team, the invitation will be expired. If you choose to transfer documents 
+        /// from the removed Account to an Account provided in the new_owner_email_address parameter 
+        /// (available only for Enterprise plans), the response status code will be 201, which 
+        /// indicates that your request has been queued but not fully executed.
         /// </summary>
-        /// <param name="accountId">The account id. Exclusive with emailAddress parameter.</param>
-        /// <param name="emailAddress">The email address. Exclusive with accountId parameter.</param>
+        /// <param name="accountId">Account id to remove from your Team. Exclusive with emailAddress parameter.</param>
+        /// <param name="emailAddress">Email address of the Account to remove from your Team. Exclusive with accountId parameter.</param>
+        /// <param name="newOwnerEmailAddress">The email address of an Account on this Team to receive all documents, templates, 
+        /// and API apps (if applicable) from the removed Account. 
+        /// If not provided, and on an Enterprise plan, this data will remain with the removed Account.</param>
+        /// <param name="newTeamId">Id of the new Team.</param>
+        /// <param name="newRole">A new role member will take in a new Team.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<TeamResponse> RemoveTeamUserAsync(string accountId, string emailAddress,
+        public Task<TeamResponseWrap> RemoveTeamUserAsync(string accountId, string emailAddress,
+            string newOwnerEmailAddress, string newTeamId = null, string newRole = null,
             CancellationToken cancellationToken = default)
         {
             var request = new
             {
                 accountId,
-                emailAddress
+                emailAddress,
+                newOwnerEmailAddress,
+                newTeamId,
+                newRole
             };
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", request.ToJsonContent(_log), cancellationToken);
+            return PostAsync<TeamResponseWrap>($"{TeamUrl}/remove_member", request.ToJsonContent(_log), cancellationToken);
         }
     }
 }
