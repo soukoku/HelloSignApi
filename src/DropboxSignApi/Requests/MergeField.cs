@@ -15,7 +15,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// Type of merge field. Can only be <see cref="FieldTypes.Text"/> or <see cref="FieldTypes.CheckBox"/>.
         /// </summary>
-        [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public string Type { get; set; }
     }
 }

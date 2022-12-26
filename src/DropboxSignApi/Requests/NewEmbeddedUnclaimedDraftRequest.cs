@@ -18,7 +18,7 @@ namespace DropboxSignApi.Requests
         /// This allows the requester to specify whether the user 
         /// is allowed to provide email addresses to CC when claiming the draft.
         /// </summary>
-        public bool AllowCCs { get; set; } = true;
+        public bool AllowCcs { get; set; } = true;
 
         /// <summary>
         /// Allows signers to reassign their signature requests to other signers 
@@ -34,7 +34,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// The email addresses that should be CCed.
         /// </summary>
-        public IList<string> CCEmailAddresses { get; private set; } = new List<string>();
+        public IList<string> CcEmailAddresses { get; private set; } = new List<string>();
 
         /// <summary>
         /// This allows the requester to specify editor options when a preparing a document.
