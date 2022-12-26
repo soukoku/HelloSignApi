@@ -1,9 +1,11 @@
-﻿namespace DropboxSignApi.Common
+﻿using DropboxSignApi.Common;
+
+namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// An object that contains necessary information to set up embedded template editing.
     /// </summary>
-    public class EmbeddedEditUrl : ExpiringObject
+    public class EmbeddedEditUrlResponse : ExpiringObject
     {
         /// <summary>
         /// A template url that can be opened in an iFrame.

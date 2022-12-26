@@ -3,13 +3,13 @@
 namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Response for the embedded sign api call.
+    /// An object that contains necessary information to set up embedded signing.
     /// </summary>
-    public class EmbeddedSignUrlResponse : ApiResponse
+    public class EmbeddedSignUrlResponse : ExpiringObject
     {
         /// <summary>
-        /// An object that contains necessary information to set up embedded signing.
+        /// A signature url that can be opened in an iFrame.
         /// </summary>
-        public EmbeddedSignUrl Embedded { get; set; }
+        public string SignUrl { get; set; }
     }
 }
