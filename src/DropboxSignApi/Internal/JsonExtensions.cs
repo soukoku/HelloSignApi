@@ -18,6 +18,12 @@ namespace DropboxSignApi.Internal
             }
         };
 
+        /// <summary>
+        /// Serializes the object into json and wraps it in
+        /// an <see cref="HttpContent"/>.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static HttpContent ToJsonContent(this object data)
         {
             var json = JsonConvert.SerializeObject(data, JsonSettings);

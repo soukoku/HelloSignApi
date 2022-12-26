@@ -2,7 +2,6 @@
 using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
 using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,10 +28,7 @@ namespace DropboxSignApi
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddUnclaimedDraft(_log, draft);
-
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create", content, cancellationToken);
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create", new ApiMultipartContent(draft, _log), cancellationToken);
         }
 
         /// <summary>
@@ -50,10 +46,7 @@ namespace DropboxSignApi
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddEmbeddedUnclaimedDraft(_log, draft);
-
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded", content, cancellationToken);
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded", new ApiMultipartContent(draft, _log), cancellationToken);
         }
 
 
@@ -71,10 +64,7 @@ namespace DropboxSignApi
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddTemplatedEmbeddedUnclaimedDraft(_log, draft);
-
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded_with_template", content, cancellationToken);
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/create_embedded_with_template", new ApiMultipartContent(draft, _log), cancellationToken);
         }
 
         /// <summary>
@@ -90,7 +80,7 @@ namespace DropboxSignApi
             EditAndResendRequest request,
             CancellationToken cancellationToken = default)
         {
-            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/edit_and_resend/{Uri.EscapeDataString(signatureRequestId)}", 
+            return PostAsync<UnclaimedDraftResponse>($"{DraftUrl}/edit_and_resend/{Uri.EscapeDataString(signatureRequestId)}",
                 request.ToJsonContent(), cancellationToken);
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace DropboxSignApi.Common
+﻿using System.Collections.Generic;
+
+namespace DropboxSignApi.Common
 {
     /// <summary>
     /// Document object in a template.
@@ -16,14 +18,14 @@
         /// <summary>
         /// An array of Form Field Group objects.
         /// </summary>
-        public FieldGroup[] FieldGroups { get; set; }
+        public IList<FieldGroup> FieldGroups { get; set; }
         /// <summary>
         /// An array of Form Field objects containing the name and type of each named textbox and checkmark field.
         /// </summary>
-        public FormField[] FormFields { get; set; }
+        public IList<FormField> FormFields { get; set; }
         /// <summary>
         /// An array of Custom Field objects containing the name and type of each custom field.
         /// </summary>
-        public CustomField[] CustomFields { get; set; }
+        public IList<CustomField> CustomFields { get; set; }
     }
 }

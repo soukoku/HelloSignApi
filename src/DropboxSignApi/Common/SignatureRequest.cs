@@ -58,7 +58,7 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// A list of email addresses that were CCed on the SignatureRequest. They will receive a copy of the final PDF once all the signers have signed.
         /// </summary>
-        public string[] CcEmailAddresses { get; set; }
+        public IList<string> CcEmailAddresses { get; set; }
         /// <summary>
         /// The URL you want the signer redirected to after they successfully sign.
         /// </summary>

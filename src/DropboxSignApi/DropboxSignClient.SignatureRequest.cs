@@ -6,6 +6,7 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DropboxSignApi
 {
@@ -60,10 +61,7 @@ namespace DropboxSignApi
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddRequest(_log, request);
-
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/send", content, cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/send", new ApiMultipartContent(request, _log), cancellationToken);
         }
 
         /// <summary>
@@ -78,10 +76,7 @@ namespace DropboxSignApi
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddTemplatedRequest(_log, request);
-
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/send_with_template", content, cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/send_with_template", new ApiMultipartContent(request, _log), cancellationToken);
         }
 
 
@@ -103,11 +98,9 @@ namespace DropboxSignApi
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "email_address", emailAddress);
-            content.AddParameter(_log, "name", name);
+            var request = new { emailAddress, name };
 
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/remind/{signatureRequestId}", content, cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/remind/{signatureRequestId}", request.ToJsonContent(), cancellationToken);
         }
 
         /// <summary>
@@ -126,11 +119,9 @@ namespace DropboxSignApi
             if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
             if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "signature_id", signatureId);
-            content.AddParameter(_log, "email_address", emailAddress);
+            var request = new { signatureId, emailAddress };
 
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/update/{signatureRequestId}", content, cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/update/{signatureRequestId}", request.ToJsonContent(), cancellationToken);
         }
 
 
@@ -226,10 +217,7 @@ namespace DropboxSignApi
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddRequest(_log, request);
-
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/create_embedded", content, cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/create_embedded", new ApiMultipartContent(request, _log), cancellationToken);
         }
 
         /// <summary>
@@ -244,10 +232,7 @@ namespace DropboxSignApi
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddTemplatedRequest(_log, request);
-
-            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/create_embedded_with_template", content, cancellationToken);
+            return PostAsync<SignatureRequestResponse>($"{SignatureUrl}/create_embedded_with_template", new ApiMultipartContent(request, _log), cancellationToken);
         }
     }
 }

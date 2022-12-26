@@ -1,4 +1,5 @@
-﻿using DropboxSignApi.Responses;
+﻿using DropboxSignApi.Internal;
+using DropboxSignApi.Responses;
 using System;
 using System.Net.Http;
 using System.Threading;
@@ -33,10 +34,7 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "name", name);
-
-            return PostAsync<TeamResponse>($"{TeamUrl}/create", content, cancellationToken);
+            return PostAsync<TeamResponse>($"{TeamUrl}/create", new { name }.ToJsonContent(), cancellationToken);
         }
 
         /// <summary>
@@ -50,10 +48,7 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(name)) { throw new ArgumentException("Name is required."); }
 
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "name", name);
-
-            return PostAsync<TeamResponse>(TeamUrl, content, cancellationToken);
+            return PostAsync<TeamResponse>(TeamUrl, new { name }.ToJsonContent(), cancellationToken);
         }
 
         /// <summary>
@@ -78,11 +73,13 @@ namespace DropboxSignApi
         public Task<TeamResponse> AddTeamUserAsync(string accountId, string emailAddress,
             CancellationToken cancellationToken = default)
         {
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "account_id", accountId);
-            content.AddParameter(_log, "email_address", emailAddress);
+            var request = new
+            {
+                accountId,
+                emailAddress
+            };
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", content, cancellationToken);
+            return PostAsync<TeamResponse>($"{TeamUrl}/add_member", request.ToJsonContent(), cancellationToken);
         }
 
         /// <summary>
@@ -94,11 +91,13 @@ namespace DropboxSignApi
         public Task<TeamResponse> RemoveTeamUserAsync(string accountId, string emailAddress,
             CancellationToken cancellationToken = default)
         {
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "account_id", accountId);
-            content.AddParameter(_log, "email_address", emailAddress);
+            var request = new
+            {
+                accountId,
+                emailAddress
+            };
 
-            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", content, cancellationToken);
+            return PostAsync<TeamResponse>($"{TeamUrl}/remove_member", request.ToJsonContent(), cancellationToken);
         }
     }
 }

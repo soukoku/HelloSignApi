@@ -60,11 +60,13 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "account_id", accountId);
-            content.AddParameter(_log, "email_address", emailAddress);
+            var request = new
+            {
+                accountId,
+                emailAddress
+            };
 
-            return PostAsync<TemplateResponse>($"{TemplateUrl}/add_user/{templateId}", content, cancellationToken);
+            return PostAsync<TemplateResponse>($"{TemplateUrl}/add_user/{templateId}", request.ToJsonContent(), cancellationToken);
         }
 
         /// <summary>
@@ -80,11 +82,13 @@ namespace DropboxSignApi
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            var content = new MultipartFormDataContent();
-            content.AddParameter(_log, "account_id", accountId);
-            content.AddParameter(_log, "email_address", emailAddress);
+            var request = new
+            {
+                accountId,
+                emailAddress
+            };
 
-            return PostAsync<TemplateResponse>($"{TemplateUrl}/remove_user/{templateId}", content, cancellationToken);
+            return PostAsync<TemplateResponse>($"{TemplateUrl}/remove_user/{templateId}", request.ToJsonContent(), cancellationToken);
         }
 
         /// <summary>
@@ -99,10 +103,7 @@ namespace DropboxSignApi
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
 
-            var content = new MultipartFormDataContent();
-            content.AddTemplateDraft(_log, draft);
-
-            return PostAsync<NewTemplateResponse>($"{TemplateUrl}/create_embedded_draft", content, cancellationToken);
+            return PostAsync<NewTemplateResponse>($"{TemplateUrl}/create_embedded_draft", new ApiMultipartContent(draft, _log), cancellationToken);
         }
 
         /// <summary>

@@ -1,273 +1,240 @@
-﻿using DropboxSignApi.Internal;
-using DropboxSignApi.Requests;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
+﻿//using DropboxSignApi.Internal;
+//using DropboxSignApi.Requests;
+//using Newtonsoft.Json;
+//using System.Collections.Generic;
+//using System.IO;
+//using System.Net.Http;
 
-namespace DropboxSignApi
-{
-    static class HttpContentExtensions
-    {
-        public static void AddParameter(this MultipartFormDataContent content, IApiLog log, string name, string value, string fileName = null)
-        {
-            // empty string is still passed
-            if (value != null)
-            {
-                log.ParameterAdded(name, value);
-                var sc = new StringContent(value);
-                sc.Headers.ContentType = null;
-                if (fileName == null)
-                {
-                    content.Add(sc, name);
-                }
-                else
-                {
-                    content.Add(sc, name, fileName);
-                }
-            }
-        }
-
-        static void AddMetadata(this MultipartFormDataContent content, IApiLog log, IDictionary<string, string> metadata)
-        {
-            if (metadata == null) return;
-            foreach (var kv in metadata)
-            {
-                content.AddParameter(log, $"metadata[{kv.Key}]", kv.Value);
-            }
-        }
-
-        static void AddSigners(this MultipartFormDataContent content, IApiLog log, IList<Signer> signers)
-        {
-            int i = 0;
-            foreach (var signer in signers)
-            {
-                if (signer.Role == null)
-                {
-                    content.AddParameter(log, $"signers[{i}][name]", signer.Name ?? signer.Email);
-                    content.AddParameter(log, $"signers[{i}][email_address]", signer.Email);
-                    if (signer.Order.HasValue)
-                    {
-                        content.AddParameter(log, $"signers[{i}][order]", signer.Order.ToString());
-                    }
-                    content.AddParameter(log, $"signers[{i}][pin]", signer.Pin);
-                }
-                else
-                {
-                    content.AddParameter(log, $"signers[{signer.Role}][name]", signer.Name ?? signer.Email);
-                    content.AddParameter(log, $"signers[{signer.Role}][email_address]", signer.Email);
-                    content.AddParameter(log, $"signers[{signer.Role}][pin]", signer.Pin);
-                }
-                i++;
-            }
-        }
-
-        static void AddAttachments(this MultipartFormDataContent content, IApiLog log, IList<NewAttachment> attachments)
-        {
-            int i = 0;
-            foreach (var att in attachments)
-            {
-                content.AddParameter(log, $"attachments[{i}][name]", att.Name);
-                content.AddParameter(log, $"attachments[{i}][instructions]", att.Instructions);
-                content.AddParameter(log, $"attachments[{i}][signer_index]", att.SignerIndex.ToString());
-                content.AddParameter(log, $"attachments[{i}][required]", att.Required ? "1" : "0");
-                i++;
-            }
-        }
-
-        static void AddFiles(this MultipartFormDataContent content, IApiLog log, IList<PendingFile> files)
-        {
-            try
-            {
-                int i = 0;
-                foreach (var file in files)
-                {
-                    if (file.RemotePath != null)
-                    {
-                        content.AddParameter(log, $"file_url[{i}]", file.RemotePath.ToString());
-                    }
-                    else if (file.LocalPath != null)
-                    {
-                        var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));
-                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                        content.Add(fc, $"file[{i}]", file.FileName);
-                    }
-                    else if (file.Data != null)
-                    {
-                        var fc = new ByteArrayContent(file.Data);
-                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                        content.Add(fc, $"file[{i}]", file.FileName);
-                    }
-                    else if (file.Stream != null)
-                    {
-                        var fc = new StreamContent(file.Stream);
-                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                        content.Add(fc, $"file[{i}]", file.FileName);
-                    }
-                    i++;
-                }
-            }
-            catch
-            {
-                content.Dispose();
-                throw;
-            }
-        }
-
-        static void AddRequestBase(this MultipartFormDataContent content, IApiLog log, NewRequestBase request)
-        {
-            if (request.TestMode) { content.AddParameter(log, "test_mode", "1"); }
-            if (request.AllowDecline) { content.AddParameter(log, "allow_decline", "1"); }
-
-            content.AddParameter(log, "subject", request.Subject);
-            content.AddParameter(log, "message", request.Message);
-            content.AddParameter(log, "signing_redirect_url", request.SigningRedirectUrl);
-            content.AddSigners(log, request.Signers);
-            content.AddMetadata(log, request.Metadata);
-            content.AddAttachments(log, request.Attachments);
-        }
-
-        public static void AddRequest(this MultipartFormDataContent content, IApiLog log, NewSignatureRequest request)
-        {
-            content.AddRequestBase(log, request);
-
-            content.AddParameter(log, "client_id", request.ClientId);
-            content.AddFiles(log, request.Files);
-            content.AddParameter(log, "title", request.Title);
+//namespace DropboxSignApi
+//{
+//    static partial class HttpContentExtensions
+//    {
 
 
-            int i = 0;
-            foreach (var cc in request.CcEmailAddresses)
-            {
-                content.AddParameter(log, $"cc_email_addresses[{i++}]", cc);
-            }
+//        static void AddSigners(this ApiMultipartContent content, IApiLog log, IList<Signer> signers)
+//        {
+//            int i = 0;
+//            foreach (var signer in signers)
+//            {
+//                if (signer.Role == null)
+//                {
+//                    content.AddParameter($"signers[{i}][name]", signer.Name ?? signer.Email);
+//                    content.AddParameter($"signers[{i}][email_address]", signer.Email);
+//                    if (signer.Order.HasValue)
+//                    {
+//                        content.AddParameter($"signers[{i}][order]", signer.Order.ToString());
+//                    }
+//                    content.AddParameter($"signers[{i}][pin]", signer.Pin);
+//                }
+//                else
+//                {
+//                    content.AddParameter($"signers[{signer.Role}][name]", signer.Name ?? signer.Email);
+//                    content.AddParameter($"signers[{signer.Role}][email_address]", signer.Email);
+//                    content.AddParameter($"signers[{signer.Role}][pin]", signer.Pin);
+//                }
+//                i++;
+//            }
+//        }
 
-            if (request.UseTextTags) { content.AddParameter(log, "use_text_tags", "1"); }
-            if (request.HideTextTags) { content.AddParameter(log, "hide_text_tags", "1"); }
-            if (request.FormFieldsPerDocument.Count > 0)
-            {
-                content.AddParameter(log, "form_fields_per_document", JsonConvert.SerializeObject(request.FormFieldsPerDocument, JsonExtensions.JsonSettings));
-            }
+//        static void AddFiles(this ApiMultipartContent content, IApiLog log, IList<PendingFile> files)
+//        {
+//            try
+//            {
+//                int i = 0;
+//                foreach (var file in files)
+//                {
+//                    if (file.RemotePath != null)
+//                    {
+//                        content.AddParameter($"file_url[{i}]", file.RemotePath.ToString());
+//                    }
+//                    else if (file.LocalPath != null)
+//                    {
+//                        var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));
+//                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+//                        content.Add(fc, $"file[{i}]", file.FileName);
+//                    }
+//                    else if (file.Data != null)
+//                    {
+//                        var fc = new ByteArrayContent(file.Data);
+//                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+//                        content.Add(fc, $"file[{i}]", file.FileName);
+//                    }
+//                    else if (file.Stream != null)
+//                    {
+//                        var fc = new StreamContent(file.Stream);
+//                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+//                        content.Add(fc, $"file[{i}]", file.FileName);
+//                    }
+//                    i++;
+//                }
+//            }
+//            catch
+//            {
+//                content.Dispose();
+//                throw;
+//            }
+//        }
 
-        }
+//        static void AddRequestBase(this ApiMultipartContent content, IApiLog log, NewRequestBase request)
+//        {
+//            if (request.TestMode) { content.AddParameter("test_mode", "1"); }
+//            if (request.AllowDecline) { content.AddParameter("allow_decline", "1"); }
 
-        public static void AddTemplatedRequest(this MultipartFormDataContent content, IApiLog log, NewTemplatedSignatureRequest request)
-        {
-            content.AddRequestBase(log, request);
+//            content.AddParameter("subject", request.Subject);
+//            content.AddParameter("message", request.Message);
+//            content.AddParameter("signing_redirect_url", request.SigningRedirectUrl);
+//            content.AddSigners(log, request.Signers);
+//            content.AddMetadata(request.Metadata);
+//            content.AddAttachments(request.Attachments);
+//        }
 
-            content.AddParameter(log, "client_id", request.ClientId);
-            int i = 0;
-            foreach (var tid in request.TemplateIds)
-            {
-                content.AddParameter(log, $"template_ids[{i++}]", tid);
-            }
-            content.AddParameter(log, "title", request.Title);
-            foreach (var cc in request.Ccs)
-            {
-                content.AddParameter(log, $"ccs[{cc.Role}][email_address]", cc.Email);
-            }
-            if (request.CustomFields.Count > 0)
-            {
-                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(request.CustomFields, JsonExtensions.JsonSettings));
-            }
-        }
+//        public static void AddRequest(this ApiMultipartContent content, IApiLog log, NewSignatureRequest request)
+//        {
+//            content.AddRequestBase(log, request);
 
-        public static void AddTemplateDraft(this MultipartFormDataContent content, IApiLog log, NewEmbeddedTemplateDraft draft)
-        {
-            if (draft.TestMode) { content.AddParameter(log, "test_mode", "1"); }
+//            content.AddParameter("client_id", request.ClientId);
+//            content.AddFiles(log, request.Files);
+//            content.AddParameter("title", request.Title);
 
-            content.AddFiles(log, draft.Files);
-            content.AddAttachments(log, draft.Attachments);
 
-            content.AddParameter(log, "title", draft.Title);
-            content.AddParameter(log, "subject", draft.Subject);
-            content.AddParameter(log, "message", draft.Message);
+//            int i = 0;
+//            foreach (var cc in request.CcEmailAddresses)
+//            {
+//                content.AddParameter($"cc_email_addresses[{i++}]", cc);
+//            }
 
-            int i = 0;
-            foreach (var role in draft.SignerRoles)
-            {
-                content.AddParameter(log, $"signer_roles[{i}][name]", role.Name);
-                content.AddParameter(log, $"signer_roles[{i}][order]", role.Order?.ToString());
-            }
-            i = 0;
-            foreach (var role in draft.CcRoles)
-            {
-                content.AddParameter(log, $"cc_roles[{i}]", role);
-            }
+//            if (request.UseTextTags) { content.AddParameter("use_text_tags", "1"); }
+//            if (request.HideTextTags) { content.AddParameter("hide_text_tags", "1"); }
+//            if (request.FormFieldsPerDocument.Count > 0)
+//            {
+//                content.AddParameter("form_fields_per_document", JsonConvert.SerializeObject(request.FormFieldsPerDocument, JsonExtensions.JsonSettings));
+//            }
 
-            if (draft.MergeFields.Count > 0)
-            {
-                content.AddParameter(log, "merge_fields", JsonConvert.SerializeObject(draft.MergeFields, JsonExtensions.JsonSettings));
-            }
-            if (draft.UsePreexistingFields) { content.AddParameter(log, "use_preexisting_fields", "1"); }
-            content.AddMetadata(log, draft.Metadata);
-            content.AddParameter(log, "client_id", draft.ClientId);
-        }
+//        }
 
-        public static void AddUnclaimedDraft(this MultipartFormDataContent content, IApiLog log, NewUnclaimedDraft draft)
-        {
-            content.AddRequestBase(log, draft);
+//        public static void AddTemplatedRequest(this ApiMultipartContent content, IApiLog log, NewTemplatedSignatureRequest request)
+//        {
+//            content.AddRequestBase(log, request);
 
-            content.AddFiles(log, draft.Files);
-            content.AddParameter(log, "type", draft.Type);
-            if (draft.UsePreexistingFields) { content.AddParameter(log, "use_preexisting_fields", "1"); }
+//            content.AddParameter("client_id", request.ClientId);
+//            int i = 0;
+//            foreach (var tid in request.TemplateIds)
+//            {
+//                content.AddParameter($"template_ids[{i++}]", tid);
+//            }
+//            content.AddParameter("title", request.Title);
+//            foreach (var cc in request.Ccs)
+//            {
+//                content.AddParameter($"ccs[{cc.Role}][email_address]", cc.Email);
+//            }
+//            if (request.CustomFields.Count > 0)
+//            {
+//                content.AddParameter("custom_fields", JsonConvert.SerializeObject(request.CustomFields, JsonExtensions.JsonSettings));
+//            }
+//        }
 
-            int i = 0;
-            foreach (var cc in draft.CcEmailAddresses)
-            {
-                content.AddParameter(log, $"cc_email_addresses[{i++}]", cc);
-            }
+//        public static void AddTemplateDraft(this ApiMultipartContent content, IApiLog log, NewEmbeddedTemplateDraft draft)
+//        {
+//            if (draft.TestMode) { content.AddParameter("test_mode", "1"); }
 
-            if (draft.UseTextTags) { content.AddParameter(log, "use_text_tags", "1"); }
-            if (draft.HideTextTags) { content.AddParameter(log, "hide_text_tags", "1"); }
-            if (draft.FormFieldsPerDocument.Count > 0)
-            {
-                content.AddParameter(log, "form_fields_per_document", JsonConvert.SerializeObject(draft.FormFieldsPerDocument, JsonExtensions.JsonSettings));
-            }
+//            content.AddFiles(log, draft.Files);
+//            content.AddAttachments(draft.Attachments);
 
-        }
+//            content.AddParameter("title", draft.Title);
+//            content.AddParameter("subject", draft.Subject);
+//            content.AddParameter("message", draft.Message);
 
-        public static void AddEmbeddedUnclaimedDraft(this MultipartFormDataContent content, IApiLog log, NewEmbeddedUnclaimedDraft draft)
-        {
-            content.AddUnclaimedDraft(log, draft);
+//            int i = 0;
+//            foreach (var role in draft.SignerRoles)
+//            {
+//                content.AddParameter($"signer_roles[{i}][name]", role.Name);
+//                content.AddParameter($"signer_roles[{i}][order]", role.Order?.ToString());
+//            }
+//            i = 0;
+//            foreach (var role in draft.CcRoles)
+//            {
+//                content.AddParameter($"cc_roles[{i}]", role);
+//            }
 
-            content.AddParameter(log, "client_id", draft.ClientId);
-            content.AddParameter(log, "requester_email_address", draft.RequesterEmailAddress);
-            if (draft.IsForEmbeddedSigning) { content.AddParameter(log, "is_for_embedded_signing", "1"); }
-        }
+//            if (draft.MergeFields.Count > 0)
+//            {
+//                content.AddParameter("merge_fields", JsonConvert.SerializeObject(draft.MergeFields, JsonExtensions.JsonSettings));
+//            }
+//            if (draft.UsePreexistingFields) { content.AddParameter("use_preexisting_fields", "1"); }
+//            content.AddMetadata(draft.Metadata);
+//            content.AddParameter("client_id", draft.ClientId);
+//        }
 
-        public static void AddTemplatedEmbeddedUnclaimedDraft(this MultipartFormDataContent content, IApiLog log, NewTemplatedEmbeddedUnclaimedDraft draft)
-        {
-            content.AddRequestBase(log, draft);
 
-            content.AddParameter(log, "client_id", draft.ClientId);
-            int i = 0;
-            foreach (var tid in draft.TemplateIds)
-            {
-                content.AddParameter(log, $"template_ids[{i++}]", tid);
-            }
-            content.AddParameter(log, "title", draft.Title);
-            content.AddParameter(log, "requesting_redirect_url", draft.RequestingRedirectUrl);
-            foreach (var cc in draft.Ccs)
-            {
-                content.AddParameter(log, $"ccs[{cc.Role}][email_address]", cc.Email);
-            }
-            if (draft.CustomFields.Count > 0)
-            {
-                content.AddParameter(log, "custom_fields", JsonConvert.SerializeObject(draft.CustomFields, JsonExtensions.JsonSettings));
-            }
-            if (draft.IsForEmbeddedSigning) { content.AddParameter(log, "is_for_embedded_signing", "1"); }
-        }
 
-        //public static void AddApiApp(this MultipartFormDataContent content, IApiLog log, ApiAppRequest app)
-        //{
-        //    content.AddParameter(log, "name", app.Name);
-        //    content.AddParameter(log, "domain", app.Domain);
-        //    content.AddParameter(log, "callback_url", app.CallbackUrl);
-        //    content.AddParameter(log, "custom_logo_file", app.CustomLogoFile);
-        //    content.AddParameter(log, "oauth[callback_url]", app.OAuthCallbackUrl);
-        //    content.AddParameter(log, "oauth[scopes]", app.OAuthScopes);
-        //    content.AddParameter(log, "white_labeling_options", app.WhiteLabelingOptions);
-        //}
-    }
-}
+//        public static void AddEmbeddedUnclaimedDraft(this ApiMultipartContent content, IApiLog log, NewEmbeddedUnclaimedDraftRequest draft)
+//        {
+//            content.AddDraftBase(log, draft);
+
+//            content.AddParameter("client_id", draft.ClientId);
+//            content.AddParameter("requester_email_address", draft.RequesterEmailAddress);
+//            if (draft.IsForEmbeddedSigning) { content.AddParameter("is_for_embedded_signing", "1"); }
+//        }
+
+//        public static void AddTemplatedEmbeddedUnclaimedDraft(this ApiMultipartContent content, IApiLog log, NewTemplatedEmbeddedUnclaimedDraftRequest draft)
+//        {
+//            content.AddDraftBase(log, draft);
+
+//            content.AddParameter("client_id", draft.ClientId);
+//            int i = 0;
+//            foreach (var tid in draft.TemplateIds)
+//            {
+//                content.AddParameter($"template_ids[{i++}]", tid);
+//            }
+//            content.AddParameter("title", draft.Title);
+//            content.AddParameter("requesting_redirect_url", draft.RequestingRedirectUrl);
+//            foreach (var cc in draft.CCs)
+//            {
+//                content.AddParameter($"ccs[{cc.Role}][email_address]", cc.EmailAddress);
+//            }
+//            if (draft.CustomFields.Count > 0)
+//            {
+//                content.AddParameter("custom_fields", JsonConvert.SerializeObject(draft.CustomFields, JsonExtensions.JsonSettings));
+//            }
+//            if (draft.IsForEmbeddedSigning) { content.AddParameter("is_for_embedded_signing", "1"); }
+//        }
+
+//        public static void AddUnclaimedDraft(this ApiMultipartContent content, IApiLog log, NewUnclaimedDraftRequest draft)
+//        {
+//            content.AddDraftBase(log, draft);
+
+//            content.AddFiles(log, draft.Files);
+//            content.AddParameter("type", draft.Type);
+//            if (draft.UsePreexistingFields) { content.AddParameter("use_preexisting_fields", "1"); }
+
+//            int i = 0;
+//            foreach (var cc in draft.CcEmailAddresses)
+//            {
+//                content.AddParameter($"cc_email_addresses[{i++}]", cc);
+//            }
+
+//            if (draft.UseTextTags) { content.AddParameter("use_text_tags", "1"); }
+//            if (draft.HideTextTags) { content.AddParameter("hide_text_tags", "1"); }
+//            if (draft.FormFieldsPerDocument.Count > 0)
+//            {
+//                content.AddParameter("form_fields_per_document", JsonConvert.SerializeObject(draft.FormFieldsPerDocument, JsonExtensions.JsonSettings));
+//            }
+
+//        }
+
+//        static void AddDraftBase(this ApiMultipartContent content, IApiLog log, NewUnclaimedDraftBase draft)
+//        {
+
+//        }
+//        //public static void AddApiApp(this ApiMultipartContent content, IApiLog log, ApiAppRequest app)
+//        //{
+//        //    content.AddParameter("name", app.Name);
+//        //    content.AddParameter("domain", app.Domain);
+//        //    content.AddParameter("callback_url", app.CallbackUrl);
+//        //    content.AddParameter("custom_logo_file", app.CustomLogoFile);
+//        //    content.AddParameter("oauth[callback_url]", app.OAuthCallbackUrl);
+//        //    content.AddParameter("oauth[scopes]", app.OAuthScopes);
+//        //    content.AddParameter("white_labeling_options", app.WhiteLabelingOptions);
+//        //}
+//    }
+//}
