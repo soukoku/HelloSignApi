@@ -5,7 +5,7 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Warning object for an <see cref="ApiResponse"/>.
     /// </summary>
-    public class Warning
+    public class WarningResponse
     {
         /// <summary>
         /// Warning details.

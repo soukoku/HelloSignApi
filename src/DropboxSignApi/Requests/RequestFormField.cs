@@ -6,7 +6,7 @@ namespace DropboxSignApi.Requests
     /// <summary>
     /// Field object for new signature requests.
     /// </summary>
-    public class RequestFormField : FormField
+    public class RequestFormField : DocumentFormField
     {
         /// <summary>
         /// page in the document where the field should be placed (requires documents be PDF files).

@@ -1,5 +1,4 @@
-﻿using DropboxSignApi.Internal;
-using DropboxSignApi.Requests;
+﻿using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
 using DropboxSignApi.Utils;
 using System;

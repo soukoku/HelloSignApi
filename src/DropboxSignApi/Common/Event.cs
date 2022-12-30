@@ -38,7 +38,7 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// Attached template info if applicable.
         /// </summary>
-        public Template Template { get; set; }
+        public TemplateResponse Template { get; set; }
 
         /// <summary>
         /// Attached account info if applicable.

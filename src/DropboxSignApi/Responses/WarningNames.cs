@@ -1,7 +1,7 @@
 ﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Contains possible values for <see cref="Warning.Name" />.
+    /// Contains possible values for <see cref="WarningResponse.Name" />.
     /// </summary>
     public static class WarningNames
     {

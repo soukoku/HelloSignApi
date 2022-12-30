@@ -153,22 +153,13 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public async Task<DownloadInfoResponse> GetFileUrlAsync(string signatureRequestId,
+        public Task<FileUrlResponseWrap> GetFileUrlAsync(string signatureRequestId,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
             var url = $"{SignatureUrl}/files/{signatureRequestId}?get_url=1";
-            _log.Requesting("GET", url);
-            var resp = await _client.GetAsync(url, cancellationToken).ConfigureAwait(false);
-            var dir = new DownloadInfoResponse();
-            dir.FillExtraValues(resp);
-
-            var json = await resp.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            var model = JsonConvert.DeserializeObject<DownloadInfo>(json, JsonExtensions.JsonSettings);
-            dir.DownloadInfo = model;
-            return dir;
+            return GetAsync<FileUrlResponseWrap>(url, cancellationToken);
         }
 
         /// <summary>
@@ -181,7 +172,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public async Task<DownloadDataResponse> GetFilesAsync(string signatureRequestId, FileType fileType,
+        public async Task<FileDownloadResponseWrap> GetFilesAsync(string signatureRequestId, FileType fileType,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
@@ -190,7 +181,7 @@ namespace DropboxSignApi
             var url = $"{SignatureUrl}/files/{signatureRequestId}?file_type={ft}";
             _log.Requesting("GET", url);
             var resp = await _client.GetAsync(url, cancellationToken).ConfigureAwait(false);
-            var apiR = new DownloadDataResponse();
+            var apiR = new FileDownloadResponseWrap();
             apiR.FillExtraValues(resp);
             apiR.FileResponse = resp;
             return apiR;

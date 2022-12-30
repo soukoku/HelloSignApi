@@ -13,7 +13,7 @@ namespace DropboxSignApi
 
         public SignatureRequest SignatureRequest { get; set; }
         public AccountResponse Account { get; set; }
-        public Template Template { get; set; }
+        public TemplateResponse Template { get; set; }
 
         public Event Unwrap()
         {

@@ -20,7 +20,7 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// A list of warnings.
         /// </summary>
-        public IList<Warning> Warnings { get; set; }
+        public IList<WarningResponse> Warnings { get; set; }
 
         internal void FillExtraValues(HttpResponseMessage httpResponse)
         {

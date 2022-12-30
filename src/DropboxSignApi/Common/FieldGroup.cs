@@ -1,14 +1,15 @@
 ﻿namespace DropboxSignApi.Common
 {
     /// <summary>
-    /// FieldGroup object for a template <see cref="Document"/>.
+    /// FieldGroup object for a document.
     /// </summary>
-    public class FieldGroup
+    public class DocumentFieldGroup
     {
         /// <summary>
         /// The name of the form field group.
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// The rule used to validate checkboxes in the form field group.
         /// </summary>

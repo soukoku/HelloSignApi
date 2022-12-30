@@ -1,13 +1,22 @@
-﻿namespace DropboxSignApi.Responses
+﻿using Newtonsoft.Json;
+using System;
+
+namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Response for the get file api call with download url.
+    /// Response for the get file api call download url.
     /// </summary>
-    public class DownloadInfoResponse : ApiResponse
+    public class FileUrlResponseWrap : ApiResponse
     {
         /// <summary>
-        /// The download info object.
+        /// URL of the download url.
         /// </summary>
-        public DownloadInfo DownloadInfo { get; internal set; }
+        public string FileUrl { get; set; }
+
+        /// <summary>
+        /// When the link expires.
+        /// </summary>
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
+        public DateTime ExpiresAt { get; set; }
     }
 }
