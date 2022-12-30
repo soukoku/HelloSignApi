@@ -8,16 +8,6 @@ namespace DropboxSignApi.Requests
     public class NewSignatureRequest : NewRequestBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NewSignatureRequest"/> class.
-        /// </summary>
-        public NewSignatureRequest()
-        {
-            Files = new PendingFileCollection();
-            CcEmailAddresses = new List<string>();
-            FormFieldsPerDocument = new List<IList<RequestFormField>>();
-        }
-
-        /// <summary>
         /// The client ID of the ApiApp you want to associate with this request.
         /// </summary>
         public string ClientId { get; set; }
@@ -25,7 +15,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// Gets the files to be uploaded.
         /// </summary>
-        public PendingFileCollection Files { get; private set; }
+        public PendingFileCollection Files { get; private set; } = new PendingFileCollection();
 
         /// <summary>
         /// The title you want to assign to the SignatureRequest.
@@ -35,7 +25,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// The email addresses that should be CCed.
         /// </summary>
-        public IList<string> CcEmailAddresses { get; private set; }
+        public IList<string> CcEmailAddresses { get; private set; } = new List<string>();
 
         /// <summary>
         /// Set to <code>true</code> if you wish to enable Text Tags parsing in your document.
@@ -53,6 +43,6 @@ namespace DropboxSignApi.Requests
         /// The fields that should appear on the document.
         /// See <see cref="!:https://faq.hellosign.com/hc/en-us/articles/217115577"/>.
         /// </summary>
-        public IList<IList<RequestFormField>> FormFieldsPerDocument { get; set; }
+        public IList<IList<RequestFormField>> FormFieldsPerDocument { get; set; } = new List<IList<RequestFormField>>();
     }
 }

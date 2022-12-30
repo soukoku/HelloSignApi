@@ -11,7 +11,7 @@ namespace DropboxSignApi
     {
         public Event Event { get; set; }
 
-        public SignatureRequest SignatureRequest { get; set; }
+        public SignatureRequestResponse SignatureRequest { get; set; }
         public AccountResponse Account { get; set; }
         public TemplateResponse Template { get; set; }
 

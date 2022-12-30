@@ -1,4 +1,6 @@
-﻿namespace DropboxSignApi.Responses
+﻿using System.Collections.Generic;
+
+namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Response for the template list api call.
@@ -8,6 +10,6 @@
         /// <summary>
         /// List of templates that the API caller has access to.
         /// </summary>
-        public TemplateResponse[] Templates { get; set; }
+        public IList<TemplateResponse> Templates { get; set; }
     }
 }

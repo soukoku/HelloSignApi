@@ -1,4 +1,5 @@
 ﻿using DropboxSignApi.Requests;
+using DropboxSignApi.Responses;
 
 namespace DropboxSignApi.Common
 {
@@ -156,7 +157,7 @@ namespace DropboxSignApi.Common
     }
 
     /// <summary>
-    /// Contains possible values for <see cref="Signature.StatusCode" />.
+    /// Contains possible values for <see cref="SignatureRequestResponseSignature.StatusCode" />.
     /// </summary>
     public static class SignatureStatusCodes
     {

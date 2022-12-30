@@ -33,7 +33,7 @@ namespace DropboxSignApi.Common
         /// <summary>
         /// Attached signature request if applicable.
         /// </summary>
-        public SignatureRequest SignatureRequest { get; set; }
+        public SignatureRequestResponse SignatureRequest { get; set; }
 
         /// <summary>
         /// Attached template info if applicable.

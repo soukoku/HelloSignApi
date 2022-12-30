@@ -8,16 +8,6 @@ namespace DropboxSignApi.Requests
     public abstract class NewRequestBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NewRequestBase"/> class.
-        /// </summary>
-        protected NewRequestBase()
-        {
-            Metadata = new Dictionary<string, string>();
-            Signers = new List<Signer>();
-            Attachments = new List<SubAttachment>();
-        }
-
-        /// <summary>
         /// Whether this is a test, the signature request created from this draft will not be legally binding if <code>true</code>.
         /// </summary>
         public bool TestMode { get; set; }
@@ -45,7 +35,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// The signers to request signatures.
         /// </summary>
-        public IList<Signer> Signers { get; private set; }
+        public IList<Signer> Signers { get; private set; } = new List<Signer>();
 
         /// <summary>
         /// Key-value data that should be attached to the signature request. 
@@ -55,11 +45,11 @@ namespace DropboxSignApi.Requests
         /// Each request can include up to 10 metadata keys (or 50 nested metadata keys), 
         /// with key names up to 40 characters long and values up to 1000 characters long.
         /// </summary>
-        public IDictionary<string, string> Metadata { get; set; }
+        public IDictionary<string, string> Metadata { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// Attachment info for new request.
         /// </summary>
-        public IList<SubAttachment> Attachments { get; private set; }
+        public IList<SubAttachment> Attachments { get; private set; } = new List<SubAttachment>();
     }
 }

@@ -1,5 +1,4 @@
-﻿using DropboxSignApi.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DropboxSignApi.Responses
 {
@@ -16,6 +15,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// Contains information about the Signature Requests sent in bulk.
         /// </summary>
-        public IList<SignatureRequest> SignatureRequests { get; set; }
+        public IList<SignatureRequestResponse> SignatureRequests { get; set; }
     }
 }

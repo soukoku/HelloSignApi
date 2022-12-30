@@ -1,24 +1,22 @@
-﻿using DropboxSignApi.Utils;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.ComponentModel;
 
-namespace DropboxSignApi.Common
+namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Attachment info for a request.
     /// </summary>
-    public class Attachment
+    public class SignatureRequestResponseAttachment
     {
         /// <summary>
-        /// Attachment id.
+        /// The unique ID for this attachment.
         /// </summary>
         public string Id { get; set; }
 
         /// <summary>
-        /// The 1-based (?) signer index in the request.
+        /// The Signer this attachment is assigned to.
         /// </summary>
-        public int Signer { get; set; }
+        public string Signer { get; set; }
 
         /// <summary>
         /// The name of attachment.
@@ -26,17 +24,17 @@ namespace DropboxSignApi.Common
         public string Name { get; set; }
 
         /// <summary>
-        /// The instructions for uploading the attachment.
-        /// </summary>
-        public string Instructions { get; set; }
-
-        /// <summary>
-        /// Determines if the attachment must be uploaded.
+        /// A boolean value denoting if this attachment is required.
         /// </summary>
         public bool Required { get; set; }
 
         /// <summary>
-        /// Time that the attachment was uploaded.
+        /// Instructions for Signer.
+        /// </summary>
+        public string Instructions { get; set; }
+
+        /// <summary>
+        /// Timestamp when attachment was uploaded by Signer.
         /// </summary>
         [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime? UploadedAt { get; set; }
