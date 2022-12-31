@@ -18,7 +18,7 @@ namespace DropboxSignApi
         /// <param name="verify">Validate the event for integrity. 
         /// If validation fails the return value is null.</param>
         /// <returns></returns>
-        public async Task<Event> ParseEventAsync(MultipartFormDataContent content, bool verify = true)
+        public async Task<EventCallbackWrap> ParseEventAsync(MultipartFormDataContent content, bool verify = true)
         {
             if (content != null)
             {
@@ -42,9 +42,9 @@ namespace DropboxSignApi
         /// <param name="verify">Validate the event for integrity. 
         /// If validation fails the return value is null.</param>
         /// <returns></returns>
-        public Event ParseEvent(string eventJson, bool verify = true)
+        public EventCallbackWrap ParseEvent(string eventJson, bool verify = true)
         {
-            var wrap = JsonConvert.DeserializeObject<EventWrap>(eventJson ?? "", JsonExtensions.JsonSettings);
+            var wrap = JsonConvert.DeserializeObject<EventCallbackWrap>(eventJson ?? "", JsonExtensions.JsonSettings);
             if (verify && wrap != null && wrap.Event != null)
             {
                 var key = Encoding.UTF8.GetBytes(_apiKey);
@@ -55,7 +55,7 @@ namespace DropboxSignApi
                     wrap = null;
                 }
             }
-            return wrap?.Unwrap();
+            return wrap;
         }
     }
 }

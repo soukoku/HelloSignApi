@@ -121,9 +121,9 @@ This lib can also be used to parse the webhook event callback data:
 
 ```cs
 string jsonData = ...;// somehow get the event callback json content
-Event theEvent = client.ParseEvent(jsonData);
+var wrap = client.ParseEvent(jsonData);
 // handle the event
-switch(theEvent.EventType)
+switch(wrap.Event.EventType)
 {
     case EventTypes.SignatureRequestSigned:
         // do something

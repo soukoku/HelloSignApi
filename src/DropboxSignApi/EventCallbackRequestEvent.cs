@@ -1,13 +1,11 @@
-﻿using DropboxSignApi.Responses;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 
 namespace DropboxSignApi
 {
     /// <summary>
-    /// Represents an event from callback.
+    /// Represents an event from API callback.
     /// </summary>
-    public class Event
+    public class EventCallbackRequestEvent
     {
         /// <summary>
         /// When the event was created.
@@ -28,20 +26,5 @@ namespace DropboxSignApi
         /// A map of values containing data related to this event.
         /// </summary>
         public EventMetadata EventMetadata { get; set; }
-
-        /// <summary>
-        /// Attached signature request if applicable.
-        /// </summary>
-        public SignatureRequestResponse SignatureRequest { get; set; }
-
-        /// <summary>
-        /// Attached template info if applicable.
-        /// </summary>
-        public TemplateResponse Template { get; set; }
-
-        /// <summary>
-        /// Attached account info if applicable.
-        /// </summary>
-        public AccountResponse Account { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace DropboxSignApi
 {
     /// <summary>
-    /// Contains possible values for <see cref="Event.EventType" />.
+    /// Contains possible values for <see cref="EventCallbackRequestEvent.EventType" />.
     /// </summary>
     public static class EventTypes
     {

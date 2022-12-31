@@ -6,7 +6,7 @@
     public class EventMetadata
     {
         /// <summary>
-        /// Signature associated with this event. Only set when <see cref="Event.EventType"/> 
+        /// Signature associated with this event. Only set when <see cref="EventCallbackRequestEvent.EventType"/> 
         /// is <see cref="EventTypes.SignatureRequestSigned"/> or 
         /// <see cref="EventTypes.SignatureRequestViewed"/>.
         /// </summary>
