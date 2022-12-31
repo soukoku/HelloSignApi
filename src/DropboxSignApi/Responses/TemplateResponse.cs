@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using DropboxSignApi.Common;
-using Newtonsoft.Json;
 
 namespace DropboxSignApi.Responses
 {

@@ -1,5 +1,4 @@
-﻿using DropboxSignApi.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DropboxSignApi.Responses
 {
@@ -26,7 +25,7 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// An array of Form Field objects containing the name and type of each named textbox and checkmark field.
         /// </summary>
-        public IList<DocumentFormField> FormFields { get; set; }
+        public IList<TemplateResponseDocumentFormField> FormFields { get; set; }
 
         /// <summary>
         /// An array of Custom Field objects containing the name and type of each custom field.

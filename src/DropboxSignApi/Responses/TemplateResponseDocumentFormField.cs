@@ -1,11 +1,9 @@
-﻿using DropboxSignApi.Responses;
-
-namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Field object for a Document.
+    /// Field object for a template Document.
     /// </summary>
-    public class DocumentFormField
+    public class TemplateResponseDocumentFormField
     {
         /// <summary>
         /// A unique id for the form field.

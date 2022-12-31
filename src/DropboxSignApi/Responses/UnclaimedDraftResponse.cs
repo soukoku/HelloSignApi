@@ -1,6 +1,4 @@
-﻿using DropboxSignApi.Common;
-
-namespace DropboxSignApi.Responses
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Represents a group of documents that a user can take ownership of via the claim URL.

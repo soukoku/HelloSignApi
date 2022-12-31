@@ -1,6 +1,4 @@
-﻿using DropboxSignApi.Common;
-
-namespace DropboxSignApi.Responses
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// An object that contains necessary information to set up embedded template editing.

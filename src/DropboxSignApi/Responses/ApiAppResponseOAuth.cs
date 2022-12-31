@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DropboxSignApi.Common;
 
 namespace DropboxSignApi.Responses
 {
