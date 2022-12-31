@@ -22,7 +22,7 @@ so it's easy to see what are the supported properties for each
 request type.
 
 ```cs
-var sigRequest = new NewSignatureRequest();
+var sigRequest = new SendSignatureRequestRequest();
 // ...
 // set various request properties here
 // ...
@@ -30,8 +30,8 @@ SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRe
 ```
 
 #### Files in requests
-Any request parameters that take a file to upload can use either the `FileUrls` or `Files` property.
-You can use either remote http files or local files, but not both in a single request.
+For any requests that support file uploads you can use either the `FileUrls` or `Files` property.
+Use them either for remote http files or local files, but not both in a single request.
 
 ```cs
 // remote file
@@ -53,7 +53,7 @@ Note that for local files, you will be responsible in disposing the request obje
 to clean up the streams. It's best to just wrap the request in a using
 
 ```cs
-using (sigRequest = new NewSignatureRequest()) {
+using (var sigRequest = new SendSignatureRequestRequest()) {
   // do things with it
 }
 ```
@@ -63,9 +63,10 @@ using (sigRequest = new NewSignatureRequest()) {
 All API calls will return the `ApiResponse` class and its sub-classes.
 The `ApiResponse` contains all the returned information from the API call,
 including any error, warnings, and rate-limiting information.
+
 This means that, assuming the parameters are valid and there are no network errors, 
 all API calls will not throw an `Exception` and you will need to handle the returned response
-as appropriate based on the error (if not null) and http status code.
+as appropriate based on the error and http status code.
 
 ```cs
 SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRequest);
@@ -116,8 +117,7 @@ switch(response.Error.Name)
 
 
 ### Event model
-If this lib is used in an http server, 
-then it can be used to parse the webhook event callback data as well:
+This lib can also be used to parse the webhook event callback data:
 
 ```cs
 string jsonData = ...;// somehow get the event callback json content
