@@ -3,7 +3,7 @@
     /// <summary>
     /// Response for creating new template call.
     /// </summary>
-    public class NewTemplateResponse : ApiResponse
+    public class NewTemplateResponse : ResponseWrap
     {
         /// <summary>
         /// The embedded edit object for the new template.

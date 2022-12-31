@@ -57,9 +57,9 @@ namespace DropboxSignApi
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<ApiResponse> DeleteTeamAsync(CancellationToken cancellationToken = default)
+        public Task<ResponseWrap> DeleteTeamAsync(CancellationToken cancellationToken = default)
         {
-            return DeleteAsync<ApiResponse>($"{TeamUrl}/destroy", cancellationToken);
+            return DeleteAsync<ResponseWrap>($"{TeamUrl}/destroy", cancellationToken);
         }
 
         /// <summary>

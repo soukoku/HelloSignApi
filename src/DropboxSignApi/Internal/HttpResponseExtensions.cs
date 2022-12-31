@@ -8,7 +8,7 @@ namespace DropboxSignApi
 {
     static class HttpResponseExtensions
     {
-        public static async Task<T> ParseApiResponseAsync<T>(this HttpResponseMessage msg, IApiLog log) where T : ApiResponse
+        public static async Task<T> ParseApiResponseAsync<T>(this HttpResponseMessage msg, IApiLog log) where T : ResponseWrap
         {
             var json = await msg.Content.ReadAsStringAsync().ConfigureAwait(false);
             log.ResponseRead<T>(json);

@@ -5,7 +5,7 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Response for bulk send jobs.
     /// </summary>
-    public class BulkSendJobResponseWrap : ApiResponse
+    public class BulkSendJobResponseWrap : ResponseWrap
     {
         /// <summary>
         /// Contains information about the BulkSendJob such as when it was created and how many signature requests are queued.

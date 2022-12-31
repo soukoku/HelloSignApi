@@ -38,6 +38,6 @@ namespace DropboxSignApi
         /// </summary>
         /// <param name="content">The string content before deserialization.</param>
         /// <typeparam name="TResp">The response type to deserialize into.</typeparam>
-        void ResponseRead<TResp>(string content) where TResp : ApiResponse;
+        void ResponseRead<TResp>(string content) where TResp : ResponseWrap;
     }
 }

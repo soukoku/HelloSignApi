@@ -17,6 +17,6 @@ namespace DropboxSignApi
 
         public void Requesting(string httpMethod, string apiUrl) { }
 
-        public void ResponseRead<TResp>(string content) where TResp : ApiResponse { }
+        public void ResponseRead<TResp>(string content) where TResp : ResponseWrap { }
     }
 }

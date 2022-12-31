@@ -3,7 +3,7 @@
 namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Contains paging info for a <see cref="ListApiResponse"/>.
+    /// Contains paging info for a <see cref="ListResponseWrap"/>.
     /// </summary>
     public class ListInfoResponse
     {

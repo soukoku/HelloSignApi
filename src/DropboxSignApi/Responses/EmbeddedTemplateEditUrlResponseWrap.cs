@@ -3,7 +3,7 @@
     /// <summary>
     /// Response for the embedded template edit api call.
     /// </summary>
-    public class EmbeddedTemplateEditUrlResponseWrap : ApiResponse
+    public class EmbeddedTemplateEditUrlResponseWrap : ResponseWrap
     {
         /// <summary>
         /// An embedded template object.

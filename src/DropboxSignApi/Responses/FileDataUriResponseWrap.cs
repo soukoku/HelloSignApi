@@ -3,7 +3,7 @@
     /// <summary>
     /// Response for the get file api call with data uri or download url.
     /// </summary>
-    public class FileDataUriResponseWrap : ApiResponse
+    public class FileDataUriResponseWrap : ResponseWrap
     {
         /// <summary>
         /// The data uri string.

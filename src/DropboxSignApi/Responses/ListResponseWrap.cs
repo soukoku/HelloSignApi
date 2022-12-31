@@ -1,9 +1,9 @@
 ﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Basic response from calling a list api.
+    /// Basic response from calling a list API.
     /// </summary>
-    public class ListApiResponse : ApiResponse
+    public class ListResponseWrap : ResponseWrap
     {
         /// <summary>
         /// Contains pagination information about the data returned.

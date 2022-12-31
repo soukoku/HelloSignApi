@@ -8,9 +8,9 @@ using System.Net.Http;
 namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Basic response from calling the api.
+    /// Basic response from calling an API.
     /// </summary>
-    public class ApiResponse
+    public class ResponseWrap
     {
         /// <summary>
         /// Contains information about an error that occurred.

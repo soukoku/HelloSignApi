@@ -3,7 +3,7 @@
     /// <summary>
     /// Response for the signature request api calls.
     /// </summary>
-    public class SignatureRequestResponseWrap : ApiResponse
+    public class SignatureRequestResponseWrap : ResponseWrap
     {
         /// <summary>
         /// Contains information about a signature request.

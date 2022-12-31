@@ -3,7 +3,7 @@
     /// <summary>
     /// Response for the template api calls.
     /// </summary>
-    public class TemplateResponseWrap : ApiResponse
+    public class TemplateResponseWrap : ResponseWrap
     {
         /// <summary>
         /// Contains information about the templates you and your team have created.

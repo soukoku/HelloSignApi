@@ -3,7 +3,7 @@
 namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Error object for an <see cref="ApiResponse"/>.
+    /// Error object for an <see cref="ResponseWrap"/>.
     /// </summary>
     public class Error
     {

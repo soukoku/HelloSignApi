@@ -221,21 +221,20 @@ namespace DropboxSignApi
             return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/update/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
         }
 
+        /// <summary>
+        /// Cancels an incomplete signature request. This action is not reversible.
+        /// </summary>
+        /// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Signature request id is required.</exception>
+        public Task<ResponseWrap> CancelSignatureRequestAsync(string signatureRequestId,
+            CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
-        ///// <summary>
-        ///// Queues a SignatureRequest to be canceled. The cancelation is asynchronous and a successful call to this endpoint will return a 200 OK response if the signature request is eligible to be canceled and has been successfully queued. To be eligible for cancelation, a signature request must have been sent successfully and must be unsigned. Once canceled, singers will not be able to sign the signature request or access its documents. Canceling a signature request is not reversible.
-        ///// </summary>
-        ///// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>
-        ///// <param name="cancellationToken"></param>
-        ///// <returns></returns>
-        ///// <exception cref="ArgumentException">Signature request id is required.</exception>
-        //public Task<ApiResponse> CancelSignatureRequestAsync(string signatureRequestId,
-        //    CancellationToken cancellationToken = default)
-        //{
-        //    if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
-
-        //    return PostAsync<ApiResponse>($"{SignatureUrl}/cancel/{Uri.EscapeDataString(signatureRequestId)}", null, cancellationToken);
-        //}
+            return PostAsync<ResponseWrap>($"{SignatureUrl}/cancel/{Uri.EscapeDataString(signatureRequestId)}", null, cancellationToken);
+        }
 
         ///// <summary>
         ///// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="SendSignatureRequestRequest.FormFieldsPerDocument"/> is not specified, 

@@ -70,12 +70,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Template id is required.</exception>
-        public Task<ApiResponse> DeleteTemplateAsync(string templateId,
+        public Task<ResponseWrap> DeleteTemplateAsync(string templateId,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(templateId)) { throw new ArgumentException("Template id is required."); }
 
-            return PostAsync<ApiResponse>($"{TemplateUrl}/delete/{Uri.EscapeDataString(templateId)}", null, cancellationToken);
+            return PostAsync<ResponseWrap>($"{TemplateUrl}/delete/{Uri.EscapeDataString(templateId)}", null, cancellationToken);
         }
 
         /// <summary>

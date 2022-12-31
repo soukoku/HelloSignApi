@@ -60,8 +60,8 @@ using (var sigRequest = new SendSignatureRequestRequest()) {
 
 
 ### Response models
-All API calls will return the `ApiResponse` class and its sub-classes.
-The `ApiResponse` contains all the returned information from the API call,
+All API calls will return the `ResponseWrap` class and its sub-classes.
+The `ResponseWrap` contains all the returned information from the API call,
 including any error, warnings, and rate-limiting information.
 
 This means that, assuming the parameters are valid and there are no network errors, 

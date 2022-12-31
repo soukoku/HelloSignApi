@@ -6,7 +6,7 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Response for the api app list api call.
     /// </summary>
-    public class ApiAppListResponseWrap : ListApiResponse
+    public class ApiAppListResponseWrap : ListResponseWrap
     {
         /// <summary>
         /// The api app objects.

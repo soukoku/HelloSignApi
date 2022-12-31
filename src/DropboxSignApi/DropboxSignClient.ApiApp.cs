@@ -80,12 +80,12 @@ namespace DropboxSignApi
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException">Client id is required.</exception>
-        public Task<ApiResponse> DeleteApiAppAsync(string clientId,
+        public Task<ResponseWrap> DeleteApiAppAsync(string clientId,
             CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(clientId)) { throw new ArgumentException("Client id is required."); }
 
-            return PostAsync<ApiResponse>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", null, cancellationToken);
+            return PostAsync<ResponseWrap>($"{ApiAppUrl}/{Uri.EscapeDataString(clientId)}", null, cancellationToken);
         }
     }
 }

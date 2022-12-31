@@ -57,7 +57,7 @@ namespace DropboxSignApi
         /// <typeparam name="TResp">Api response type.</typeparam>
         /// <returns></returns>
         async Task<TResp> GetAsync<TResp>(string apiUrl,
-            CancellationToken cancellationToken) where TResp : ApiResponse
+            CancellationToken cancellationToken) where TResp : ResponseWrap
         {
             _log.Requesting("GET", apiUrl);
             var resp = await _client.GetAsync(apiUrl, cancellationToken).ConfigureAwait(false);
@@ -70,7 +70,7 @@ namespace DropboxSignApi
         /// <typeparam name="TResp">Api response type.</typeparam>
         /// <returns></returns>
         async Task<TResp> PostAsync<TResp>(string apiUrl, HttpContent content,
-            CancellationToken cancellationToken) where TResp : ApiResponse
+            CancellationToken cancellationToken) where TResp : ResponseWrap
         {
             _log.Requesting("POST", apiUrl);
             var resp = await _client.PostAsync(apiUrl, content, cancellationToken).ConfigureAwait(false);
@@ -83,7 +83,7 @@ namespace DropboxSignApi
         /// <typeparam name="TResp">Api response type.</typeparam>
         /// <returns></returns>
         async Task<TResp> PutAsync<TResp>(string apiUrl, HttpContent content,
-            CancellationToken cancellationToken) where TResp : ApiResponse
+            CancellationToken cancellationToken) where TResp : ResponseWrap
         {
             _log.Requesting("PUT", apiUrl);
             var resp = await _client.PutAsync(apiUrl, content, cancellationToken).ConfigureAwait(false);
@@ -96,7 +96,7 @@ namespace DropboxSignApi
         /// <typeparam name="TResp">Api response type.</typeparam>
         /// <returns></returns>
         async Task<TResp> DeleteAsync<TResp>(string apiUrl,
-            CancellationToken cancellationToken) where TResp : ApiResponse
+            CancellationToken cancellationToken) where TResp : ResponseWrap
         {
             _log.Requesting("DELETE", apiUrl);
             var resp = await _client.DeleteAsync(apiUrl, cancellationToken).ConfigureAwait(false);

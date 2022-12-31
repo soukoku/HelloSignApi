@@ -3,7 +3,7 @@
     /// <summary>
     /// Response for the team api calls.
     /// </summary>
-    public class TeamResponseWrap : ApiResponse
+    public class TeamResponseWrap : ResponseWrap
     {
         /// <summary>
         /// Contains information about your team and its members

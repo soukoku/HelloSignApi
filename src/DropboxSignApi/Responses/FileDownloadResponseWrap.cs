@@ -6,7 +6,7 @@ namespace DropboxSignApi.Responses
     /// <summary>
     /// Response for the file download api call.
     /// </summary>
-    public class FileDownloadResponseWrap : ApiResponse, IDisposable
+    public class FileDownloadResponseWrap : ResponseWrap, IDisposable
     {
         /// <summary>
         /// The download data response.

@@ -3,7 +3,7 @@
     /// <summary>
     /// Response for the account api calls.
     /// </summary>
-    public class AccountResponseWrap : ApiResponse
+    public class AccountResponseWrap : ResponseWrap
     {
         /// <summary>
         /// The account object.
