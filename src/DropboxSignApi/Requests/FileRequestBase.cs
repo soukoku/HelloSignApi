@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DropboxSignApi.Requests
@@ -11,14 +12,16 @@ namespace DropboxSignApi.Requests
         private bool disposedValue;
 
         /// <summary>
-        /// File urls to upload. This cannot be used with <see cref="File"/>.
+        /// File urls to upload. This cannot be used with <see cref="Files"/>.
         /// </summary>
-        public IList<Uri> FileUrl { get; } = new List<Uri>();
+        [JsonProperty("file_url")]
+        public IList<Uri> FileUrls { get; } = new List<Uri>();
 
         /// <summary>
-        /// File data to upload. This cannot be used with <see cref="FileUrl"/>.
+        /// File data to upload. This cannot be used with <see cref="FileUrls"/>.
         /// </summary>
-        public IList<PendingFile> File { get; } = new List<PendingFile>();
+        [JsonProperty("file")]
+        public IList<PendingFile> Files { get; } = new List<PendingFile>();
 
         /// <summary>
         /// Clean up this object.
@@ -30,7 +33,7 @@ namespace DropboxSignApi.Requests
             {
                 if (disposing)
                 {
-                    foreach (var f in File)
+                    foreach (var f in Files)
                     {
                         try
                         {

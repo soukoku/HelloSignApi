@@ -68,11 +68,11 @@ namespace WpfTestGui
             req.TestMode = ckTestMode.IsChecked.GetValueOrDefault();
             if (ckLocal.IsChecked.GetValueOrDefault())
             {
-                req.File.Add(new PendingFile(boxLocalFile.Text));
+                req.Files.Add(new PendingFile(boxLocalFile.Text));
             }
             if (ckRemote.IsChecked.GetValueOrDefault())
             {
-                req.FileUrl.Add(new Uri(boxRemoteFile.Text));
+                req.FileUrls.Add(new Uri(boxRemoteFile.Text));
             }
             req.Title = boxTitle.Text;
             req.Subject = boxSubject.Text;

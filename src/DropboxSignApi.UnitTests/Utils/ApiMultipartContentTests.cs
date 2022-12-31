@@ -192,17 +192,17 @@ namespace DropboxSignApi.Utils
             var sample = new SampleObject();
             for (var i = 0; i < 5; i++)
             {
-                sample.FileUrl.Add(new System.Uri($"https://test.com/fake-file-{i}.pdf"));
+                sample.FileUrls.Add(new System.Uri($"https://test.com/fake-file-{i}.pdf"));
             }
             var log = new TestUseApiLog();
 
             //Act
             _ = new ApiMultipartContent(sample, log);
-            log.AssertHasPart("file_url[0]", sample.FileUrl[0].ToString());
-            log.AssertHasPart("file_url[1]", sample.FileUrl[1].ToString());
-            log.AssertHasPart("file_url[2]", sample.FileUrl[2].ToString());
-            log.AssertHasPart("file_url[3]", sample.FileUrl[3].ToString());
-            log.AssertHasPart("file_url[4]", sample.FileUrl[4].ToString());
+            log.AssertHasPart("file_url[0]", sample.FileUrls[0].ToString());
+            log.AssertHasPart("file_url[1]", sample.FileUrls[1].ToString());
+            log.AssertHasPart("file_url[2]", sample.FileUrls[2].ToString());
+            log.AssertHasPart("file_url[3]", sample.FileUrls[3].ToString());
+            log.AssertHasPart("file_url[4]", sample.FileUrls[4].ToString());
         }
 
         [TestMethod]
@@ -212,7 +212,7 @@ namespace DropboxSignApi.Utils
             var sample = new SampleObject();
             for (var i = 0; i < 5; i++)
             {
-                sample.File.Add(new PendingFile(new byte[10], $"fake file {i}.pdf"));
+                sample.Files.Add(new PendingFile(new byte[10], $"fake file {i}.pdf"));
             }
             var log = new TestUseApiLog();
 

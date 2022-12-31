@@ -30,12 +30,12 @@ SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRe
 ```
 
 #### Files in requests
-Any request parameters that take a file to upload will have the `Files` property.
-Either remote http files or local file are supported, though not both in a single request.
+Any request parameters that take a file to upload can use either the `FileUrls` or `Files` property.
+You can use either remote http files or local files, but not both in a single request.
 
 ```cs
 // remote file
-sigRequest.Files.Add(new PendingFile(new Uri("http://path-to-remote-file")));
+sigRequest.FileUrls.Add(new Uri("http://path-to-remote-file"));
 
 // or local file path
 sigRequest.Files.Add(new PendingFile("path\to\local\file", "file name here"));
@@ -49,7 +49,14 @@ Stream fileData = ...// some how get file stream
 sigRequest.Files.Add(new PendingFile(fileData, "file name here"));
 ```
 
-Note that for stream data, the stream will be disposed after the API call is made.
+Note that for local files, you will be responsible in disposing the request object
+to clean up the streams. It's best to just wrap the request in a using
+
+```cs
+using (sigRequest = new NewSignatureRequest()) {
+  // do things with it
+}
+```
 
 
 ### Response models
