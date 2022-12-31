@@ -1,43 +1,17 @@
-﻿using System;
+﻿using DropboxSignApi.Internal;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace DropboxSignApi.Requests
 {
     /// <summary>
-    /// Represents a file for creating signature requests.
+    /// Represents a single local file data for uploads.
     /// </summary>
-    public class PendingFile
+    [JsonConverter(typeof(PendingFileConverter))]
+    public class PendingFile : IDisposable
     {
-  //      /// <summary>
-  //      /// Initializes a new instance of the <see cref="PendingFile" /> class.
-  //      /// </summary>
-  //      /// <param name="remoteFilePath">The remote file path.</param>
-		///// <param name="fileName">Obsolete. Has no bearing on the name of the remote file.</param>
-  //      /// <exception cref="ArgumentNullException">remoteFilePath</exception>
-  //      /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
-  //      [Obsolete("Use constructor without fileName for Uri files.")]
-  //      public PendingFile(Uri remoteFilePath, string fileName) : this(remoteFilePath) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PendingFile" /> class.
-        /// </summary>
-        /// <param name="remoteFilePath">The remote file path.</param>
-        /// <exception cref="ArgumentNullException">remoteFilePath</exception>
-        /// <exception cref="ArgumentException">Only remote http/https file is supported.</exception>
-        public PendingFile(Uri remoteFilePath)
-        {
-            if (remoteFilePath == null) { throw new ArgumentNullException(nameof(remoteFilePath)); }
-
-            if (string.Equals(remoteFilePath.Scheme, "http") ||
-                string.Equals(remoteFilePath.Scheme, "https"))
-            {
-                RemotePath = remoteFilePath;
-            }
-            else
-            {
-                throw new ArgumentException("Only remote http/https file is supported.");
-            }
-        }
+        private bool disposedValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile"/> class.
@@ -46,14 +20,10 @@ namespace DropboxSignApi.Requests
         /// <param name="fileName">Name of the file.</param>
         /// <exception cref="ArgumentNullException">fileData</exception>
         /// <exception cref="ArgumentException">File name is required.</exception>
-        public PendingFile(byte[] fileData, string fileName)
-        {
-            if (fileData == null) { throw new ArgumentNullException(nameof(fileData)); }
-            if (string.IsNullOrEmpty(fileName)) { throw new ArgumentException("File name is required."); }
+        public PendingFile(byte[] fileData, string fileName) :
+            this(new MemoryStream(fileData), fileName)
+        { }
 
-            Data = fileData;
-            FileName = fileName;
-        }
         /// <summary>
         /// Initializes a new instance of the <see cref="PendingFile"/> class.
         /// </summary>
@@ -81,46 +51,59 @@ namespace DropboxSignApi.Requests
         {
             if (string.IsNullOrEmpty(localFilePath)) { throw new ArgumentException("File path is required."); }
 
-            LocalPath = localFilePath;
+            Stream = File.Open(localFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             FileName = fileName ?? Path.GetFileName(localFilePath);
         }
 
         /// <summary>
-        /// Gets the local file path.
-        /// </summary>
-        public string LocalPath { get; private set; }
-
-        /// <summary>
-        /// Gets the remote (http/https) file path.
-        /// </summary>
-        public Uri RemotePath { get; private set; }
-
-        /// <summary>
-        /// Gets the byte array data.
-        /// </summary>
-        public byte[] Data { get; private set; }
-
-        /// <summary>
-        /// Gets the stream data.
+        /// Gets the file stream data.
         /// </summary>
         public Stream Stream { get; private set; }
 
         /// <summary>
-        /// Gets the name of the file. This is only for local files.
+        /// Gets the name of the file.
         /// </summary>
         public string FileName { get; private set; }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
         public override string ToString()
         {
-            if (RemotePath != null) return RemotePath.ToString();
             return FileName;
         }
 
+        /// <summary>
+        /// Clean up this object.
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Stream.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        // ~PendingFile()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
+
+        /// <summary>
+        /// Clean up this object.
+        /// </summary>
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

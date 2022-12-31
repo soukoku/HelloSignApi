@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Responses
+﻿namespace DropboxSignApi.Requests
 {
     /// <summary>
     /// Represents a signer role in a template.

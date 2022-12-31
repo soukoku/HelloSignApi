@@ -1,24 +1,17 @@
-﻿using DropboxSignApi.Common;
-using DropboxSignApi.Responses;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DropboxSignApi.Requests
 {
     /// <summary>
     /// Object used to create a new embedded template draft.
     /// </summary>
-    public class CreateEmbeddedTemplateDraftRequest
+    public class CreateEmbeddedTemplateDraftRequest : FileRequestBase
     {
         /// <summary>
         /// Client id of the app used to create the draft. 
         /// Used to apply the branding and callback url defined for the app.
         /// </summary>
         public string ClientId { get; set; }
-
-        /// <summary>
-        /// Gets the files to be uploaded.
-        /// </summary>
-        public PendingFileCollection Files { get; private set; } = new PendingFileCollection();
 
         /// <summary>
         /// This allows the requester to specify whether the user is 

@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi.Requests
 {
     /// <summary>
     /// Custom field for requests.

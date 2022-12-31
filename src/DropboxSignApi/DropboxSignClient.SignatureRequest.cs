@@ -110,14 +110,16 @@ namespace DropboxSignApi
         }
 
         /// <summary>
-        /// Creates and sends a new SignatureRequest with the submitted documents. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
-        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents.
+        /// Creates and sends a new SignatureRequest with the submitted documents. 
+        /// If <see cref="SendSignatureRequestRequest.FormFieldsPerDocument"/> is not specified, 
+        /// a signature page will be affixed where all signers will be required to add their signature, 
+        /// signifying their agreement to all contained documents.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponseWrap> SendSignatureRequestAsync(NewSignatureRequest request,
+        public Task<SignatureRequestResponseWrap> SendSignatureRequestAsync(SendSignatureRequestRequest request,
             CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
@@ -204,7 +206,7 @@ namespace DropboxSignApi
         }
 
         /// <summary>
-        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="NewSignatureRequest.FormFieldsPerDocument"/> is not specified, 
+        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="SendSignatureRequestRequest.FormFieldsPerDocument"/> is not specified, 
         /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. 
         /// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
         /// </summary>
@@ -212,7 +214,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureRequestAsync(NewSignatureRequest request,
+        public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureRequestAsync(SendSignatureRequestRequest request,
             CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }

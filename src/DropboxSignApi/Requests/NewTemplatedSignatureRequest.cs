@@ -6,7 +6,7 @@ namespace DropboxSignApi.Requests
     /// <summary>
     /// Object used to create a new signature request from template.
     /// </summary>
-    public class NewTemplatedSignatureRequest : NewRequestBase
+    public class NewTemplatedSignatureRequest
     {
         /// <summary>
         /// The client ID of the ApiApp you want to associate with this request.
@@ -26,7 +26,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// The email address of the CC filling the role of RoleName. Required when a CC role exists for the Template.
         /// </summary>
-        public IList<Signer> Ccs { get; private set; } = new List<Signer>();
+        public IList<SubSignatureRequestSigner> Ccs { get; private set; } = new List<SubSignatureRequestSigner>();
         /// <summary>
         /// Values and options for custom fields. Required when a custom field exists in the Template.
         /// </summary>

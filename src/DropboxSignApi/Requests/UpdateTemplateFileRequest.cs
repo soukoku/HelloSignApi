@@ -3,17 +3,12 @@
     /// <summary>
     /// Request object for <see cref="DropboxSignClient.UpdateTemplateFilesAsync(string, UpdateTemplateFileRequest, System.Threading.CancellationToken)"/>.
     /// </summary>
-    public class UpdateTemplateFileRequest
+    public class UpdateTemplateFileRequest : FileRequestBase
     {
         /// <summary>
         /// Client id of the app you're using to update this template.
         /// </summary>
         public string ClientId { get; set; }
-
-        /// <summary>
-        /// Files to use for the template.
-        /// </summary>
-        public PendingFileCollection Files { get; } = new PendingFileCollection();
 
         /// <summary>
         /// The new default template email message.

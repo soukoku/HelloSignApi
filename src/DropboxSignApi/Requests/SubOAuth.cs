@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using DropboxSignApi.Common;
 
-namespace DropboxSignApi.Common
+namespace DropboxSignApi.Requests
 {
     /// <summary>
     /// Limited oauth options for API app use.

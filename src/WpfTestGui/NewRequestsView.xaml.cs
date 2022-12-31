@@ -48,7 +48,7 @@ namespace WpfTestGui
             {
                 try
                 {
-                    NewSignatureRequest req = CreateRequest();
+                    SendSignatureRequestRequest req = CreateRequest();
 
                     var resp = await _client.SendSignatureRequestAsync(req);
 
@@ -61,18 +61,18 @@ namespace WpfTestGui
             }
         }
 
-        private NewSignatureRequest CreateRequest()
+        private SendSignatureRequestRequest CreateRequest()
         {
-            var req = new NewSignatureRequest();
+            var req = new SendSignatureRequestRequest();
             req.ClientId = boxClientId.Text;
             req.TestMode = ckTestMode.IsChecked.GetValueOrDefault();
             if (ckLocal.IsChecked.GetValueOrDefault())
             {
-                req.Files.Add(new PendingFile(boxLocalFile.Text));
+                req.File.Add(new PendingFile(boxLocalFile.Text));
             }
             if (ckRemote.IsChecked.GetValueOrDefault())
             {
-                req.Files.Add(new PendingFile(new Uri(boxRemoteFile.Text)));
+                req.FileUrl.Add(new Uri(boxRemoteFile.Text));
             }
             req.Title = boxTitle.Text;
             req.Subject = boxSubject.Text;
@@ -80,11 +80,11 @@ namespace WpfTestGui
 
             if (!string.IsNullOrEmpty(boxSigner1.Text))
             {
-                req.Signers.Add(new Signer { Email = boxSigner1.Text });
+                req.Signers.Add(new SubSignatureRequestSigner { Email = boxSigner1.Text });
             }
             if (!string.IsNullOrEmpty(boxSigner2.Text))
             {
-                req.Signers.Add(new Signer { Email = boxSigner2.Text });
+                req.Signers.Add(new SubSignatureRequestSigner { Email = boxSigner2.Text });
             }
 
             return req;

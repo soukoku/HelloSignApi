@@ -189,36 +189,30 @@ namespace DropboxSignApi.Utils
         public void Can_Add_Remote_Files()
         {
             //Arrange
-            var sample = new SampleObject
-            {
-                Files = new PendingFileCollection()
-            };
+            var sample = new SampleObject();
             for (var i = 0; i < 5; i++)
             {
-                sample.Files.Add(new PendingFile(new System.Uri($"https://test.com/fake-file-{i}.pdf")));
+                sample.FileUrl.Add(new System.Uri($"https://test.com/fake-file-{i}.pdf"));
             }
             var log = new TestUseApiLog();
 
             //Act
             _ = new ApiMultipartContent(sample, log);
-            log.AssertHasPart("file_url[0]", sample.Files[0].RemotePath.ToString());
-            log.AssertHasPart("file_url[1]", sample.Files[1].RemotePath.ToString());
-            log.AssertHasPart("file_url[2]", sample.Files[2].RemotePath.ToString());
-            log.AssertHasPart("file_url[3]", sample.Files[3].RemotePath.ToString());
-            log.AssertHasPart("file_url[4]", sample.Files[4].RemotePath.ToString());
+            log.AssertHasPart("file_url[0]", sample.FileUrl[0].ToString());
+            log.AssertHasPart("file_url[1]", sample.FileUrl[1].ToString());
+            log.AssertHasPart("file_url[2]", sample.FileUrl[2].ToString());
+            log.AssertHasPart("file_url[3]", sample.FileUrl[3].ToString());
+            log.AssertHasPart("file_url[4]", sample.FileUrl[4].ToString());
         }
 
         [TestMethod]
-        public void Can_Add_NonRemote_Files()
+        public void Can_Add_Local_Files()
         {
             //Arrange
-            var sample = new SampleObject
-            {
-                Files = new PendingFileCollection()
-            };
+            var sample = new SampleObject();
             for (var i = 0; i < 5; i++)
             {
-                sample.Files.Add(new PendingFile(new byte[10], $"fake file {i}.pdf"));
+                sample.File.Add(new PendingFile(new byte[10], $"fake file {i}.pdf"));
             }
             var log = new TestUseApiLog();
 
@@ -262,7 +256,7 @@ namespace DropboxSignApi.Utils
         }
 
 
-        class SampleObject
+        class SampleObject : FileRequestBase
         {
             // special handlings
 
@@ -273,8 +267,6 @@ namespace DropboxSignApi.Utils
             public string MyString { get; set; }
 
             public IList<SampleSubObject> Children { get; set; }
-
-            public PendingFileCollection Files { get; set; }
 
             public IList<RoleSigner> RoleSigners { get; set; }
 

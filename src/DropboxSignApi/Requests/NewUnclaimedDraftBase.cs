@@ -1,18 +1,12 @@
-﻿using DropboxSignApi.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DropboxSignApi.Requests
 {
     /// <summary>
     /// Shared request properties for creating new unclaimed drafts.
     /// </summary>
-    public abstract class NewUnclaimedDraftBase
+    public abstract class NewUnclaimedDraftBase : FileRequestBase
     {
-        /// <summary>
-        /// Gets the files to be uploaded.
-        /// </summary>
-        public PendingFileCollection Files { get; private set; } = new PendingFileCollection();
-
         /// <summary>
         /// Allows signers to decline to sign a document if set to true. Defaults to false.
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using DropboxSignApi.Requests;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace DropboxSignApi.Utils
 {
@@ -39,6 +41,13 @@ namespace DropboxSignApi.Utils
         /// <param name="arrayPrefix"></param>
         void AddProperties(object obj, string arrayPrefix)
         {
+            if (obj is Uri uriValue)
+            {
+                AddParameter(arrayPrefix, uriValue.ToString());
+                return;
+            }
+
+
             var skipRole = obj is IRoleIndexedSigner;
             var properties = obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Select(p => new PropertyInfoEx(p));
@@ -71,7 +80,7 @@ namespace DropboxSignApi.Utils
                 }
                 else if (value is IEnumerable<PendingFile> files)
                 {
-                    AddFiles(files);
+                    AddFiles(name, files);
                 }
                 else if (value is IEnumerable ieValue)
                 {
@@ -124,39 +133,16 @@ namespace DropboxSignApi.Utils
             }
         }
 
-        /// <summary>
-        /// File is special and needs to be handled differently.
-        /// </summary>
-        /// <param name="files"></param>
-        void AddFiles(IEnumerable<PendingFile> files)
+        void AddFiles(string propName, IEnumerable<PendingFile> files)
         {
             try
             {
                 int i = 0;
                 foreach (var file in files)
                 {
-                    if (file.RemotePath != null)
-                    {
-                        AddParameter($"file_url[{i}]", file.RemotePath.ToString());
-                    }
-                    else if (file.LocalPath != null)
-                    {
-                        var fc = new StreamContent(File.Open(file.LocalPath, FileMode.Open, FileAccess.Read, FileShare.Read));
-                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                        Add(fc, $"file[{i}]", file.FileName);
-                    }
-                    else if (file.Data != null)
-                    {
-                        var fc = new ByteArrayContent(file.Data);
-                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                        Add(fc, $"file[{i}]", file.FileName);
-                    }
-                    else if (file.Stream != null)
-                    {
-                        var fc = new StreamContent(file.Stream);
-                        fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-                        Add(fc, $"file[{i}]", file.FileName);
-                    }
+                    var fc = new StreamContent(file.Stream);
+                    fc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                    Add(fc, $"file[{i}]", file.FileName);
                     i++;
                 }
             }

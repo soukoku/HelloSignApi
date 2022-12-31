@@ -3,6 +3,8 @@ using DropboxSignApi.Requests;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace DropboxSignApi.Internal
 {
@@ -50,7 +52,7 @@ namespace DropboxSignApi.Internal
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
     }
 }
