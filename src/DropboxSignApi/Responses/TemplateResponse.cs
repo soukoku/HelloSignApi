@@ -29,7 +29,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// Time the template was last updated.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime UpdatedAt { get; set; }
 
         /// <summary>

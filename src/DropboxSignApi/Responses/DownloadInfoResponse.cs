@@ -16,7 +16,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// When the link expires.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime ExpiresAt { get; set; }
     }
 }

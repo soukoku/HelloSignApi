@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace DropboxSignApi.Requests
 {
@@ -138,6 +140,6 @@ namespace DropboxSignApi.Requests
         /// When the signature request will expire. 
         /// Unsigned signatures will be moved to the expired status, and no longer signable.
         /// </summary>
-        public long? ExpiresAt { get; set; }
+        public DateTime? ExpiresAt { get; set; }
     }
 }

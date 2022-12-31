@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http;
 using System.Text;
@@ -19,6 +20,7 @@ namespace DropboxSignApi.Utils
             {
                 NamingStrategy = new SnakeCaseNamingStrategy()
             },
+            Converters = new[] { new UnixDateTimeConverter() },
 #if DEBUG
             Formatting = Formatting.Indented,
 #endif

@@ -36,7 +36,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// Timestamp when attachment was uploaded by Signer.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime? UploadedAt { get; set; }
 
     }

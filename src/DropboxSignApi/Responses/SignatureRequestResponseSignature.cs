@@ -46,19 +46,16 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// Time that the document was signed or null.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime? SignedAt { get; set; }
 
         /// <summary>
         /// The time that the document was last viewed by this signer or null.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime? LastViewedAt { get; set; }
 
         /// <summary>
         /// The time the last reminder email was sent to the signer or null.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime? LastRemindedAt { get; set; }
 
         /// <summary>

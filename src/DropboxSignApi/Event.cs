@@ -12,7 +12,6 @@ namespace DropboxSignApi
         /// <summary>
         /// When the event was created.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime EventTime { get; set; }
 
         /// <summary>

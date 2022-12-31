@@ -22,7 +22,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// The time that the app was created.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime CreatedAt { get; set; }
 
         /// <summary>

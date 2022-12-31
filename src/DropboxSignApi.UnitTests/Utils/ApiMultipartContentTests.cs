@@ -1,6 +1,7 @@
 using DropboxSignApi.Requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -133,6 +134,23 @@ namespace DropboxSignApi.Utils
             log.Reset();
             _ = new ApiMultipartContent(sample3, log);
             log.AssertHasPart("nullable_bool", "1");
+        }
+
+        [TestMethod]
+        public void Date_Is_Added_As_Epoch_Value()
+        {
+            //Arrange
+            var sample1 = new SampleObject { NullableDate = null };
+            var sample2 = new SampleObject { NullableDate = DateTime.UtcNow };
+            var log = new TestUseApiLog();
+
+            //Act
+            _ = new ApiMultipartContent(sample1, log);
+            log.AssertHasNoPart("nullable_date");
+
+            log.Reset();
+            _ = new ApiMultipartContent(sample2, log);
+            log.AssertHasPart("nullable_date", UnixTimeExtensions.ToUnixTime(sample2.NullableDate.Value).ToString());
         }
 
         [TestMethod]
@@ -270,6 +288,7 @@ namespace DropboxSignApi.Utils
 
             public IList<RoleSigner> RoleSigners { get; set; }
 
+            public DateTime? NullableDate { get; set; }
 
             // attrib tests
 

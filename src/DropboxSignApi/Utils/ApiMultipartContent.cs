@@ -166,10 +166,13 @@ namespace DropboxSignApi.Utils
                 else Name = __namer.GetPropertyName(prop.Name, false);
 
                 _hasIgnoreAttr = prop.GetCustomAttribute(typeof(JsonIgnoreAttribute)) != null;
+
+                //Converter = prop.GetCustomAttribute(typeof(JsonConverterAttribute)) as JsonConverterAttribute;
             }
 
             PropertyInfo _prop;
             JsonPropertyAttribute _jpAttr;
+            //JsonConverterAttribute Converter { get; }
             bool _hasIgnoreAttr;
 
             public bool IsPrimitive { get { return _prop.PropertyType.IsPrimitive; } }

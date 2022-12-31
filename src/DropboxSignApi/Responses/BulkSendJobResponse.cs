@@ -26,7 +26,6 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// Time that the BulkSendJob was created.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime CreatedAt { get; set; }
     }
 }

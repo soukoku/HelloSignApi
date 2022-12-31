@@ -52,13 +52,11 @@ namespace DropboxSignApi.Responses
         /// <summary>
         /// Time the signature request was created.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// The time when the signature request will expire pending signatures.
         /// </summary>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.UnixDateTimeConverter))]
         public DateTime ExpiresAt { get; set; }
 
         /// <summary>

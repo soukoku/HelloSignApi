@@ -158,52 +158,68 @@ namespace DropboxSignApi
             return PostAsync<BulkSendJobResponseWrap>($"{SignatureUrl}/bulk_send_with_template", new ApiMultipartContent(request, _log), cancellationToken);
         }
 
+        /// <summary>
+        /// Sends an email to the signer reminding them to sign the signature request. 
+        /// You cannot send a reminder within 1 hour of the last reminder that was sent. 
+        /// This includes manual AND automatic reminders.
+        /// </summary>
+        /// <param name="signatureRequestId">The id of the SignatureRequest to send a reminder for.</param>
+        /// <param name="emailAddress">The email address of the signer to send a reminder to.</param>
+        /// <param name="name">The name of the signer to send a reminder to. Include if two or more signers share an email address.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">
+        /// Signature request id is required.
+        /// or
+        /// Email address is required.
+        /// </exception>
+        public Task<SignatureRequestResponseWrap> SendRequestReminderAsync(string signatureRequestId, 
+            string emailAddress, string name = null,
+            CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+            if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
 
-        ///// <summary>
-        ///// Sends an email to the signer reminding them to sign the signature request. You cannot send a reminder within 1 hour of the last reminder that was sent. This includes manual AND automatic reminders.
-        ///// </summary>
-        ///// <param name="signatureRequestId">The id of the SignatureRequest to send a reminder for.</param>
-        ///// <param name="emailAddress">The email address of the signer to send a reminder to.</param>
-        ///// <param name="name">The name of the signer to send a reminder to. Include if two or more signers share an email address.</param>
-        ///// <param name="cancellationToken"></param>
-        ///// <returns></returns>
-        ///// <exception cref="ArgumentException">
-        ///// Signature request id is required.
-        ///// or
-        ///// Email address is required.
-        ///// </exception>
-        //public Task<SignatureRequestResponseWrap> SendRequestReminderAsync(string signatureRequestId, string emailAddress, string name = null,
-        //    CancellationToken cancellationToken = default)
-        //{
-        //    if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
-        //    if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
+            var request = new { emailAddress, name };
 
-        //    var request = new { emailAddress, name };
+            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/remind/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
+        }
 
-        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/remind/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
-        //}
+        /// <summary>
+        /// Releases a held SignatureRequest that was claimed and prepared from an UnclaimedDraft. 
+        /// The owner of the Draft must indicate at Draft creation that the SignatureRequest created 
+        /// from the Draft should be held. Releasing the SignatureRequest will send requests to all signers.
+        /// </summary>
+        /// <param name="signatureRequestId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public Task<SignatureRequestResponseWrap> ReleaseOnHoldSignatureRequestAsync(string signatureRequestId,
+            CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
-        ///// <summary>
-        ///// Updates the email address for a given signer on a signature request. 
-        ///// You can listen for the "signature_request_email_bounce" event on your app or account to detect bounced emails, and respond with this method.
-        ///// </summary>
-        ///// <param name="signatureRequestId">The id of the SignatureRequest to update.</param>
-        ///// <param name="signatureId">The signature ID for the recipient.</param>
-        ///// <param name="emailAddress">The new email address for the recipient.</param>
-        ///// <param name="cancellationToken"></param>
-        ///// <returns></returns>
-        ///// <exception cref="ArgumentException"></exception>
-        //public Task<SignatureRequestResponseWrap> UpdateSignatureRequestAsync(string signatureRequestId, string signatureId, string emailAddress,
-        //    CancellationToken cancellationToken = default)
-        //{
-        //    if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
-        //    if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
-        //    if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
+            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/release_hold/{Uri.EscapeDataString(signatureRequestId)}", null, cancellationToken);
+        }
 
-        //    var request = new { signatureId, emailAddress };
+        /// <summary>
+        /// Updates the email address and/or the name for a given signer on a signature request. 
+        /// You can listen for the signature_request_email_bounce event on your app or account to detect bounced emails, 
+        /// and respond with this method.
+        /// </summary>
+        /// <param name="signatureRequestId">The id of the SignatureRequest to update.</param>
+        /// <param name="request">The new data.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public Task<SignatureRequestResponseWrap> UpdateSignatureRequestAsync(string signatureRequestId, 
+            UpdateSignatureRequestRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
-        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/update/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
-        //}
+            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/update/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
+        }
 
 
         ///// <summary>
