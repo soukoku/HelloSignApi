@@ -56,7 +56,7 @@ namespace DropboxSignApi
         /// <param name="request">New account info.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<AccountCreateResponseWrap> CreateAccountAsync(NewAccountRequest request,
+        public Task<AccountCreateResponseWrap> CreateAccountAsync(CreateAccountRequest request,
             CancellationToken cancellationToken = default)
         {
             return PostAsync<AccountCreateResponseWrap>($"{AccountUrl}/create", request.ToJsonContent(_log), cancellationToken);

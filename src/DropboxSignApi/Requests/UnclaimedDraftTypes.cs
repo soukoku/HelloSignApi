@@ -1,7 +1,7 @@
 ﻿namespace DropboxSignApi.Requests
 {
     /// <summary>
-    /// Contains options for <see cref="NewUnclaimedDraftRequest.Type"/>.
+    /// Contains options for <see cref="CreateUnclaimedDraftRequest.Type"/>.
     /// </summary>
     public static class UnclaimedDraftTypes
     {

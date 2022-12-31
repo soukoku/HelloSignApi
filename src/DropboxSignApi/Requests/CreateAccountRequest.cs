@@ -5,7 +5,7 @@ namespace DropboxSignApi.Requests
     /// <summary>
     /// Object used to create a new account.
     /// </summary>
-    public class NewAccountRequest
+    public class CreateAccountRequest
     {
         /// <summary>
         /// The email address which will be associated with the new Account.

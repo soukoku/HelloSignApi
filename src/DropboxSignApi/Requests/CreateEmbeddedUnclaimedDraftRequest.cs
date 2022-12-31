@@ -5,7 +5,7 @@ namespace DropboxSignApi.Requests
     /// <summary>
     /// Object used to create a new embedded unclaimed draft.
     /// </summary>
-    public class NewEmbeddedUnclaimedDraftRequest : NewUnclaimedDraftBase
+    public class CreateEmbeddedUnclaimedDraftRequest : CreateUnclaimedDraftBase
     {
         /// <summary>
         /// The email address of the user that should be designated as the requester of this draft, 

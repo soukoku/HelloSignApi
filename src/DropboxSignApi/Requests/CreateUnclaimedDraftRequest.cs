@@ -5,7 +5,7 @@ namespace DropboxSignApi.Requests
     /// <summary>
     /// Object used to create a new unclaimed draft.
     /// </summary>
-    public class NewUnclaimedDraftRequest : NewUnclaimedDraftBase
+    public class CreateUnclaimedDraftRequest : CreateUnclaimedDraftBase
     {
         /// <summary>
         /// The type of unclaimed draft to create. Use values from <see cref="UnclaimedDraftTypes"/>.

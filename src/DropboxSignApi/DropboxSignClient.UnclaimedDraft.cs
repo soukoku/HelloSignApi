@@ -24,7 +24,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(NewUnclaimedDraftRequest draft,
+        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(CreateUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
@@ -42,7 +42,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(NewEmbeddedUnclaimedDraftRequest draft,
+        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(CreateEmbeddedUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }
@@ -60,7 +60,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">draft</exception>
-        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(NewTemplatedEmbeddedUnclaimedDraftRequest draft,
+        public Task<UnclaimedDraftResponseWrap> CreateUnclaimedDraftAsync(CreateTemplatedEmbeddedUnclaimedDraftRequest draft,
             CancellationToken cancellationToken = default)
         {
             if (draft == null) { throw new ArgumentNullException(nameof(draft)); }

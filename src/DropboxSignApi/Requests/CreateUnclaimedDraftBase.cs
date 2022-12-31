@@ -5,7 +5,7 @@ namespace DropboxSignApi.Requests
     /// <summary>
     /// Shared request properties for creating new unclaimed drafts.
     /// </summary>
-    public abstract class NewUnclaimedDraftBase : FileRequestBase
+    public abstract class CreateUnclaimedDraftBase : FileRequestBase
     {
         /// <summary>
         /// Allows signers to decline to sign a document if set to true. Defaults to false.
