@@ -72,7 +72,7 @@ namespace DropboxSignApi.Requests
         /// The fields that should appear on the document.
         /// See <see cref="!:https://faq.hellosign.com/hc/en-us/articles/217115577"/>.
         /// </summary>
-        public IList<SubFormFieldBase> FormFieldsPerDocument { get; set; } = new List<SubFormFieldBase>();
+        public IList<SubFormFieldsPerDocumentBase> FormFieldsPerDocument { get; set; } = new List<SubFormFieldsPerDocumentBase>();
 
         /// <summary>
         /// Add merge fields to the template. Merge fields are placed by the user creating the template 

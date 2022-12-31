@@ -1,14 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
 
 namespace DropboxSignApi.Requests
 {
     /// <summary>
-    /// Object used to create a new signature request.
+    /// Request for <see cref="DropboxSignClient.CreateEmbeddedSignatureRequestAsync"/>.
     /// </summary>
-    public class SendSignatureRequestRequest  : FileRequestBase
+    public class CreateEmbeddedSignatureRequestRequest
     {
+        /// <summary>
+        /// Client id of the app you're using to create this embedded signature request. 
+        /// Used for security purposes.
+        /// </summary>
+        public string ClientId { get; set; }
+
         /// <summary>
         /// The signers to request signatures.
         /// </summary>
@@ -33,12 +38,6 @@ namespace DropboxSignApi.Requests
         /// The email addresses that should be CCed.
         /// </summary>
         public IList<string> CcEmailAddresses { get; set; } = new List<string>();
-
-        /// <summary>
-        /// The client id of the API App you want to associate with this request. 
-        /// Used to apply the branding and callback url defined for the app.
-        /// </summary>
-        public string ClientId { get; set; }
 
         /// <summary>
         /// <para>When used together with merge fields, custom_fields allows users to add pre-filled data to their signature requests.</para>
@@ -83,12 +82,6 @@ namespace DropboxSignApi.Requests
         public bool HideTextTags { get; set; }
 
         /// <summary>
-        /// Send with a value of true if you wish to enable Qualified Electronic Signatures (QES), 
-        /// which requires a face-to-face call to verify the signer's identity.
-        /// </summary>
-        public bool IsQualifiedSignature { get; set; }
-
-        /// <summary>
         /// The custom message in the email that will be sent to the signers.
         /// </summary>
         public string Message { get; set; }
@@ -107,11 +100,6 @@ namespace DropboxSignApi.Requests
         /// This allows the requester to specify the types allowed for creating a signature.
         /// </summary>
         public SubSigningOptions SigningOptions { get; set; }
-
-        /// <summary>
-        /// The URL you want signers redirected to after they successfully sign.
-        /// </summary>
-        public string SigningRedirectUrl { get; set; }
 
         /// <summary>
         /// The subject in the email that will be sent to the signers.
@@ -134,6 +122,11 @@ namespace DropboxSignApi.Requests
         /// Defaults to disabled, or false.
         /// </summary>
         public bool UseTextTags { get; set; }
+
+        /// <summary>
+        /// Controls whether auto fill fields can automatically populate a signer's information during signing.
+        /// </summary>
+        public bool PopulateAutoFillFields { get; set; }
 
         /// <summary>
         /// When the signature request will expire. 

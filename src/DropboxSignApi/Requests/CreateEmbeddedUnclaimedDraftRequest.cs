@@ -69,7 +69,7 @@ namespace DropboxSignApi.Requests
         /// The fields that should appear on the document.
         /// See <see cref="!:https://faq.hellosign.com/hc/en-us/articles/217115577"/>.
         /// </summary>
-        public IList<SubFormFieldBase> FormFieldsPerDocument { get; set; } = new List<SubFormFieldBase>();
+        public IList<SubFormFieldsPerDocumentBase> FormFieldsPerDocument { get; set; } = new List<SubFormFieldsPerDocumentBase>();
 
         /// <summary>
         /// Send with a value of true if you wish to enable automatic 

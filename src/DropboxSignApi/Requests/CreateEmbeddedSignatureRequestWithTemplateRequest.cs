@@ -3,21 +3,24 @@
 namespace DropboxSignApi.Requests
 {
     /// <summary>
-    /// Request for use with bulk send jobs.
+    /// Object used by <see cref="DropboxSignClient.CreateEmbeddedSignatureRequestWithTemplateAsync"/>.
     /// </summary>
-    public class BulkSendWithTemplateRequest
+    public class CreateEmbeddedSignatureRequestWithTemplateRequest : FileRequestBase
     {
+        /// <summary>
+        /// Client id of the app you're using to create this embedded signature request. Used for security purposes.
+        /// </summary>
+        public string ClientId { get; set; }
+
         /// <summary>
         /// Used to create a SignatureRequest from one or more templates, in the order in which the template will be used.
         /// </summary>
         public IList<string> TemplateIds { get; } = new List<string>();
 
-        //public byte[] SignerFile { get; set; }
-
         /// <summary>
-        /// A list defining values and options for signer fields. Required unless a SignerFile is used, you may not use both.
+        /// The signers to request signatures.
         /// </summary>
-        public IList<SubBulkSigner> SignerList { get; } = new List<SubBulkSigner>();
+        public IList<SubSignatureRequestTemplateSigner> Signers { get; } = new List<SubSignatureRequestTemplateSigner>();
 
         /// <summary>
         /// Allows signers to decline to sign a document if set to true. Defaults to false.
@@ -28,12 +31,6 @@ namespace DropboxSignApi.Requests
         /// Add CC email recipients. Required when a CC role exists for the Template.
         /// </summary>
         public IList<SubCC> Ccs { get; } = new List<SubCC>();
-
-        /// <summary>
-        /// The client id of the API App you want to associate with this request. 
-        /// Used to apply the branding and callback url defined for the app.
-        /// </summary>
-        public string ClientId { get; set; }
 
         /// <summary>
         /// An list defining values and options for custom fields. Required when a custom field exists in the Template.
@@ -56,9 +53,9 @@ namespace DropboxSignApi.Requests
         public IDictionary<string, string> Metadata { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
-        /// The URL you want signers redirected to after they successfully sign.
+        /// This allows the requester to specify the types allowed for creating a signature.
         /// </summary>
-        public string SigningRedirectUrl { get; set; }
+        public SubSigningOptions SigningOptions { get; set; }
 
         /// <summary>
         /// The subject in the email that will be sent to the signers.
@@ -75,5 +72,10 @@ namespace DropboxSignApi.Requests
         /// The title you want to assign to the SignatureRequest.
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Controls whether auto fill fields can automatically populate a signer's information during signing.
+        /// </summary>
+        public bool PopulateAutoFillFields { get; set; }
     }
 }

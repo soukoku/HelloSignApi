@@ -134,7 +134,7 @@ namespace DropboxSignApi
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponseWrap> SendSignatureFromTemplateRequestAsync(SendTemplatedSignatureRequestRequest request,
+        public Task<SignatureRequestResponseWrap> SendWithTemplateAsync(SendTemplatedSignatureRequestRequest request,
             CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
@@ -236,36 +236,75 @@ namespace DropboxSignApi
             return PostAsync<ResponseWrap>($"{SignatureUrl}/cancel/{Uri.EscapeDataString(signatureRequestId)}", null, cancellationToken);
         }
 
-        ///// <summary>
-        ///// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="SendSignatureRequestRequest.FormFieldsPerDocument"/> is not specified, 
-        ///// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. 
-        ///// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
-        ///// </summary>
-        ///// <param name="request">The request.</param>
-        ///// <param name="cancellationToken">The cancellation token.</param>
-        ///// <returns></returns>
-        ///// <exception cref="ArgumentNullException">request</exception>
-        //public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureRequestAsync(SendSignatureRequestRequest request,
-        //    CancellationToken cancellationToken = default)
-        //{
-        //    if (request == null) { throw new ArgumentNullException(nameof(request)); }
+        /// <summary>
+        /// Removes your access to a completed signature request. This action is not reversible.
+        /// </summary>
+        /// <param name="signatureRequestId">The id of the SignatureRequest to remove.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public Task<ResponseWrap> RemoveSignatureRequestAccessAsync(string signatureRequestId,
+            CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
 
-        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded", new ApiMultipartContent(request, _log), cancellationToken);
-        //}
+            return PostAsync<ResponseWrap>($"{SignatureUrl}/remove/{Uri.EscapeDataString(signatureRequestId)}", null, cancellationToken);
+        }
 
-        ///// <summary>
-        ///// Creates a new SignatureRequest based on the given Template to be signed in an embedded iFrame.
-        ///// </summary>
-        ///// <param name="request">The request.</param>
-        ///// <param name="cancellationToken">The cancellation token.</param>
-        ///// <returns></returns>
-        ///// <exception cref="ArgumentNullException">request</exception>
-        //public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request,
-        //    CancellationToken cancellationToken = default)
-        //{
-        //    if (request == null) { throw new ArgumentNullException(nameof(request)); }
+        /// <summary>
+        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. 
+        /// If form_fields_per_document is not specified, a signature page will be affixed where all signers 
+        /// will be required to add their signature, signifying their agreement to all contained documents. 
+        /// Note that embedded signature requests can only be signed in embedded iFrames whereas normal 
+        /// signature requests can only be signed on Dropbox Sign.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponseWrap> CreateEmbeddedSignatureRequestAsync(
+            CreateEmbeddedSignatureRequestRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded_with_template", new ApiMultipartContent(request, _log), cancellationToken);
-        //}
+            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded", new ApiMultipartContent(request, _log), cancellationToken);
+        }
+
+        /// <summary>
+        /// Creates a new SignatureRequest based on the given Template(s) to be signed in an embedded iFrame. 
+        /// Note that embedded signature requests can only be signed in embedded iFrames 
+        /// whereas normal signature requests can only be signed on Dropbox Sign.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">request</exception>
+        public Task<SignatureRequestResponseWrap> CreateEmbeddedSignatureRequestWithTemplateAsync(
+            CreateEmbeddedSignatureRequestWithTemplateRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
+
+            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded_with_template", new ApiMultipartContent(request, _log), cancellationToken);
+        }
+
+        /// <summary>
+        /// Creates BulkSendJob which sends up to 250 SignatureRequests in bulk based off of the provided Template(s) 
+        /// specified with the template_ids parameter to be signed in an embedded iFrame. 
+        /// These embedded signature requests can only be signed in embedded iFrames 
+        /// whereas normal signature requests can only be signed on Dropbox Sign.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public Task<BulkSendJobResponseWrap> EmbeddedBulkSendWithTemplateAsync(BulkSendWithTemplateRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
+
+            return PostAsync<BulkSendJobResponseWrap>($"{SignatureUrl}/bulk_create_embedded_with_template", new ApiMultipartContent(request, _log), cancellationToken);
+        }
     }
 }
