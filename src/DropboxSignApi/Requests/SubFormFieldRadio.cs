@@ -1,6 +1,6 @@
 ﻿namespace DropboxSignApi.Requests
 {
-    public class SubFormFieldRadio : SubFormFieldBase
+    public class SubFormFieldRadio : SubFormFieldsPerDocumentBase
     {
         public override string Type => FieldTypes.Radio;
 

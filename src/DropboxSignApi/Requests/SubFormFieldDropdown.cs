@@ -2,7 +2,7 @@
 
 namespace DropboxSignApi.Requests
 {
-    public class SubFormFieldDropdown : SubFormFieldBase
+    public class SubFormFieldDropdown : SubFormFieldsPerDocumentBase
     {
         public override string Type => FieldTypes.Dropdown;
 

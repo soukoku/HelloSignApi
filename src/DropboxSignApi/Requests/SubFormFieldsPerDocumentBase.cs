@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace DropboxSignApi.Requests
 {
     [JsonConverter(typeof(SubFormFieldConverter))]
-    public abstract class SubFormFieldBase
+    public abstract class SubFormFieldsPerDocumentBase
     {
         /// <summary>
         /// Represents the integer index of the file the field should be attached to.

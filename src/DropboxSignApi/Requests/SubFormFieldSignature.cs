@@ -1,6 +1,6 @@
 ﻿namespace DropboxSignApi.Requests
 {
-    public class SubFormFieldSignature : SubFormFieldBase
+    public class SubFormFieldSignature : SubFormFieldsPerDocumentBase
     {
         public override string Type => FieldTypes.Signature;
     }

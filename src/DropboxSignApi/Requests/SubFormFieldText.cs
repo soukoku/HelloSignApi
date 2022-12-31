@@ -1,6 +1,6 @@
 ﻿namespace DropboxSignApi.Requests
 {
-    public class SubFormFieldText : SubFormFieldBase
+    public class SubFormFieldText : SubFormFieldsPerDocumentBase
     {
         /// <summary>
         /// Placeholder value for text field.

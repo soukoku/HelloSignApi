@@ -1,6 +1,6 @@
 ﻿namespace DropboxSignApi.Requests
 {
-    public class SubFormFieldHyperlink : SubFormFieldBase
+    public class SubFormFieldHyperlink : SubFormFieldsPerDocumentBase
     {
         public override string Type => FieldTypes.Hyperlink;
 

@@ -1,6 +1,6 @@
 ﻿namespace DropboxSignApi.Requests
 {
-    public class SubFormFieldCheckbox : SubFormFieldBase
+    public class SubFormFieldCheckbox : SubFormFieldsPerDocumentBase
     {
         public override string Type => FieldTypes.CheckBox;
 
