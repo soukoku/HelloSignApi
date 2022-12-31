@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Requests
+﻿namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Contains options for <see cref="CreateUnclaimedDraftRequest.Type"/>.

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Base request type that contains files.

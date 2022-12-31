@@ -1,6 +1,6 @@
-﻿using DropboxSignApi.Responses;
+﻿using Soukoku.DropboxSignApi.Responses;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// A logger that does nothing.

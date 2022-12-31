@@ -1,8 +1,8 @@
-﻿using DropboxSignApi.Responses;
+﻿using Soukoku.DropboxSignApi.Responses;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Data for creating or modifying an api app.

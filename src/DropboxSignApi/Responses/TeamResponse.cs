@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DropboxSignApi.Responses
+namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Contains information about your team and its members

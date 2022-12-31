@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi
+﻿namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// Contains possible values for text fields accept validation type, which must be met before the user can submit the signed document. 

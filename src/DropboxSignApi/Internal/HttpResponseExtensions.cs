@@ -1,10 +1,10 @@
-﻿using DropboxSignApi.Responses;
-using DropboxSignApi.Utils;
+﻿using Soukoku.DropboxSignApi.Responses;
+using Soukoku.DropboxSignApi.Utils;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     static class HttpResponseExtensions
     {

@@ -1,11 +1,11 @@
-﻿using DropboxSignApi.Utils;
+﻿using Soukoku.DropboxSignApi.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
-namespace DropboxSignApi.Responses
+namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Basic response from calling an API.

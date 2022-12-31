@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Responses
+﻿namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Contains possible values for <see cref="WarningResponse.Name" />.

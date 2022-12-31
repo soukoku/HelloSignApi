@@ -1,4 +1,4 @@
-﻿using DropboxSignApi.Requests;
+﻿using Soukoku.DropboxSignApi.Requests;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace DropboxSignApi.Utils
+namespace Soukoku.DropboxSignApi.Utils
 {
     /// <summary>
     /// Easy MultipartFormDataContent with custom handling of 

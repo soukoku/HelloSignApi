@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace DropboxSignApi.Responses
+namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// An object with an expiration time.

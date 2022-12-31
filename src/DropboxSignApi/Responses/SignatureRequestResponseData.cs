@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Responses
+﻿namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Represents a field data.

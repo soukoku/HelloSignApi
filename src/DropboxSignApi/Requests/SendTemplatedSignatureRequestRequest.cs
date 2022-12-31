@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Object used to create a new signature request from template.

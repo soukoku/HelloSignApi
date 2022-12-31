@@ -1,7 +1,7 @@
-﻿using DropboxSignApi.Internal;
+﻿using Soukoku.DropboxSignApi.Internal;
 using Newtonsoft.Json;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     [JsonConverter(typeof(SubFormFieldConverter))]
     public abstract class SubFormFieldsPerDocumentBase

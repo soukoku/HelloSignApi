@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     public class SubFormFieldRule
     {

@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi
+﻿namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// Contains possible values for field types.

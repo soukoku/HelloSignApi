@@ -1,4 +1,4 @@
-using DropboxSignApi.Requests;
+using Soukoku.DropboxSignApi.Requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace DropboxSignApi.Utils
+namespace Soukoku.DropboxSignApi.Utils
 {
     [TestClass]
     public class ApiMultipartContentTests

@@ -5,7 +5,7 @@ a work in progress.
 
 ## How to get it
 This lib is available via the NuGet package 
-[DropboxSignApi](https://www.nuget.org/packages/dropboxsignapi).
+[Soukoku.DropboxSignApi](https://www.nuget.org/packages/Soukoku.DropboxSignApi).
 
 
 ## Using the library

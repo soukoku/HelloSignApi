@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Responses
+﻿namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Custom field for a <see cref="SignatureRequestResponse"/>.

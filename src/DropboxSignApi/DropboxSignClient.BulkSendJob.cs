@@ -1,9 +1,9 @@
-﻿using DropboxSignApi.Responses;
+﻿using Soukoku.DropboxSignApi.Responses;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     // this contains bulk send job methods
 

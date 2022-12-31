@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// Represents an event from API callback.

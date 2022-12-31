@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Requests
+﻿namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Represents a templated signature request recipient.

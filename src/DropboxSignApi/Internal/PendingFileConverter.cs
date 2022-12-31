@@ -1,9 +1,9 @@
-﻿using DropboxSignApi.Requests;
+﻿using Soukoku.DropboxSignApi.Requests;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace DropboxSignApi.Internal
+namespace Soukoku.DropboxSignApi.Internal
 {
     class PendingFileConverter : JsonConverter
     {

@@ -1,5 +1,5 @@
-﻿using DropboxSignApi;
-using DropboxSignApi.Requests;
+﻿using Soukoku.DropboxSignApi;
+using Soukoku.DropboxSignApi.Requests;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

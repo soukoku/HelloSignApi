@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Responses
+﻿namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Account data for <see cref="AccountVerifyResponseWrap"/>.

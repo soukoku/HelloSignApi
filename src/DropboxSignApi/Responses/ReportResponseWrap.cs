@@ -1,6 +1,6 @@
-﻿using DropboxSignApi.Requests;
+﻿using Soukoku.DropboxSignApi.Requests;
 
-namespace DropboxSignApi.Responses
+namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Response for <see cref="DropboxSignClient.CreateReportAsync(Requests.CreateReportRequest, System.Threading.CancellationToken)"/>.

@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Requests
+﻿namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Config for file attachment in new requests.

@@ -1,9 +1,9 @@
-﻿using DropboxSignApi.Internal;
+﻿using Soukoku.DropboxSignApi.Internal;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Represents a single local file data for uploads.

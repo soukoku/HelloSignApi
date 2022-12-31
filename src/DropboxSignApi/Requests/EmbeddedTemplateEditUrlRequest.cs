@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Request for <see cref="DropboxSignClient.GetEmbeddedTemplateEditUrlAsync(string, EmbeddedTemplateEditUrlRequest, System.Threading.CancellationToken)"/>.

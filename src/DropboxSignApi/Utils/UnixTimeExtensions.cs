@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DropboxSignApi.Utils
+namespace Soukoku.DropboxSignApi.Utils
 {
     /// <summary>
     /// Converts to/from unix epoch time.

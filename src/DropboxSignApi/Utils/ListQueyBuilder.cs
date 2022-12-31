@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace DropboxSignApi.Utils
+namespace Soukoku.DropboxSignApi.Utils
 {
     /// <summary>
     /// Can be used to generate the search query when listing signatures or templates.

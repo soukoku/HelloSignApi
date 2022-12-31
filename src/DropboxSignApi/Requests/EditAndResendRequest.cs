@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Requests
+﻿namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Request for <see cref="DropboxSignClient.EditAndResendUnclaimedDraft(string, EditAndResendRequest, System.Threading.CancellationToken)"/>.

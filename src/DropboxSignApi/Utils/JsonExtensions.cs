@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 using System.Net.Http;
 using System.Text;
 
-namespace DropboxSignApi.Utils
+namespace Soukoku.DropboxSignApi.Utils
 {
     /// <summary>
     /// Contains methods for converting to/from json according to the API's rules.

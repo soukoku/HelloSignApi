@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Request for <see cref="DropboxSignClient.CreateReportAsync(CreateReportRequest, System.Threading.CancellationToken)"/>.

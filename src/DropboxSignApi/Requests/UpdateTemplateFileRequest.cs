@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Requests
+﻿namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Request object for <see cref="DropboxSignClient.UpdateTemplateFilesAsync(string, UpdateTemplateFileRequest, System.Threading.CancellationToken)"/>.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// A logger that keeps logged parts for assert tests.

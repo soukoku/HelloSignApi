@@ -1,11 +1,11 @@
-﻿//using DropboxSignApi.Internal;
-//using DropboxSignApi.Requests;
+﻿//using Soukoku.DropboxSignApi.Internal;
+//using Soukoku.DropboxSignApi.Requests;
 //using Newtonsoft.Json;
 //using System.Collections.Generic;
 //using System.IO;
 //using System.Net.Http;
 
-//namespace DropboxSignApi
+//namespace Soukoku.DropboxSignApi
 //{
 //    static partial class HttpContentExtensions
 //    {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DropboxSignApi.Responses
+namespace Soukoku.DropboxSignApi.Responses
 {
     public class TemplateResponseAccount
     {

@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi
+﻿namespace Soukoku.DropboxSignApi
 {
 
     partial class DropboxSignClient

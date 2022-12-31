@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi
+﻿namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// Known OAuth scope values.

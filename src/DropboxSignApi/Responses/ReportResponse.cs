@@ -1,6 +1,6 @@
-﻿using DropboxSignApi.Requests;
+﻿using Soukoku.DropboxSignApi.Requests;
 
-namespace DropboxSignApi.Responses
+namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Main data for <see cref="ReportResponseWrap"/>.

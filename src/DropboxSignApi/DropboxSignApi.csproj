@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;net6.0</TargetFrameworks>
-    <AssemblyName>DropboxSignApi</AssemblyName>
-    <RootNamespace>DropboxSignApi</RootNamespace>
-    <PackageId>DropboxSignApi</PackageId>
+    <AssemblyName>Soukoku.DropboxSignApi</AssemblyName>
+    <RootNamespace>Soukoku.DropboxSignApi</RootNamespace>
+    <PackageId>Soukoku.DropboxSignApi</PackageId>
     <Description>Unofficial Dropbox Sign API lib for dotnet with async support and uses HttpClient. This was previously HelloSignApi.</Description>
     <Company>Eugene Wang</Company>
     <Product>DropboxSignApi</Product>

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// A merge field in a template.

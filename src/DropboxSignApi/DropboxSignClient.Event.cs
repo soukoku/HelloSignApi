@@ -1,5 +1,5 @@
-﻿using DropboxSignApi.Internal;
-using DropboxSignApi.Utils;
+﻿using Soukoku.DropboxSignApi.Internal;
+using Soukoku.DropboxSignApi.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     partial class DropboxSignClient
     {

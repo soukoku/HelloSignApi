@@ -1,6 +1,6 @@
-﻿using DropboxSignApi.Responses;
+﻿using Soukoku.DropboxSignApi.Responses;
 
-namespace DropboxSignApi.Utils
+namespace Soukoku.DropboxSignApi.Utils
 {
     /// <summary>
     /// Contains extension methods for converting colors to and from html hex string values.

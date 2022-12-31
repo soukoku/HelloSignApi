@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace DropboxSignApi.Requests
+namespace Soukoku.DropboxSignApi.Requests
 {
     /// <summary>
     /// Request object for <see cref="DropboxSignClient.UpdateSignatureRequestAsync(string, UpdateSignatureRequestRequest, System.Threading.CancellationToken)"/>.

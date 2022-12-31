@@ -1,11 +1,11 @@
-﻿using DropboxSignApi.Requests;
-using DropboxSignApi.Responses;
-using DropboxSignApi.Utils;
+﻿using Soukoku.DropboxSignApi.Requests;
+using Soukoku.DropboxSignApi.Responses;
+using Soukoku.DropboxSignApi.Utils;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     // this contains template api methods
 

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DropboxSignApi.Responses
+namespace Soukoku.DropboxSignApi.Responses
 {
     /// <summary>
     /// Represents a document template.

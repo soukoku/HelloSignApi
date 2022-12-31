@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DropboxSignApi.Internal
+namespace Soukoku.DropboxSignApi.Internal
 {
     /// <summary>
     /// Produces hashes.

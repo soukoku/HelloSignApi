@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http.Headers;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     static class HttpHeaderExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi
+﻿namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// These are the locales you can specify for the locale field.

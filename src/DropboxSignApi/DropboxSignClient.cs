@@ -1,4 +1,4 @@
-﻿using DropboxSignApi.Responses;
+﻿using Soukoku.DropboxSignApi.Responses;
 using System;
 using System.Collections.Concurrent;
 using System.Net.Http;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DropboxSignApi
+namespace Soukoku.DropboxSignApi
 {
     /// <summary>
     /// Main client for performaing HelloSign api calls.
