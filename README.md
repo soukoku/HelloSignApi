@@ -26,7 +26,7 @@ var sigRequest = new SendSignatureRequestRequest();
 // ...
 // set various request properties here
 // ...
-SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRequest);
+SignatureRequestResponseWrap response = await client.SendSignatureRequestAsync(sigRequest);
 ```
 
 #### Files in requests
@@ -69,7 +69,7 @@ all API calls will not throw an `Exception` and you will need to handle the retu
 as appropriate based on the error and http status code.
 
 ```cs
-SignatureRequestResponse response = await client.SendSignatureRequestAsync(sigRequest);
+SignatureRequestResponseWrap response = await client.SendSignatureRequestAsync(sigRequest);
 
 // maybe check rate limits
 if (response.RateLimitRemaining < 10)
