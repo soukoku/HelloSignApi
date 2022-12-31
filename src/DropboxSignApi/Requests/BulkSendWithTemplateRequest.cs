@@ -3,19 +3,21 @@
 namespace DropboxSignApi.Requests
 {
     /// <summary>
-    /// Object used to create a new signature request from template.
+    /// Request for use with <see cref="DropboxSignClient.BulkSendWithTemplateAsync(BulkSendWithTemplateRequest, System.Threading.CancellationToken)"/>.
     /// </summary>
-    public class SendTemplatedSignatureRequestRequest : FileRequestBase // shouldn't have files but they're in the docs
+    public class BulkSendWithTemplateRequest
     {
-        /// <summary>
-        /// The signers to request signatures.
-        /// </summary>
-        public IList<SubSignatureRequestTemplateSigner> Signers { get; } = new List<SubSignatureRequestTemplateSigner>();
-
         /// <summary>
         /// Used to create a SignatureRequest from one or more templates, in the order in which the template will be used.
         /// </summary>
         public IList<string> TemplateIds { get; } = new List<string>();
+
+        //public byte[] SignerFile { get; set; }
+
+        /// <summary>
+        /// A list defining values and options for signer fields. Required unless a SignerFile is used, you may not use both.
+        /// </summary>
+        public IList<SubBulkSigner> SignerList { get; } = new List<SubBulkSigner>();
 
         /// <summary>
         /// Allows signers to decline to sign a document if set to true. Defaults to false.
@@ -39,12 +41,6 @@ namespace DropboxSignApi.Requests
         public IList<SubCustomField> CustomFields { get; set; } = new List<SubCustomField>();
 
         /// <summary>
-        /// Send with a value of true if you wish to enable Qualified Electronic Signatures (QES), 
-        /// which requires a face-to-face call to verify the signer's identity.
-        /// </summary>
-        public bool IsQualifiedSignature { get; set; }
-
-        /// <summary>
         /// The custom message in the email that will be sent to the signers.
         /// </summary>
         public string Message { get; set; }
@@ -58,11 +54,6 @@ namespace DropboxSignApi.Requests
         /// with key names up to 40 characters long and values up to 1000 characters long.
         /// </summary>
         public IDictionary<string, string> Metadata { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>
-        /// This allows the requester to specify the types allowed for creating a signature.
-        /// </summary>
-        public SubSigningOptions SigningOptions { get; set; }
 
         /// <summary>
         /// The URL you want signers redirected to after they successfully sign.

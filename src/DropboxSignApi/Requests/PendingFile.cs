@@ -58,12 +58,12 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// Gets the file stream data.
         /// </summary>
-        public Stream Stream { get; private set; }
+        public Stream Stream { get; }
 
         /// <summary>
         /// Gets the name of the file.
         /// </summary>
-        public string FileName { get; private set; }
+        public string FileName { get; }
 
         /// <summary>
         /// Returns a <see cref="string" /> that represents this instance.

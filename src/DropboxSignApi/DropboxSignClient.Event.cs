@@ -1,5 +1,4 @@
-﻿using DropboxSignApi.Common;
-using DropboxSignApi.Internal;
+﻿using DropboxSignApi.Internal;
 using DropboxSignApi.Utils;
 using Newtonsoft.Json;
 using System;

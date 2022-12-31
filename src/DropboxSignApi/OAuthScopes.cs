@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi
 {
     /// <summary>
     /// Known OAuth scope values.

@@ -16,7 +16,7 @@ namespace DropboxSignApi.Requests
         /// Use template_ids to create a SignatureRequest from one or more templates, 
         /// in the order in which the templates will be used.
         /// </summary>
-        public IList<string> TemplateIds { get; private set; } = new List<string>();
+        public IList<string> TemplateIds { get; } = new List<string>();
 
         /// <summary>
         /// Allows signers to reassign their signature requests to other signers if set to true. Defaults to false.
@@ -26,7 +26,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// Add CC email recipients. Required when a CC role exists for the Template.
         /// </summary>
-        public IList<SubCC> CCs { get; private set; } = new List<SubCC>();
+        public IList<SubCC> CCs { get; } = new List<SubCC>();
 
         /// <summary>
         /// This allows the requester to specify editor options when a preparing a document.

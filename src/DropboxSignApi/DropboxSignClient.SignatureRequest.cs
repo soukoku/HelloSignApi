@@ -128,13 +128,13 @@ namespace DropboxSignApi
         }
 
         /// <summary>
-        /// Creates and sends a new SignatureRequest based off of the Template specified.
+        /// Creates and sends a new SignatureRequest based off of the Templates specified.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponseWrap> SendSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request,
+        public Task<SignatureRequestResponseWrap> SendSignatureFromTemplateRequestAsync(SendTemplatedSignatureRequestRequest request,
             CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
@@ -142,99 +142,115 @@ namespace DropboxSignApi
             return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/send_with_template", new ApiMultipartContent(request, _log), cancellationToken);
         }
 
-
         /// <summary>
-        /// Sends an email to the signer reminding them to sign the signature request. You cannot send a reminder within 1 hour of the last reminder that was sent. This includes manual AND automatic reminders.
-        /// </summary>
-        /// <param name="signatureRequestId">The id of the SignatureRequest to send a reminder for.</param>
-        /// <param name="emailAddress">The email address of the signer to send a reminder to.</param>
-        /// <param name="name">The name of the signer to send a reminder to. Include if two or more signers share an email address.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">
-        /// Signature request id is required.
-        /// or
-        /// Email address is required.
-        /// </exception>
-        public Task<SignatureRequestResponseWrap> SendRequestReminderAsync(string signatureRequestId, string emailAddress, string name = null,
-            CancellationToken cancellationToken = default)
-        {
-            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
-            if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
-
-            var request = new { emailAddress, name };
-
-            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/remind/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
-        }
-
-        /// <summary>
-        /// Updates the email address for a given signer on a signature request. 
-        /// You can listen for the "signature_request_email_bounce" event on your app or account to detect bounced emails, and respond with this method.
-        /// </summary>
-        /// <param name="signatureRequestId">The id of the SignatureRequest to update.</param>
-        /// <param name="signatureId">The signature ID for the recipient.</param>
-        /// <param name="emailAddress">The new email address for the recipient.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public Task<SignatureRequestResponseWrap> UpdateSignatureRequestAsync(string signatureRequestId, string signatureId, string emailAddress,
-            CancellationToken cancellationToken = default)
-        {
-            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
-            if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
-            if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
-
-            var request = new { signatureId, emailAddress };
-
-            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/update/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
-        }
-
-
-        /// <summary>
-        /// Queues a SignatureRequest to be canceled. The cancelation is asynchronous and a successful call to this endpoint will return a 200 OK response if the signature request is eligible to be canceled and has been successfully queued. To be eligible for cancelation, a signature request must have been sent successfully and must be unsigned. Once canceled, singers will not be able to sign the signature request or access its documents. Canceling a signature request is not reversible.
-        /// </summary>
-        /// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">Signature request id is required.</exception>
-        public Task<ApiResponse> CancelSignatureRequestAsync(string signatureRequestId,
-            CancellationToken cancellationToken = default)
-        {
-            if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
-
-            return PostAsync<ApiResponse>($"{SignatureUrl}/cancel/{Uri.EscapeDataString(signatureRequestId)}", null, cancellationToken);
-        }
-
-        /// <summary>
-        /// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="SendSignatureRequestRequest.FormFieldsPerDocument"/> is not specified, 
-        /// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. 
-        /// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
+        /// Creates BulkSendJob which sends up to 250 SignatureRequests in bulk based off of the 
+        /// provided Template(s).
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureRequestAsync(SendSignatureRequestRequest request,
+        public Task<BulkSendJobResponseWrap> BulkSendWithTemplateAsync(BulkSendWithTemplateRequest request,
             CancellationToken cancellationToken = default)
         {
             if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded", new ApiMultipartContent(request, _log), cancellationToken);
+            return PostAsync<BulkSendJobResponseWrap>($"{SignatureUrl}/bulk_send_with_template", new ApiMultipartContent(request, _log), cancellationToken);
         }
 
-        /// <summary>
-        /// Creates a new SignatureRequest based on the given Template to be signed in an embedded iFrame.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">request</exception>
-        public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request,
-            CancellationToken cancellationToken = default)
-        {
-            if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-            return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded_with_template", new ApiMultipartContent(request, _log), cancellationToken);
-        }
+        ///// <summary>
+        ///// Sends an email to the signer reminding them to sign the signature request. You cannot send a reminder within 1 hour of the last reminder that was sent. This includes manual AND automatic reminders.
+        ///// </summary>
+        ///// <param name="signatureRequestId">The id of the SignatureRequest to send a reminder for.</param>
+        ///// <param name="emailAddress">The email address of the signer to send a reminder to.</param>
+        ///// <param name="name">The name of the signer to send a reminder to. Include if two or more signers share an email address.</param>
+        ///// <param name="cancellationToken"></param>
+        ///// <returns></returns>
+        ///// <exception cref="ArgumentException">
+        ///// Signature request id is required.
+        ///// or
+        ///// Email address is required.
+        ///// </exception>
+        //public Task<SignatureRequestResponseWrap> SendRequestReminderAsync(string signatureRequestId, string emailAddress, string name = null,
+        //    CancellationToken cancellationToken = default)
+        //{
+        //    if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+        //    if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
+
+        //    var request = new { emailAddress, name };
+
+        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/remind/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
+        //}
+
+        ///// <summary>
+        ///// Updates the email address for a given signer on a signature request. 
+        ///// You can listen for the "signature_request_email_bounce" event on your app or account to detect bounced emails, and respond with this method.
+        ///// </summary>
+        ///// <param name="signatureRequestId">The id of the SignatureRequest to update.</param>
+        ///// <param name="signatureId">The signature ID for the recipient.</param>
+        ///// <param name="emailAddress">The new email address for the recipient.</param>
+        ///// <param name="cancellationToken"></param>
+        ///// <returns></returns>
+        ///// <exception cref="ArgumentException"></exception>
+        //public Task<SignatureRequestResponseWrap> UpdateSignatureRequestAsync(string signatureRequestId, string signatureId, string emailAddress,
+        //    CancellationToken cancellationToken = default)
+        //{
+        //    if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+        //    if (string.IsNullOrEmpty(signatureId)) { throw new ArgumentException("Signature id is required."); }
+        //    if (string.IsNullOrEmpty(emailAddress)) { throw new ArgumentException("Email address is required."); }
+
+        //    var request = new { signatureId, emailAddress };
+
+        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/update/{Uri.EscapeDataString(signatureRequestId)}", request.ToJsonContent(_log), cancellationToken);
+        //}
+
+
+        ///// <summary>
+        ///// Queues a SignatureRequest to be canceled. The cancelation is asynchronous and a successful call to this endpoint will return a 200 OK response if the signature request is eligible to be canceled and has been successfully queued. To be eligible for cancelation, a signature request must have been sent successfully and must be unsigned. Once canceled, singers will not be able to sign the signature request or access its documents. Canceling a signature request is not reversible.
+        ///// </summary>
+        ///// <param name="signatureRequestId">The id of the SignatureRequest to cancel.</param>
+        ///// <param name="cancellationToken"></param>
+        ///// <returns></returns>
+        ///// <exception cref="ArgumentException">Signature request id is required.</exception>
+        //public Task<ApiResponse> CancelSignatureRequestAsync(string signatureRequestId,
+        //    CancellationToken cancellationToken = default)
+        //{
+        //    if (string.IsNullOrEmpty(signatureRequestId)) { throw new ArgumentException("Signature request id is required."); }
+
+        //    return PostAsync<ApiResponse>($"{SignatureUrl}/cancel/{Uri.EscapeDataString(signatureRequestId)}", null, cancellationToken);
+        //}
+
+        ///// <summary>
+        ///// Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If <see cref="SendSignatureRequestRequest.FormFieldsPerDocument"/> is not specified, 
+        ///// a signature page will be affixed where all signers will be required to add their signature, signifying their agreement to all contained documents. 
+        ///// Note that embedded signature requests can only be signed in embedded iFrames whereas normal signature requests can only be signed on HelloSign.
+        ///// </summary>
+        ///// <param name="request">The request.</param>
+        ///// <param name="cancellationToken">The cancellation token.</param>
+        ///// <returns></returns>
+        ///// <exception cref="ArgumentNullException">request</exception>
+        //public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureRequestAsync(SendSignatureRequestRequest request,
+        //    CancellationToken cancellationToken = default)
+        //{
+        //    if (request == null) { throw new ArgumentNullException(nameof(request)); }
+
+        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded", new ApiMultipartContent(request, _log), cancellationToken);
+        //}
+
+        ///// <summary>
+        ///// Creates a new SignatureRequest based on the given Template to be signed in an embedded iFrame.
+        ///// </summary>
+        ///// <param name="request">The request.</param>
+        ///// <param name="cancellationToken">The cancellation token.</param>
+        ///// <returns></returns>
+        ///// <exception cref="ArgumentNullException">request</exception>
+        //public Task<SignatureRequestResponseWrap> SendEmbeddedSignatureFromTemplateRequestAsync(NewTemplatedSignatureRequest request,
+        //    CancellationToken cancellationToken = default)
+        //{
+        //    if (request == null) { throw new ArgumentNullException(nameof(request)); }
+
+        //    return PostAsync<SignatureRequestResponseWrap>($"{SignatureUrl}/create_embedded_with_template", new ApiMultipartContent(request, _log), cancellationToken);
+        //}
     }
 }

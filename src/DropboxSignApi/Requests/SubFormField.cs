@@ -1,5 +1,4 @@
-﻿using DropboxSignApi.Common;
-using DropboxSignApi.Internal;
+﻿using DropboxSignApi.Internal;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -19,7 +18,7 @@ namespace DropboxSignApi.Requests
         public string ApiId { get; set; }
 
         /// <summary>
-        /// The type of this form field. See <see cref="DropboxSignApi.Common.FieldTypes"/> values.
+        /// The type of this form field. See <see cref="DropboxSignApi.FieldTypes"/> values.
         /// </summary>
         public virtual string Type { get => FieldTypes.Text; }
 

@@ -1,10 +1,15 @@
 ﻿namespace DropboxSignApi.Requests
 {
     /// <summary>
-    /// Represents a signature request recipient.
+    /// Represents a templated signature request recipient.
     /// </summary>
-    public class SubSignatureRequestSigner
+    public class SubSignatureRequestTemplateSigner
     {
+        /// <summary>
+        /// Must match an existing role in chosen Template(s). It's case-sensitive.
+        /// </summary>
+        public string Role { get; set; }
+
         /// <summary>
         /// The name of the signer.
         /// </summary>
@@ -14,11 +19,6 @@
         /// The email address of the signer. This is required.
         /// </summary>
         public string Email { get; set; }
-
-        /// <summary>
-        /// The order the signer is required to sign.
-        /// </summary>
-        public int? Order { get; set; }
 
         /// <summary>
         /// The 4- to 12-character access code that will secure this signer's signature page.

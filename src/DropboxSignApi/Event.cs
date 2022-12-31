@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace DropboxSignApi.Common
+namespace DropboxSignApi
 {
     /// <summary>
     /// Represents an event from callback.

@@ -10,7 +10,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// The signers to request signatures.
         /// </summary>
-        public IList<SubSignatureRequestSigner> Signers { get; private set; } = new List<SubSignatureRequestSigner>();
+        public IList<SubSignatureRequestSigner> Signers { get; } = new List<SubSignatureRequestSigner>();
 
         /// <summary>
         /// Allows signers to decline to sign a document if set to true. Defaults to false.
@@ -63,12 +63,12 @@ namespace DropboxSignApi.Requests
         /// form_fields_per_document must contain fields referencing a group 
         /// defined in form_field_groups.
         /// </summary>
-        public IList<SubFormFieldGroup> FormFieldGroups { get; private set; } = new List<SubFormFieldGroup>();
+        public IList<SubFormFieldGroup> FormFieldGroups { get; } = new List<SubFormFieldGroup>();
 
         /// <summary>
         /// Conditional Logic rules for fields defined in form_fields_per_document.
         /// </summary>
-        public IList<SubFormFieldRule> FormFieldRules { get; private set; } = new List<SubFormFieldRule>();
+        public IList<SubFormFieldRule> FormFieldRules { get; } = new List<SubFormFieldRule>();
 
         /// <summary>
         /// The fields that should appear on the document.

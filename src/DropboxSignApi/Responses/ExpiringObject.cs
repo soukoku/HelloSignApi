@@ -1,9 +1,7 @@
-﻿using DropboxSignApi.Utils;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.ComponentModel;
 
-namespace DropboxSignApi.Common
+namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// An object with an expiration time.

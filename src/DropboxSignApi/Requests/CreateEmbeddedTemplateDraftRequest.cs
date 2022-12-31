@@ -28,7 +28,7 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// A list describing the attachments.
         /// </summary>
-        public IList<SubAttachment> Attachments { get; private set; } = new List<SubAttachment>();
+        public IList<SubAttachment> Attachments { get; } = new List<SubAttachment>();
 
         /// <summary>
         /// The CC roles that must be assigned when using the template to send a signature request.
@@ -61,12 +61,12 @@ namespace DropboxSignApi.Requests
         /// form_fields_per_document must contain fields referencing a group 
         /// defined in form_field_groups.
         /// </summary>
-        public IList<SubFormFieldGroup> FormFieldGroups { get; private set; } = new List<SubFormFieldGroup>();
+        public IList<SubFormFieldGroup> FormFieldGroups { get; } = new List<SubFormFieldGroup>();
 
         /// <summary>
         /// Conditional Logic rules for fields defined in form_fields_per_document.
         /// </summary>
-        public IList<SubFormFieldRule> FormFieldRules { get; private set; } = new List<SubFormFieldRule>();
+        public IList<SubFormFieldRule> FormFieldRules { get; } = new List<SubFormFieldRule>();
 
         /// <summary>
         /// The fields that should appear on the document.
@@ -80,7 +80,7 @@ namespace DropboxSignApi.Requests
         /// If the signature request using that template does not pass a value into a merge field, 
         /// then an empty field remains in the document.
         /// </summary>
-        public IList<SubMergeField> MergeFields { get; private set; }
+        public IList<SubMergeField> MergeFields { get; }
 
         /// <summary>
         /// The default template email message.

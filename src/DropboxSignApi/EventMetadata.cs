@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi
 {
     /// <summary>
     /// Metadata in an event callback.

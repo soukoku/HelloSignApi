@@ -1,7 +1,7 @@
 ﻿using DropboxSignApi.Requests;
 using DropboxSignApi.Responses;
 
-namespace DropboxSignApi.Common
+namespace DropboxSignApi
 {
     /// <summary>
     /// Contains possible values for field types.

@@ -1,5 +1,4 @@
-﻿using DropboxSignApi.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DropboxSignApi.Requests
 {
@@ -18,12 +17,12 @@ namespace DropboxSignApi.Requests
         /// <summary>
         /// A list describing the attachments.
         /// </summary>
-        public IList<SubAttachment> Attachments { get; private set; } = new List<SubAttachment>();
+        public IList<SubAttachment> Attachments { get; } = new List<SubAttachment>();
 
         /// <summary>
         /// The email addresses that should be CCed.
         /// </summary>
-        public IList<string> CcEmailAddresses { get; private set; } = new List<string>();
+        public IList<string> CcEmailAddresses { get; } = new List<string>();
 
         /// <summary>
         /// Group information for fields defined in form_fields_per_document. 
@@ -31,12 +30,12 @@ namespace DropboxSignApi.Requests
         /// form_fields_per_document must contain fields referencing a group 
         /// defined in form_field_groups.
         /// </summary>
-        public IList<SubFormFieldGroup> FormFieldGroups { get; private set; } = new List<SubFormFieldGroup>();
+        public IList<SubFormFieldGroup> FormFieldGroups { get; } = new List<SubFormFieldGroup>();
 
         /// <summary>
         /// Conditional Logic rules for fields defined in form_fields_per_document.
         /// </summary>
-        public IList<SubFormFieldRule> FormFieldRules { get; private set; } = new List<SubFormFieldRule>();
+        public IList<SubFormFieldRule> FormFieldRules { get; } = new List<SubFormFieldRule>();
 
         /// <summary>
         /// The fields that should appear on the document.

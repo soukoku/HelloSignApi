@@ -14,7 +14,7 @@ namespace DropboxSignApi.Utils
         /// Gets the chain object.
         /// </summary>
         /// <returns></returns>
-        public QueryChain Chain { get; private set; }
+        public QueryChain Chain { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListQueyBuilder"/> class.

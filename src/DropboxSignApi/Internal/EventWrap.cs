@@ -1,5 +1,4 @@
-﻿using DropboxSignApi.Common;
-using DropboxSignApi.Responses;
+﻿using DropboxSignApi.Responses;
 
 namespace DropboxSignApi
 {

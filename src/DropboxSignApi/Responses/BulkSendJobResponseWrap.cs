@@ -3,7 +3,7 @@
 namespace DropboxSignApi.Responses
 {
     /// <summary>
-    /// Response for <see cref="DropboxSignClient.GetBulkSendJobAsync(string, System.Threading.CancellationToken)"/>.
+    /// Response for bulk send jobs.
     /// </summary>
     public class BulkSendJobResponseWrap : ApiResponse
     {

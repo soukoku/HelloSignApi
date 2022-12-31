@@ -1,4 +1,4 @@
-﻿namespace DropboxSignApi.Common
+﻿namespace DropboxSignApi
 {
     /// <summary>
     /// These are the locales you can specify for the locale field.

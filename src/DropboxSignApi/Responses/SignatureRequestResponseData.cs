@@ -1,6 +1,4 @@
-﻿using DropboxSignApi.Common;
-
-namespace DropboxSignApi.Responses
+﻿namespace DropboxSignApi.Responses
 {
     /// <summary>
     /// Represents a field data.

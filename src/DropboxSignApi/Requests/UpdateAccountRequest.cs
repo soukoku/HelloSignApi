@@ -20,7 +20,7 @@ namespace DropboxSignApi.Requests
         public string CallbackUrl { get; set; }
 
         /// <summary>
-        /// The locale used in this Account. Check out the <see cref="DropboxSignApi.Common.SupportedLocales"/> to learn more about the possible values.
+        /// The locale used in this Account. Check out the <see cref="DropboxSignApi.SupportedLocales"/> to learn more about the possible values.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Locale { get; set; }
